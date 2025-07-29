@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* ========== RESET & 变量 ========== */
+        :root {
+            --clr-primary: #d62329;
+            --clr-accent: #0cb0f7;
+            --clr-dark: #1b1b1b;
+            --clr-light: #ffffff;
+            --clr-border: #e0e0e0;
+            --radius: 8px;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease-in-out;
+            --nav-height: 5rem;
+            --max-width: 1200px;
+            --fz-small: 0.875rem;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--clr-dark);
+            scroll-behavior: smooth;
+        }
+
+        /* ========== TOP BAR ========== */
+        .top-bar {
+            background: linear-gradient(135deg, #3f4ef4 0%, #9132f7 100%);
+            color: var(--clr-light);
+            font-size: var(--fz-small);
+            padding: 0.5rem 1rem;
+        }
+
+        .top-bar .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .top-bar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-left: 1rem;
+            color: var(--clr-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .top-bar-link:hover {
+            color: var(--clr-primary);
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(100, 150, 200, 0.08);
+            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            height: var(--nav-height);
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* ---------- LOGO ---------- */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-main {
+            height: 2.5rem;
+        }
+
+        .logo-sub {
+            height: 1.8rem;
+        }
+
+        /* ---------- 汉堡按钮 ---------- */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-toggle .bar {
+            width: 100%;
+            height: 3px;
+            background: var(--clr-dark);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        /* ---------- 主导航 ---------- */
+        .nav-center {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .nav-item>a {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--clr-accent);
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .nav-item>a:hover {
+            color: var(--clr-primary);
+            background: rgba(249, 143, 3, 0.2);
+            border: 2px solid #ed5252;
+        }
+
+        /* ---------- 当前页高亮 ---------- */
+        .nav-item>a.active {
+            color: var(--clr-primary);
+            position: relative;
+        }
+
+        .nav-item>a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--clr-primary);
+            border-radius: 2px;
+        }
+
+        /* ---------- 子菜单 ---------- */
+        .has-submenu {
+            position: relative;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 180px;
+            background: #fff;
+            border: 1px solid var(--clr-border);
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            list-style: none;
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .has-submenu:hover .submenu {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 0.6rem 1.25rem;
+            color: #333;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .submenu li a:hover {
+            background: rgba(214, 237, 2, 0.6);
+        }
+
+        /* ---------- 右侧区域 ---------- */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* ----- 搜索 ----- */
+        .search-container {
+            position: relative;
+        }
+
+        .search-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--clr-dark);
+        }
+
+        .search-toggle:hover {
+            color: var(--clr-primary);
+        }
+
+        .search-form {
+            position: absolute;
+            top: 120%;
+            left: 0;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 0.4rem;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 20;
+        }
+
+        .search-form.hidden {
+            display: none;
+        }
+
+        .search-form.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .search-input {
+            min-width: 200px;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        /* ----- 语言选择 ----- */
+        .lang-selector {
+            position: relative;
+        }
+
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.6rem;
+            border: 1.5px solid var(--clr-border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            background: #fff;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .lang-arrow {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid #666;
+            transition: transform 0.3s ease;
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            min-width: 100px;
+            background: #fff;
+            border: 1px solid var(--clr-border);
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            display: none;
+            z-index: 30;
+        }
+
+        .lang-dropdown.visible {
+            display: block;
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lang-option:hover {
+            background: #f2f2f2;
+        }
+
+        .lang-option.selected {
+            font-weight: 700;
+        }
+
+        /* ---------- 返回顶部按钮 ---------- */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 1.5rem;
+            display: none;
+            padding: 0.6rem 0.8rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50%;
+            background: var(--clr-primary);
+            color: var(--clr-light);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        #back-to-top:hover {
+            background: #a91c21;
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-center {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                display: none;
+            }
+
+            .nav-center.active {
+                display: flex;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .nav-item>a {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .submenu {
+                position: relative;
+                top: 0;
+                left: 0;
+                box-shadow: none;
+                border: none;
+                background: #f9f9f9;
+            }
+
+            .submenu li a {
+                padding-left: 2rem;
+            }
+        }
+
+        /* ========== 深色模式 ========== */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #1b1b1b;
+                color: #f4f4f4;
+            }
+
+            .navbar,
+            .top-bar {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-list>.nav-item>a,
+            .submenu li a,
+            .search-input {
+                color: #f4f4f4;
+            }
+
+            .submenu {
+                background: #333;
+            }
+
+            .search-form,
+            .lang-dropdown {
+                background: #222;
+                border-color: #444;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- === Top Bar === -->
+    <div class="top-bar">
+        <div class="container flex-between">
+            <div class="top-bar-left">Professional Power Transmission Solutions</div>
+            <div class="top-bar-right">
+                <a href="tel:+8613315124900" class="top-bar-link"><i class="fas fa-phone-alt"></i><span>(+86)
+                        133‑1512‑4900</span></a>
+                <a href="mailto:sale@apollopt.com.cn" class="top-bar-link"><i
+                        class="fas fa-envelope"></i><span>sale@apollopt.com.cn</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- === Navigation === -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container" style="width: 95%; margin: 0 auto;">
+            <!-- Logo -->
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="images/home/logo.svg" alt="Apollo Logo" class="logo-main" />
+                    <img src="images/home/logo1.png" alt="Apollo Secondary Logo" class="logo-sub" />
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <nav class="nav-center" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html">Home</a></li>
+                    <li class="nav-item has-submenu">
+                        <a href="about_us.html">About Us <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="about_us.html">Company Profile</a></li>
+                            <li><a href="about_us.html">Photo Gallery</a></li>
+                            <li><a href="about_us.html">Certificates</a></li>
+                            <li><a href="about_us.html">Video Center</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-submenu">
+                        <a href="products.html">Products <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="products.html">China Market</a></li>
+                            <li><a href="products.html">Europe Market</a></li>
+                            <li><a href="products.html">America Market</a></li>
+                            <li><a href="products.html">Russia Market</a></li>
+                            <li><a href="products.html">Middle East</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="factory.html">Factory</a></li>
+                    <li class="nav-item"><a href="support.html">Support</a></li>
+                    <li class="nav-item"><a href="news.html">News</a></li>
+                    <li class="nav-item"><a href="contact_us.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Right Section -->
+            <div class="nav-right">
+                <div class="search-container">
+                    <button type="button" class="search-toggle" aria-label="Open search"><i
+                            class="fas fa-search"></i></button>
+                    <form action="search.html" class="search-form hidden" role="search">
+                        <input id="search-input" class="search-input" name="q" type="text" placeholder="Search..." />
+                    </form>
+                </div>
+
+                <div class="lang-selector" id="lang-selector">
+                    <button class="lang-toggle" id="lang-toggle" aria-haspopup="true" aria-expanded="false">
+                        <img src="images/flag-en.svg" alt="EN" class="lang-flag" /> EN <span class="lang-arrow"></span>
+                    </button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li data-lang="en" class="lang-option selected"><img src="images/flag-en.svg" alt="EN" /> EN
+                        </li>
+                        <li data-lang="zh" class="lang-option"><img src="images/flag-cn.svg" alt="CN" /> 中文</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            navToggle.addEventListener('click', () => {
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', !expanded);
+                navMenu.classList.toggle('active');
+            });
+
+            const langToggle = document.getElementById('lang-toggle');
+            const langDropdown = document.getElementById('lang-dropdown');
+            langToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langToggle.setAttribute('aria-expanded', true);
+                langDropdown.classList.toggle('visible');
+            });
+
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+                    const langCode = option.getAttribute('data-lang');
+                    window.location.href = langCode === 'zh' ? '/zh/index.html' : '/en/index.html';
+                });
+            });
+
+            const searchToggle = document.querySelector('.search-toggle');
+            const searchForm = document.querySelector('.search-form');
+            searchToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                searchForm.classList.toggle('hidden');
+                searchForm.classList.toggle('fade-in');
+            });
+
+            document.addEventListener('click', () => {
+                langDropdown.classList.remove('visible');
+                langToggle.setAttribute('aria-expanded', 'false');
+                if (!searchForm.classList.contains('hidden')) {
+                    searchForm.classList.add('hidden');
+                    searchForm.classList.remove('fade-in');
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    langDropdown.classList.remove('visible');
+                    langToggle.setAttribute('aria-expanded', 'false');
+                    searchForm.classList.add('hidden');
+                    searchForm.classList.remove('fade-in');
+                }
+            });
+
+            // Highlight current page nav
+            const currentPath = window.location.pathname.split("/").pop();
+            document.querySelectorAll('.nav-item a').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Back to top button
+            const backToTop = document.createElement('button');
+            backToTop.id = 'back-to-top';
+            backToTop.textContent = '↑';
+            document.body.appendChild(backToTop);
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            window.addEventListener('scroll', () => {
+                backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+            });
+
+            // Shrink navbar on scroll
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                navbar.classList.toggle('scrolled', window.scrollY > 10);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

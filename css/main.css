@@ -1,0 +1,161 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+nav ul,
+nav li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+ol,
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* 整个滚动条轨道区域 */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 6px;
+}
+
+/* 滚动条滑块（就是“可以拖动”的那部分） */
+::-webkit-scrollbar-thumb {
+    background: rgba(148, 148, 148, 0.6);
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+/* 鼠标悬停在滑块上 */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 148, 148, 0.9);
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+    /* background: rgba(170, 169, 169, 0.05); */
+    background: transparent;
+    border-radius: 8px;
+}
+
+/* 鼠标悬停在轨道上（可选） */
+::-webkit-scrollbar-track:hover {
+    background: rgba(0, 0, 0, 0.1);
+}

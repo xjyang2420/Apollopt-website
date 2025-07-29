@@ -1,0 +1,201 @@
+.advert {
+    --navbar-bg-dark: rgba(0, 0, 0, 0.85);
+    --navbar-bg-light: rgba(255, 255, 255, 0.08);
+    --pager-active: #fff;
+    --pager-inactive: rgba(255, 255, 255, 0.35);
+}
+
+/* ===== HERO SLIDER ===== */
+.ad-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .6s ease, visibility .6s ease;
+}
+
+.ad-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ad-slide[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ad-slider {
+    inset: 0;
+    position: relative;
+    width: 100%;
+    margin-top: 0;
+    height: calc(100vh - var(--topbar-height, 0px));
+    overflow: hidden;
+    background: #000;
+    z-index: 1;
+}
+
+.ad-track {
+    width: 100%;
+    height: 100%;
+}
+
+.ad-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .6s ease, visibility .6s ease;
+}
+
+.ad-slide img,
+.ad-slide video {
+    position: absolute;
+    object-position: top center;
+    display: block;
+    top: 0;
+    left: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-caption {
+    position: absolute;
+    left: 5%;
+    bottom: 12%;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+    z-index: 2;
+}
+
+.hero-caption h2 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    margin-bottom: .4rem;
+    font-weight: 900;
+}
+
+.hero-caption p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    opacity: .9;
+}
+
+.ad-slider.is-video-on .video-mask {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .4);
+    z-index: 1;
+}
+
+.navbar.transparent {
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+.navbar.dark {
+    background: rgba(0, 0, 0, 1) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .25) !important;
+    backdrop-filter: blur(8px);
+}
+
+.top-bar.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.navbar.stuck {
+    position: fixed;
+    top: 0 !important;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+.navbar.compact {
+    top: 0;
+}
+
+.ad-hero-pagination {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+}
+
+.ad-hero-pagination .bar {
+    width: 26px;
+    height: 6px;
+    background: rgba(255, 255, 255, .4);
+    border-radius: 999px;
+    transition: all .25s ease;
+}
+
+.ad-hero-pagination .bar.active {
+    background: #fff;
+    width: 42px;
+}
+
+.ad-hero-prev,
+.ad-hero-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .35);
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 5;
+    transition: background .2s;
+}
+
+.ad-hero-prev:hover,
+.ad-hero-next:hover {
+    background: rgba(0, 0, 0, .6);
+}
+
+.ad-hero-prev {
+    left: 1rem;
+}
+
+.ad-hero-next {
+    right: 1rem;
+}
+
+.ad-slider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--navbar-height) + 12px);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .35), rgba(0, 0, 0, 0));
+    pointer-events: none;
+    z-index: 2;
+}
+
+#main-content {
+    position: absolute;
+    z-index: 10;
+}
+
+/* 响应式可根据需要再调 */
+@media (max-width: 768px) {
+    .hero-caption {
+        left: 6%;
+        bottom: 10%;
+    }
+
+    .hero-pagination {
+        right: .75rem;
+        bottom: .75rem;
+    }
+}

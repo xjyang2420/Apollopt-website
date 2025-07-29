@@ -1,0 +1,287 @@
+.team-section {
+    padding: 15px;
+    margin: 0 auto;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    z-index: 2;
+    position: relative;
+}
+
+.team-video-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+[data-animate] {
+  opacity: 0;
+}
+[data-animate].is-animated {
+  opacity: 1;
+  animation-delay: var(--animate-delay, 0s);
+}
+
+.team-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-video-wrapper .team-video-overlay {
+    position: absolute;
+    inset: 0;
+    /* background: rgba(0, 0, 0, 0.4);  */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+    z-index: 1;
+}
+
+.team-title {
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.team-title h1 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 40px;
+
+    background: linear-gradient(90deg, #f7971e, #ffd200);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.team-section .swiper {
+    width: 100%;
+    overflow: visible;
+    padding-bottom: 80px;
+}
+
+.team-section .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    overflow: visible;
+}
+
+.team-section .avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+}
+
+.team-section .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.team-section .avatar:hover {
+    transform: translateY(-6px) scale(1.15);
+}
+
+.team-section .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.team-section .overlay span {
+    line-height: 1.8;
+    font-size: 0.85rem;
+}
+
+.team-section .overlay .name {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.team-section .avatar:hover .overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.team-section .card-tooltip {
+    position: absolute;
+    bottom: calc(100% + 40px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    transform-origin: bottom center;
+    width: 260px;
+    height: 340px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    opacity: 0;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.team-section .card-tooltip:hover {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.team-section .card-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.55);
+    z-index: 100000;
+}
+
+.team-section .card-content {
+    position: relative;
+    background: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+    color: #fff;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.75) 25%,
+            rgba(0, 0, 0, 0) 65%);
+    z-index: 100000;
+}
+
+.team-section .card-content .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1px;
+    margin-bottom: 0.25rem;
+}
+
+.team-section .card-content .title-row h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.team-section .card-content .position {
+    font-size: 0.5rem;
+    font-weight: 400;
+    color: #ddd;
+}
+
+.team-section .card-content .quote {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    margin: 0.25rem 0 0.5rem;
+}
+
+.team-section .card-content p {
+    margin: 6px 0;
+    font-size: 1.2rem;
+    color: #24ec6a;
+}
+
+.team-section .socials {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.team-section .socials a {
+    margin-right: 0.6rem;
+    font-size: 1.5rem;
+    color: #fff;
+    transition: color 0.25s ease;
+}
+
+.team-section .socials a:hover {
+    color: #ff6600;
+}
+
+.swiper-slide:hover .avatar {
+    transform: scale(1.1.05) rotate(2deg);
+    box-shadow: 0 0 12px 6px rgba(249, 55, 1, 0.6);
+}
+
+.swiper-slide:hover .overlay {
+    opacity: 1;
+}
+
+.swiper-slide:hover .card-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+    animation: slide-up-fade 0.3s ease-out;
+}
+
+.team-section .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #bbb;
+    opacity: 1;
+    transition: background 0.3s ease;
+}
+
+.team-section .swiper-pagination-bullet-active {
+    background: #fc0202;
+}
+
+.team-section .more-button-container {
+    text-align: center;
+}
+
+.team-section .more-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 32px;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(135deg, #007acc, #00c3ff);
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    position: relative;
+    z-index: 100;
+}
+
+.team-section .more-button:hover {
+    background: linear-gradient(135deg, #005f92, #00aaff);
+    transform: scale(1.1) translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    #team-title h1 {
+        font-size: 2.2rem;
+    }
+
+    .team-section .card-tooltip {
+        width: 220px;
+    }
+}
