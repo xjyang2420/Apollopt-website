@@ -433,17 +433,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 backToTop.classList.add('hide');
                 setTimeout(() => {
                     backToTop.style.display = 'none';
-                }, 400); // 与 CSS 动画一致
+                }, 400); 
             }
         }
     }
 
-    // 首次加载时执行一次
     window.addEventListener('load', updateBackToTop);
-    // 滚动时执行
     window.addEventListener('scroll', updateBackToTop);
 
-    // 你的其他滚动逻辑
     window.addEventListener('scroll', () => {
         navbar.classList.toggle('scrolled', window.scrollY > 10);
     });
