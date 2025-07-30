@@ -1027,11 +1027,11 @@ html {
     backdrop-filter: blur(4px); 
     box-shadow: none;
     border-top: none;
-}
+} */
 
 .nav-toggle.white-bars .bar {
     background-color: #fff !important;
-} */
+}
 
 /* 视频模式下，子菜单也透明 */
 .mobile-menu.video-mode .mobile-submenu {
@@ -1066,8 +1066,9 @@ html {
 
 .mobile-menu.video-mode {
     background: transparent !important;
-    backdrop-filter: none;
+    backdrop-filter: blur(4px);
     border-top: 1px solid #eee;
+    box-shadow: none;
 }
 
 .nav-toggle.white-bars span {
