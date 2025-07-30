@@ -144,6 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         langDropdown.classList.toggle('visible');
     });
+    
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+        document.getElementById('lang-dropdown').classList.toggle('active');
+    });
 
     // document.querySelectorAll('.lang-option').forEach(option => {
     //     option.addEventListener('click', () => {
