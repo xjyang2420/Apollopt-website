@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setVar('--navbar-height', h + 'px');
     }
 
-    const isMobile = () => window.matchMedia('(max-width: 1024px)').matches;
+    const isMobile = () => window.matchMedia('(max-width: 1278px)').matches;
 
     function openMenu() {
         mobileMenu?.classList.add('active');
@@ -178,13 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Back to top button
     const backToTop = document.createElement('button');
     backToTop.id = 'back-to-top';
-    backToTop.textContent = '↑';
+    backToTop.textContent = 'TOP';
     document.body.appendChild(backToTop);
     backToTop.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     window.addEventListener('scroll', () => {
-        backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+        backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
     });
 
     // Shrink navbar on scroll
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function toggleMobileSubmenu(event) {
-    if (window.innerWidth > 1024) return;
+    if (window.innerWidth > 1278) return;
 
     const trigger = event.currentTarget;
     const href = trigger.getAttribute('href');
