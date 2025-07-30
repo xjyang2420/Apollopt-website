@@ -961,10 +961,6 @@ html {
     }
 }
 
-.mobile-menu {
-    display: none;
-}
-
 /* ========== 深色模式 ========== */
 @media (prefers-color-scheme: dark) {
     body {
@@ -1020,6 +1016,23 @@ html {
         display: flex;
         gap: 4px;
     }
+}
+
+.mobile-menu {
+    display: none;
+}
+
+/* 视频背景下的菜单透明样式 */
+.mobile-menu.video-mode {
+    background: transparent !important;
+    backdrop-filter: blur(4px); /* 可选，让内容更清晰 */
+    box-shadow: none;
+    border-top: none;
+}
+
+/* 汉堡菜单条变白 */
+.nav-toggle.white-bars .bar {
+    background-color: #fff !important;
 }
 
 
