@@ -180,14 +180,43 @@ document.addEventListener('DOMContentLoaded', () => {
     backToTop.id = 'back-to-top';
     backToTop.textContent = 'TOP';
     document.body.appendChild(backToTop);
+
     backToTop.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // window.addEventListener('scroll', () => {
+    //     backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
+    // });
+
+    // // Shrink navbar on scroll
+    // window.addEventListener('scroll', () => {
+    //     navbar.classList.toggle('scrolled', window.scrollY > 10);
+    // });
+
+    // document.querySelectorAll('.top-bar, .navbar').forEach(el => {
+    //     el.addEventListener('animationend', () => {
+    //         el.style.transform = 'none';
+    //     }, { once: true });
+    // });
     window.addEventListener('scroll', () => {
-        backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
+        if (window.scrollY > 200) {
+            if (!backToTop.classList.contains('show')) {
+                backToTop.classList.remove('hide');
+                backToTop.classList.add('show');
+                backToTop.style.display = 'flex';
+            }
+        } else {
+            if (backToTop.classList.contains('show')) {
+                backToTop.classList.remove('show');
+                backToTop.classList.add('hide');
+                setTimeout(() => {
+                    backToTop.style.display = 'none';
+                }, 400); 
+            }
+        }
     });
 
-    // Shrink navbar on scroll
     window.addEventListener('scroll', () => {
         navbar.classList.toggle('scrolled', window.scrollY > 10);
     });
