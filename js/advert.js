@@ -140,19 +140,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyByScroll() {
         const y = window.scrollY || window.pageYOffset;
         const compact = y > STICKY_THRESHOLD;
-        const currentSlide = slides[current];
-        const isVideo = currentSlide?.dataset.type === 'video';
 
         topbar?.classList.toggle('hidden', compact);
         navbar?.classList.toggle('compact', compact);
         navbar?.classList.toggle('dark', compact);
         document.documentElement.classList.toggle('is-compact', compact);
 
-        const showTransparent = isVideo && !compact;
-
-        navbar?.classList.toggle('transparent', showTransparent);
-        mobileMenu?.classList.toggle('video-mode', showTransparent);
-        navToggle?.classList.toggle('white-bars', showTransparent);
+        if (compact) {
+            navToggle.classList.add('white-bars');
+            mobileMenu.classList.remove('video-mode');
+        } else {
+            
+            const currentSlide = document.querySelector('.ad-slide.is-active');
+            if (currentSlide?.dataset.type === 'video') {
+                navToggle.classList.add('white-bars');
+                mobileMenu.classList.add('video-mode');
+            } else {
+                navToggle.classList.remove('white-bars');
+                mobileMenu.classList.remove('video-mode');
+            }
+        }
 
         syncHeights();
     }
