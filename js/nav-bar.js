@@ -399,6 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTop = document.createElement('button');
     backToTop.id = 'back-to-top';
     backToTop.textContent = 'TOP';
+    backToTop.setAttribute('aria-label', 'Back to top');
     document.body.appendChild(backToTop);
 
     backToTop.addEventListener('click', () => {
@@ -419,8 +420,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //         el.style.transform = 'none';
     //     }, { once: true });
     // });
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
+    function updateBackToTop() {
+        if (window.scrollY > 300) {
             if (!backToTop.classList.contains('show')) {
                 backToTop.classList.remove('hide');
                 backToTop.classList.add('show');
@@ -432,11 +433,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 backToTop.classList.add('hide');
                 setTimeout(() => {
                     backToTop.style.display = 'none';
-                }, 400);
+                }, 400); // 与 CSS 动画一致
             }
         }
-    });
+    }
 
+    // 首次加载时执行一次
+    window.addEventListener('load', updateBackToTop);
+    // 滚动时执行
+    window.addEventListener('scroll', updateBackToTop);
+
+    // 你的其他滚动逻辑
     window.addEventListener('scroll', () => {
         navbar.classList.toggle('scrolled', window.scrollY > 10);
     });
