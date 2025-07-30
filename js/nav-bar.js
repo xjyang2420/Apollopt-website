@@ -157,6 +157,35 @@ document.addEventListener('DOMContentLoaded', () => {
     //         }
     //     });
     // });
+    document.querySelectorAll('.lang-option').forEach(option => {
+        option.addEventListener('click', () => {
+            document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
+            option.classList.add('selected');
+
+            const langCode = option.getAttribute('data-lang');
+
+            const currentPath = window.location.pathname;
+
+            if (langCode === 'en') {
+                // 如果当前是中文页（在 /zn/ 下），切换为去掉 /zn/
+                if (currentPath.startsWith('/zn/')) {
+                    const newPath = currentPath.replace('/zn', '');
+                    window.location.href = newPath;
+                } else {
+                    // 当前已是en页，不跳转
+                    return;
+                }
+            } else if (langCode === 'zn') {
+                // 如果当前不是zn页，就加上 /zn/
+                if (!currentPath.startsWith('/zn/')) {
+                    window.location.href = '/zn' + currentPath;
+                } else {
+                    // 当前已是zn页，不跳转
+                    return;
+                }
+            }
+        });
+    });
 
     // Highlight current page nav
     const currentPath = window.location.pathname.split("/").pop();
@@ -203,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 backToTop.classList.add('hide');
                 setTimeout(() => {
                     backToTop.style.display = 'none';
-                }, 400); 
+                }, 400);
             }
         }
     });
