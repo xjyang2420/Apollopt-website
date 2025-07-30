@@ -144,15 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         langDropdown.classList.toggle('visible');
     });
-    document.querySelectorAll('.lang-option').forEach(opt => {
-        opt.addEventListener('click', () => {
-            document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
-            opt.classList.add('selected');
-            langDropdown.classList.remove('visible');
-            const lang = opt.dataset.lang;
-            window.location.href = lang === 'zh' ? '/zh/index.html' : '/en/index.html';
-        });
-    });
 
     document.querySelectorAll('.lang-option').forEach(option => {
         option.addEventListener('click', () => {
