@@ -1232,3 +1232,31 @@ html {
 .mobile-menu.active {
     animation: slideFadeIn 0.4s ease;
 }
+
+@media (max-width: 480px) {
+    .nav-left {
+        flex: 1 1 auto;
+        max-width: 40%; /* 控制 logo 占比 */
+    }
+
+    .nav-left img {
+        max-height: 30px;
+        max-width: 100%;
+    }
+
+    .nav-right {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        gap: 6px;  /* 缩小间距 */
+    }
+
+    .nav-right > * {
+        flex: 0 0 auto;
+        max-width: 24px; /* 控制图标尺寸 */
+    }
+
+    .nav-toggle {
+        width: 24px;
+        height: 18px;
+    }
+}
