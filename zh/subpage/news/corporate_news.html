@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Us – Company Profile | Apollo Power Transmission</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../css/nav-bar.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/main.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/footer.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../css/subpage.css" />
+</head>
+
+<body>
+    <div class="subpage-wrapper">
+        <header class="site-header site-header--sub" id="header">
+            <!-- ===== Top Bar（复用你现有结构） ===== -->
+            <div class="top-bar">
+                <div class="container flex-between">
+                    <div class="top-bar-left">Professional Power Transmission Solutions</div>
+                    <div class="top-bar-right">
+                        <a href="tel:+8613315124900" class="top-bar-link"><i class="fas fa-phone-alt"></i><span>(+86)
+                                133‑1512‑4900</span></a>
+                        <a href="mailto:sale@apollopt.com.cn" class="top-bar-link"><i
+                                class="fas fa-envelope"></i><span>sale@apollopt.com.cn</span></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== Navbar（复用你现有结构） ===== -->
+            <dmobile
+            -menuiv class="navbar">
+                <div class="nav-container">
+                    <div class="nav-left">
+                        <a href="../../index.html" class="logo">
+                            <img src="../../../images/home/logo.svg" alt="Apollo Power Transmission" class="logo-main" />
+                            <img src="../../../images/home/logo1.svg" alt="" class="logo-sub" aria-hidden="true" />
+                        </a>
+                    </div>
+
+                    <nav class="nav-center" id="nav-menu">
+                        <ul class="nav-list">
+                            <li class="nav-item"><a href="../../index.html">主页</a></li>
+                            <li class="nav-item has-submenu">
+                                <a href="../../about_us.html" class="list" onclick="return false;">
+                                    关于我们 <i class="fas fa-caret-left arrow-icon"></i></a>
+                                <ul class="submenu">
+                                    <li><a href="company_profile.html" class="active">公司简介</a></li>
+                                    <li><a href="factory.html">工厂</a></li>
+                                    <li><a href="certificates.html">证书</a></li>
+                                    <li><a href="video_center.html">视频中心</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-submenu">
+                                <a href="products.html" class="list" onclick="return false;">
+                                    产品中心 <i class="fas fa-caret-left arrow-icon"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="../products.html"><img src="../../../images/home/china.svg"
+                                                class="menu-icon-img"><span>皮带轮</span></a></li>
+                                    <li><a href="../products.html"><img src="../../../images/home/european-union.svg"
+                                                class="menu-icon-img"><span>锥套</span></a></li>
+                                    <li><a href="../products.html"><img src="../../../images/home/usa.svg"
+                                                class="menu-icon-img"><span>联轴器</span></a></li>
+                                    <li><a href="../products.html"><img src="../../../images/home/russia.svg"
+                                                class="menu-icon-img"><span>链轮</span></a></li>
+                                    <li><a href="../products.html">其他产品</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-submenu">
+                                <a href="support.html" class="list" onclick="return false;">
+                                    技术支持 <i class="fas fa-caret-left arrow-icon"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="support.html">下载中心</a></li>
+                                    <li><a href="support.html">故障分析</a></li>
+                                    <li><a href="support.html">售后服务</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-submenu">
+                                <a href="news.html" class="list" onclick="return false;">
+                                    新闻中心 <i class="fas fa-caret-left arrow-icon"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="news.html">公司新闻</a></li>
+                                    <li><a href="news.html">产品故事</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a href="contact_us.html">联系我们</a></li>
+                        </ul>
+                    </nav>
+
+                    <div class="nav-right">
+                        <!-- 复用你的搜索和语言切换 -->
+                        <div class="search-container" role="search">
+                            <button type="button" class="search-toggle" aria-label="Open search"><i
+                                    class="fas fa-search icon-search"></i></button>
+                            <form action="search.html" class="search-form hidden" role="search" autocomplete="off">
+                                <input id="search-input" class="search-input" name="q" type="text"
+                                    placeholder="关键词搜索中..." />
+                                <button type="submit" class="btn-submit"><span>提交</span> <i
+                                        class="fas fa-arrow-right"></i></button>
+                                <ul class="suggestions-list" id="suggestions-list"></ul>
+                            </form>
+                        </div>
+                        <div class="lang-selector" id="lang-selector">
+                            <div class="lang-toggle-wrapper">
+                                <button class="lang-toggle" id="lang-toggle" aria-haspopup="true" aria-expanded="false">
+                                    <img src="../../../images/home/flag-cn.svg" alt="English" class="lang-flag" /> 中文
+                                </button>
+                                <span class="lang-arrow"></span>
+                            </div>
+                            <ul class="lang-dropdown" id="lang-dropdown" role="menu">
+                                <li data-lang="zh" class="lang-option" role="menuitem">
+                                    <img src="../../../images/home/flag-cn.svg" alt="中文" class="lang-flag" /> 中文
+                                </li>
+
+                                <hr class="lang-divider">
+
+                                <li data-lang="en" class="lang-option selected" role="menuitem">
+                                    <img src="../../../images/home/flag-en.svg" alt="English" class="lang-flag" /> 英文
+                                </li>
+                            </ul>
+                        </div>
+
+                        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                            <span class="bar" aria-hidden="true"></span>
+                            <span class="bar" aria-hidden="true"></span>
+                            <span class="bar" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile -->
+                <nav class="mobile-menu" id="mobile-menu">
+                    <ul>
+                        <li class="mobile-item"><a href="index.html">主页</a></li>
+                        <li class="mobile-item has-mobile-submenu">
+                            <a href="#" class="mobile-list" onclick="toggleMobileSubmenu(event, 0)">关于我们 <i
+                                    class="fas fa-caret-left arrow-icon"></i></a>
+                            <ul class="mobile-submenu">
+                                <li><a href="company_profile.html">公司简介</a></li>
+                                <li><a href="factory.html">工厂</a></li>
+                                <li><a href="certificates.html">证书</a></li>
+                                <li><a href="video_center.html">视频中心</a></li>
+                            </ul>
+                        </li>
+                        <li class="mobile-item has-mobile-submenu">
+                            <a href="#" class="mobile-list" onclick="toggleMobileSubmenu(event, 1)">产品中心 <i
+                                    class="fas fa-caret-left arrow-icon"></i></a>
+                            <ul class="mobile-submenu">
+                                <li><a href="products.html">皮带轮</a></li>
+                                <li><a href="products.html">锥套</a></li>
+                                <li><a href="products.html">联轴器</a></li>
+                                <li><a href="products.html">链轮</a></li>
+                                <li><a href="products.html">其他产品</a></li>
+                            </ul>
+                        </li>
+                        <li class="mobile-item has-mobile-submenu">
+                            <a href="#" class="mobile-list" onclick="toggleMobileSubmenu(event, 2)">技术支持 <i
+                                    class="fas fa-caret-left arrow-icon"></i></a>
+                            <ul class="mobile-submenu">
+                                <li><a href="support.html">下载中心</a></li>
+                                <li><a href="support.html">故障分析</a></li>
+                                <li><a href="support.html">售后服务</a></li>
+                            </ul>
+                        </li>
+                        <li class="mobile-item has-mobile-submenu">
+                            <a href="#" class="mobile-list" onclick="toggleMobileSubmenu(event, 3)">新闻中心 <i
+                                    class="fas fa-caret-left arrow-icon"></i></a>
+                            <ul class="mobile-submenu">
+                                <li><a href="news.html">公司新闻</a></li>
+                                <li><a href="news.html">产品故事</a></li>
+                            </ul>
+                        </li>
+                        <li class="mobile-item"><a href="contact_us.html">联系我们</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <section class="subpage-hero subpage-hero-bg" role="banner" aria-label="About Us banner" style="background-image: url(../../../images/home/ad-004-l.jpg)" >
+                <div class="hero-mask"></div>
+                <div class="hero-inner">
+                    <h1>新闻中心</h1>
+                </div>
+            </section>
+        </header>
+
+        <!-- <div id="menu-overlay"></div> -->
+        <div id="content-spacer" aria-hidden="true"></div>
+
+        <main class="page-main">
+            <div class="page-container">
+                <div class="breadcrumb">
+                    <span class="crumb"><i class="fa fa-house"></i></span>
+                    <a href="index.html">主页</a>
+                    <span class="sep">/</span>
+                    <a href="about_us.html">新闻中心</a>
+                    <span class="sep">/</span>
+                    <span class="current">公司新闻</span>
+                </div>
+                <hr class="divider" />
+
+                <div class="page-grid">
+                    <aside class="sidebar">
+                        <section class="panel">
+                            <h3 class="panel-title">类别</h3>
+                            <hr class="panel-divider" />
+                            <ul class="category-list">
+                                <li><a class="active" href="company_profile.html">公司新闻</a></li>
+                                <li><a href="factory.html">产品故事</a></li>
+                            </ul>
+                        </section>
+
+                        <section class="panel contact-panel">
+                            <h3 class="panel-title">联系我们</h3>
+                            <hr class="panel-divider" />
+                            <ul class="contact-list">
+                                <li><strong>售后服务:</strong> <a href="tel:+8613315124900">(+86) 133‑1512‑4900</a>
+                                </li>
+                                <li><strong>销售咨询:</strong> <a href="tel:+8613315124900">(+86) 133‑1512‑4900</a></li>
+                                <li><strong>销售办公室:</strong> <a>河北省石家庄市长安区睿和中心1104</a></li>
+                                <li><strong>邮件:</strong> <a
+                                        href="mailto:sale@apollopt.com.cn">sale@apollopt.com.cn</a>
+                                </li>
+                                <li><strong>Industry Address:</strong> <a>河北省邢台市宁晋县大曹庄管理区</a></li>
+                            </ul>
+                            <hr class="panel-divider" />
+                            <div class="social-row">
+                                <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><img
+                                        src="../../../images/home/instagram.svg" alt=""></a>
+                                <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn"><img
+                                        src="../../../images/home/linkedin.svg" alt=""></a>
+                                <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><img
+                                        src="../../../images/home/facebook.svg" alt=""></a>
+                                <a href="https://www.twitter.com" target="_blank" aria-label="Twitter"><img
+                                        src="../../../images/home/twitter-x.svg" alt=""></a>
+                                <a href="https://www.youtube.com" target="_blank" aria-label="YouTube"><img
+                                        src="../../../images/home/youtube.svg" alt=""></a>
+                                <a href="https://www.tiktok.com" target="_blank" aria-label="Tiktok"><img
+                                        src="../../../images/home/tiktok.svg" alt=""></a>
+                                <a href="https://www.wechat.com" target="_blank" aria-label="WeChat"><img
+                                        src="../../../images/home/wechat.svg" alt=""></a>
+                            </div>
+                        </section>
+                    </aside>
+
+                    <!-- 右侧 80%：主内容 -->
+                    <section class="content">
+                        <h2 class="content-title">公司新闻</h2>
+                        <hr class="content-divider" />
+                        <article class="content-body">
+                            <p>
+                                公司新闻.
+                            </p>
+                            <ul class="feature-list">
+                                <li>公司新闻</li>
+                            </ul>
+
+                        </article>
+
+
+                        <nav class="pagination" aria-label="Pagination">
+                            <a href="#" class="page prev" aria-label="Previous Page">&laquo;</a>
+                            <a href="#" class="page active">1</a>
+                            <a href="#" class="page">2</a>
+                            <a href="#" class="page">3</a>
+                            <a href="#" class="page next" aria-label="Next Page">&raquo;</a>
+                        </nav>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-header">
+                    <div class="footer-menu-toggle" onclick="toggleFooterMenu()">
+                        <div class="footer-burger-icon">
+                            <span class="bar" aria-hidden="true"></span>
+                            <span class="bar" aria-hidden="true"></span>
+                            <span class="bar" aria-hidden="true"></span>
+                        </div>
+                        <span class="footer-menu-label">菜单</span>
+                    </div>
+                    <nav id="footer-nav" class="footer-nav">
+                        <a href="index.html">主页</a>
+                        <a href="about_us.html">关于我们</a>
+                        <a href="products.html">产品中心</a>
+                        <a href="support.html">技术支持</a>
+                        <a href="news.html">新闻中心</a>
+                        <a href="contact_us.html">联系我们</a>
+                    </nav>
+                </div>
+
+                <div class="footer-side-menu" id="footerSideMenu">
+                    <nav>
+                        <a href="../../index.html" class="footer-sidebar-item sidebar-menu-label">主页</a>
+
+                        <div class="footer-sidebar-item footer-menu-item has-footer-submenu"
+                            onclick="toggleSubMenu(this)">
+                            <span class="sidebar-menu-label">关于我们</span>
+                            <span class="arrow fa fa-chevron-left"></span>
+                        </div>
+                        <div class="footer-submenu">
+                            <a href="#" class="footer-sidebar-item">公司简介</a>
+                            <a href="#" class="footer-sidebar-item">工厂</a>
+                            <a href="#" class="footer-sidebar-item">证书</a>
+                            <a href="#" class="footer-sidebar-item">视频中心</a>
+                        </div>
+
+                        <div class="footer-sidebar-item footer-menu-item has-footer-submenu"
+                            onclick="toggleSubMenu(this)">
+                            <span class="sidebar-menu-label">产品中心</span>
+                            <span class="arrow fa fa-chevron-left"></span>
+                        </div>
+                        <div class="footer-submenu">
+                            <a href="#" class="footer-sidebar-item">皮带轮</a>
+                            <a href="#" class="footer-sidebar-item">锥套</a>
+                            <a href="#" class="footer-sidebar-item">联轴器</a>
+                            <a href="#" class="footer-sidebar-item">链轮</a>
+                            <a href="#" class="footer-sidebar-item">其他产品</a>
+                        </div>
+
+                        <div class="footer-sidebar-item footer-menu-item has-footer-submenu"
+                            onclick="toggleSubMenu(this)">
+                            <span class="sidebar-menu-label">技术支持</span>
+                            <span class="arrow fa fa-chevron-left"></span>
+                        </div>
+                        <div class="footer-submenu">
+                            <a href="#" class="footer-sidebar-item">下载中心</a>
+                            <a href="#" class="footer-sidebar-item">故障分析</a>
+                            <a href="#" class="footer-sidebar-item">售后服务</a>
+                        </div>
+
+                        <div class="footer-sidebar-item footer-menu-item has-footer-submenu"
+                            onclick="toggleSubMenu(this)">
+                            <span class="sidebar-menu-label">新闻中心</span>
+                            <span class="arrow fa fa-chevron-left"></span>
+                        </div>
+                        <div class="footer-submenu">
+                            <a href="#" class="footer-sidebar-item">公司新闻</a>
+                            <a href="#" class="footer-sidebar-item">产品故事</a>
+                        </div>
+
+                        <a href="" class="footer-sidebar-item sidebar-menu-label">联系我们</a>
+                    </nav>
+                </div>
+
+                <div class="footer-overlay" id="footerOverlay" onclick="closeFooterMenu()"></div>
+
+                <div class="footer_info">
+                    <div class="footer-info-columns">
+                        <div class="footer-contact">
+                            <p>
+                                <strong><i class="fa fa-comment"></i>售后服务:</strong><a href="tel:+8613315124900">
+                                    (+86)-133-1512-4900
+                                </a>
+                            </p>
+                            <p>
+                                <strong><i class="fa fa-phone"></i>销售咨询:</strong><a href="tel:+8613315124900">
+                                    (+86)-133-1512-4900
+                                </a>
+                            </p>
+                            <p>
+                                <strong><i class="fa fa-envelope"></i>邮件:</strong><a
+                                    href="mailto:sale@apollopt.com.cn">
+                                    sale@apollopt.com.cn
+                                </a>
+                            </p>
+                            <p>
+                                <strong><i class="fa fa-briefcase"></i>销售办公室:</strong>
+                                河北省石家庄市长安区睿和中心1104
+                            </p>
+                            <p>
+                                <strong><i class="fa fa-map-marker"></i>工厂地址:</strong>
+                                河北省邢台市宁晋县大曹庄管理区
+                            </p>
+                        </div>
+
+                        <div class="qr-code">
+                            <div><img src="../../../images/home/code.jpg" alt="微信公众号">
+                                <p>微信公众号</p>
+                            </div>
+                            <div><img src="../../../images/home/code.jpg" alt="抖音">
+                                <p>抖音</p>
+                            </div>
+                            <div><img src="../../../images/home/code.jpg" alt="视频号">
+                                <p>视频号</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-social-icons">
+                        <a href="https://www.instagram.com" target="_blank" class="footer-icon-tooltip">
+                            <img src="../../../images/home/instagram.svg" alt="Instagram" />
+                            <span class="footer-tooltip-text">Instagram</span>
+                        </a>
+                        <a href="https://www.linkedin.com" target="_blank" class="footer-icon-tooltip">
+                            <img src="../../../images/home/linkedin.svg" alt="Linkedin" />
+                            <span class="footer-tooltip-text">Linkedin</span>
+                        </a>
+                        <a href="https://www.facebook.com" target="_blank" class="footer-icon-tooltip">
+                            <img src="../../../images/home/facebook.svg" alt="Facebook" />
+                            <span class="footer-tooltip-text">Facebook</span>
+                        </a>
+                        <a href="https://www.twitter.com" target="_blank" class="footer-icon-tooltip">
+                            <img src="../../../images/home/twitter-x.svg" alt="Twitter" />
+                            <span class="footer-tooltip-text">Twitter</span>
+                        </a>
+                        <a href="https://www.youtube.com" target="_blank" class="footer-icon-tooltip">
+                            <img src="../../../images/home/youtube.svg" alt="Youtube" />
+                            <span class="footer-tooltip-text">YouTube</span>
+                        </a>
+                        <a href="https://www.tiktok.com" target="_blank" class="footer-icon-tooltip">
+                            <img src="../../../images/home/tiktok.svg" alt="Tiktok" />
+                            <span class="footer-tooltip-text">Tiktok</span>
+                        </a>
+                        <a href="https://www.wechat.com" target="_blank" class="footer-icon-tooltip">
+                            <img src="../../../images/home/wechat.svg" alt="Wechat" />
+                            <span class="footer-tooltip-text">WeChat</span>
+                        </a>
+                    </div>
+                </div>
+
+                <hr class="footer-divider">
+                <div class="footer-copyright">
+                    <div class="left">COPYRIGHT © 2025 Hebei Apollo Power Transmission Co., Ltd.</div>
+                    <div class="right">冀ICP备2024098043号-2 河北阿波罗动力传动 & 河北正和机械 进出口贸易办公室</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../../../js/nav-bar.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../js/subpage.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../js/footer.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>
