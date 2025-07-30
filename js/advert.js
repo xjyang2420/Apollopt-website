@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPrev = document.querySelector('.hero-prev');
     const btnNext = document.querySelector('.hero-next');
     const spacer = document.getElementById('header-spacer');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navToggle = document.querySelector('.nav-toggle');
 
     // function applyTopbarHeight() {
     //     const h = topbar ? topbar.offsetHeight : 0;
@@ -48,9 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (type === 'video') {
             hero.classList.add('is-video-on');
             navbar.classList.add('transparent');
+            mobileMenu.classList.add('video-mode');
+            navToggle.classList.add('white-bars');
         } else {
             hero.classList.remove('is-video-on');
             navbar.classList.remove('transparent');
+            mobileMenu.classList.remove('video-mode');
+            navToggle.classList.remove('white-bars');
         }
     }
 
