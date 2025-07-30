@@ -166,9 +166,50 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
             option.classList.add('selected');
 
-            const langCode = option.getAttribute('data-lang');
+            const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
+            const url = new URL(window.location.href);
+            let segments = url.pathname.split('/').filter(Boolean); // 去掉空段
 
-            const currentPath = window.location.pathname;
+            // 处理首页：当访问的是根路径 "/" 时，等价于 "/index.html"
+            if (segments.length === 0) {
+                segments = ['index.html'];
+            }
+
+            // 当前是否中文（第一段为 'zh'）
+            const isZh = segments[0] === 'zh';
+
+            if (targetLang === 'zh') {
+                if (!isZh) {
+                    // 插入 zh 前缀
+                    segments.unshift('zh');
+                    // 如果是目录式路径（最后一段没有 .html），补 index.html（防止服务器不做目录索引）
+                    const last = segments[segments.length - 1];
+                    if (!/\./.test(last)) segments.push('index.html');
+                } else {
+                    // 已是中文，直接返回
+                    return;
+                }
+            } else if (targetLang === 'en') {
+                if (isZh) {
+                    // 移除 zh 前缀
+                    segments.shift();
+                    // 中文首页 "/zh" -> 英文首页 "/index.html"
+                    if (segments.length === 0) segments = ['index.html'];
+                } else {
+                    // 已是英文，直接返回
+                    return;
+                }
+            }
+
+            // 生成新路径并跳转
+            const newPath = '/' + segments.join('/');
+            // 调试输出，方便你在控制台确认
+            // console.log('[lang switch] to:', newPath);
+            window.location.href = newPath;
+
+            // const langCode = option.getAttribute('data-lang');
+
+            // const currentPath = window.location.pathname;
 
             // if (langCode === 'zh') {
             //     // 如果当前不是 zh 路径，就添加 /zh 前缀
@@ -181,22 +222,22 @@ document.addEventListener('DOMContentLoaded', () => {
             //         window.location.href = currentPath.replace('/zh', '');
             //     }
             // }
-            const isHomePage = currentPath === '/' || currentPath.endsWith('/index.html');
+            // const isHomePage = currentPath === '/' || currentPath.endsWith('/index.html');
 
-            if (langCode === 'zh') {
-                if (!currentPath.startsWith('/zh')) {
-                    if (isHomePage) {
-                        window.location.href = '/zh/index.html';
-                    } else {
-                        window.location.href = '/zh' + currentPath;
-                    }
-                }
-            } else if (langCode === 'en') {
-                if (currentPath.startsWith('/zh')) {
-                    const newPath = currentPath.replace(/^\/zh/, '');
-                    window.location.href = newPath === '' ? '/index.html' : newPath;
-                }
-            }
+            // if (langCode === 'zh') {
+            //     if (!currentPath.startsWith('/zh')) {
+            //         if (isHomePage) {
+            //             window.location.href = '/zh/index.html';
+            //         } else {
+            //             window.location.href = '/zh' + currentPath;
+            //         }
+            //     }
+            // } else if (langCode === 'en') {
+            //     if (currentPath.startsWith('/zh')) {
+            //         const newPath = currentPath.replace(/^\/zh/, '');
+            //         window.location.href = newPath === '' ? '/index.html' : newPath;
+            //     }
+            // }
         });
     });
 
