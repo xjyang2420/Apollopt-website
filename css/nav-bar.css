@@ -1022,13 +1022,13 @@ html {
         gap: 4px;
         display: flex;
         align-items: center;
-        font-size: 10px;
+        font-size: 14px;
         color: #fff;
         margin-left: 0;
     }
 
     .top-bar-link i {
-        font-size: 10px;
+        font-size: 14px;
     }
 }
 
@@ -1258,11 +1258,11 @@ html {
     }
 
     .top-bar-link {
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .top-bar-link i {
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .navbar .logo-sub {
