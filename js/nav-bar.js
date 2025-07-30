@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
         langDropdown.classList.toggle('visible');
     });
-    
+
     document.getElementById('lang-toggle').addEventListener('click', () => {
         document.getElementById('lang-dropdown').classList.toggle('active');
     });
@@ -170,15 +170,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const currentPath = window.location.pathname;
 
+            // if (langCode === 'zh') {
+            //     // 如果当前不是 zh 路径，就添加 /zh 前缀
+            //     if (!currentPath.startsWith('/zh/')) {
+            //         window.location.href = '/zh' + currentPath;
+            //     }
+            // } else if (langCode === 'en') {
+            //     // 如果当前是 zh 页面，就移除 /zh 前缀
+            //     if (currentPath.startsWith('/zh/')) {
+            //         window.location.href = currentPath.replace('/zh', '');
+            //     }
+            // }
+            const isHomePage = currentPath === '/' || currentPath.endsWith('/index.html');
+
             if (langCode === 'zh') {
-                // 如果当前不是 zh 路径，就添加 /zh 前缀
-                if (!currentPath.startsWith('/zh/')) {
-                    window.location.href = '/zh' + currentPath;
+                if (!currentPath.startsWith('/zh')) {
+                    if (isHomePage) {
+                        window.location.href = '/zh/index.html';
+                    } else {
+                        window.location.href = '/zh' + currentPath;
+                    }
                 }
             } else if (langCode === 'en') {
-                // 如果当前是 zh 页面，就移除 /zh 前缀
-                if (currentPath.startsWith('/zh/')) {
-                    window.location.href = currentPath.replace('/zh', '');
+                if (currentPath.startsWith('/zh')) {
+                    const newPath = currentPath.replace(/^\/zh/, '');
+                    window.location.href = newPath === '' ? '/index.html' : newPath;
                 }
             }
         });
