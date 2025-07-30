@@ -1002,21 +1002,33 @@ html {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        padding: 0 1rem;
+        align-items: center;
+        padding: 0;
     }
 
-    .top-bar .top-bar-right .email {
-        flex: 1;
-        justify-content: center;
+    .top-bar .top-bar-right .topbar-email {
+        justify-content: flex-start;
         display: flex;
-        gap: 4px;
+        align-items: center;
     }
 
-    .top-bar .top-bar-right .phone {
-        flex: 1;
-        justify-content: center;
+    .top-bar .top-bar-right .topbar-phone {
+        justify-content: flex-end;
         display: flex;
+        align-items: center;
+    }
+
+    .top-bar-link {
         gap: 4px;
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+        color: #fff;
+        margin-left: 0;
+    }
+
+    .top-bar-link i {
+        font-size: 10px;
     }
 }
 
@@ -1237,6 +1249,24 @@ html {
 }
 
 @media (max-width: 480px) {
+    .top-bar .top-bar-right {
+        padding: 0;
+    }
+
+    .top-bar .top-bar-right .email {
+        justify-content: flex-start;
+        gap: 0px;
+        font-size: 0.5rem;
+        flex-wrap: nowrap;
+    }
+
+    .top-bar .top-bar-right .phone {
+        justify-content: flex-end;
+        gap: 0px;
+        font-size: 0.5rem;
+        flex-wrap: nowrap;
+    }
+
     .navbar .logo-sub {
         display: none !important;
     }
