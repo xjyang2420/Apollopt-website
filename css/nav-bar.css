@@ -914,9 +914,9 @@ html {
 }
 
 #back-to-top.show {
-    display: flex;                 
-    align-items: center;          
-    justify-content: center;      
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 1;
     pointer-events: auto;
     animation: rotateIn 0.5s ease-out forwards;
@@ -932,6 +932,7 @@ html {
         opacity: 0;
         transform: rotate(-180deg) scale(0);
     }
+
     100% {
         opacity: 1;
         transform: rotate(0deg) scale(1);
@@ -944,6 +945,7 @@ html {
         opacity: 1;
         transform: rotate(0deg) scale(1);
     }
+
     100% {
         opacity: 0;
         transform: rotate(180deg) scale(0);
@@ -1036,12 +1038,12 @@ html {
 /* 视频模式下，子菜单也透明 */
 .mobile-menu.video-mode .mobile-submenu {
     background-color: transparent !important;
-    backdrop-filter: blur(4px); 
+    backdrop-filter: blur(4px);
     border: none;
     box-shadow: none;
 }
 
-.mobile-menu.video-mode .mobile-submenu li > a {
+.mobile-menu.video-mode .mobile-submenu li>a {
     color: #fff !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -1235,29 +1237,48 @@ html {
 }
 
 @media (max-width: 480px) {
-    .nav-left {
-        flex: 1 1 auto;
-        max-width: 40%; /* 控制 logo 占比 */
+    .navbar .logo-sub {
+        display: none !important;
     }
 
-    .nav-left img {
-        max-height: 30px;
-        max-width: 100%;
+    .navbar .logo-main {
+        display: flex;
+        align-items: center;
+        max-width: 100px;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 12px;
+    }
+
+    .nav-left {
+        flex: 1;
+        justify-content: flex-start;
+    }
+
+    .nav-center {
+        display: none !important;
     }
 
     .nav-right {
-        flex: 1 1 auto;
+        flex: 1;
+        display: flex;
         justify-content: flex-end;
-        gap: 6px;  /* 缩小间距 */
+        align-items: center;
+        gap: 6px;
     }
 
-    .nav-right > * {
-        flex: 0 0 auto;
-        max-width: 24px; /* 控制图标尺寸 */
+    .nav-right .search-toggle,
+    .nav-right .lang-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .nav-toggle {
-        width: 24px;
-        height: 18px;
+    .nav-right .nav-toggle {
+        display: inline-flex;
     }
 }
