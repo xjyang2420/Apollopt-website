@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //     }, { once: true });
     // });
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 200) {
+        if (window.scrollY > 500) {
             if (!backToTop.classList.contains('show')) {
                 backToTop.classList.remove('hide');
                 backToTop.classList.add('show');
