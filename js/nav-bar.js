@@ -442,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateBackToTop);
 
     window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 20);
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
     });
 
     document.querySelectorAll('.top-bar, .navbar').forEach(el => {
