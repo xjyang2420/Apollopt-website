@@ -106,7 +106,7 @@
                             <form action="search.html" class="search-form hidden" role="search" autocomplete="off">
                                 <input id="search-input" class="search-input" name="q" type="text"
                                     placeholder="关键词搜索中..." />
-                                <button type="submit" class="btn-submit"><span>SUBMIT</span> <i
+                                <button type="submit" class="btn-submit"><span>提交</span> <i
                                         class="fas fa-arrow-right"></i></button>
                                 <ul class="suggestions-list" id="suggestions-list"></ul>
                             </form>
@@ -114,16 +114,20 @@
                         <div class="lang-selector" id="lang-selector">
                             <div class="lang-toggle-wrapper">
                                 <button class="lang-toggle" id="lang-toggle" aria-haspopup="true" aria-expanded="false">
-                                    <img src="../../../images/home/flag-en.svg" alt="English" class="lang-flag" /> EN
+                                    <img src="../../../images/home/flag-cn.svg" alt="English" class="lang-flag" /> 中文
                                 </button>
                                 <span class="lang-arrow"></span>
                             </div>
                             <ul class="lang-dropdown" id="lang-dropdown" role="menu">
-                                <li data-lang="en" class="lang-option selected" role="menuitem"><img
-                                        src="../../../images/home/flag-en.svg" alt="English" class="lang-flag" /> EN</li>
+                                <li data-lang="zh" class="lang-option" role="menuitem">
+                                    <img src="../../../images/home/flag-cn.svg" alt="中文" class="lang-flag" /> 中文
+                                </li>
+
                                 <hr class="lang-divider">
-                                <li data-lang="zh" class="lang-option" role="menuitem"><img
-                                        src="../../../images/home/flag-cn.svg" alt="中文" class="lang-flag" /> 中文</li>
+
+                                <li data-lang="en" class="lang-option selected" role="menuitem">
+                                    <img src="../../../images/home/flag-en.svg" alt="English" class="lang-flag" /> 英文
+                                </li>
                             </ul>
                         </div>
 
