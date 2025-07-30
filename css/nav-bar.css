@@ -887,16 +887,29 @@ html {
     font-size: 1.2rem;
     border: none;
     border-radius: 50%;
-    background: var(--clr-primary);
+    background: linear-gradient(135deg, #0cb0f7, #0078d7);
     color: var(--clr-light);
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    transition: var(--transition);
+    transition: all 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #back-to-top:hover {
-    background: #a91c21;
+    background: linear-gradient(135deg, #0078d7, #0cb0f7);
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+#back-to-top.show {
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+#back-to-top.hide {
+    animation: fadeOutDown 0.3s ease forwards;
 }
 
 .mobile-menu {
