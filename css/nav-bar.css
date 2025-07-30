@@ -1257,6 +1257,7 @@ html {
     .nav-left {
         flex: 1;
         justify-content: flex-start;
+        margin-left: 0;
     }
 
     .nav-center {
@@ -1268,7 +1269,8 @@ html {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
+        margin-right: 0px;
     }
 
     .nav-right .search-toggle,
