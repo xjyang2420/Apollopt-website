@@ -166,22 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const currentPath = window.location.pathname;
 
-            if (langCode === 'en') {
-                // 如果当前是中文页（在 /zh/ 下），切换为去掉 /zh/
-                if (currentPath.startsWith('/zh/')) {
-                    const newPath = currentPath.replace('/zh', '');
-                    window.location.href = newPath;
-                } else {
-                    // 当前已是en页，不跳转
-                    return;
-                }
-            } else if (langCode === 'zh') {
-                // 如果当前不是zh页，就加上 /zh/
+            if (langCode === 'zh') {
+                // 如果当前不是 zh 路径，就添加 /zh 前缀
                 if (!currentPath.startsWith('/zh/')) {
                     window.location.href = '/zh' + currentPath;
-                } else {
-                    // 当前已是zh页，不跳转
-                    return;
+                }
+            } else if (langCode === 'en') {
+                // 如果当前是 zh 页面，就移除 /zh 前缀
+                if (currentPath.startsWith('/zh/')) {
+                    window.location.href = currentPath.replace('/zh', '');
                 }
             }
         });
