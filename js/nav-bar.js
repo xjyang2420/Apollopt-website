@@ -167,20 +167,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentPath = window.location.pathname;
 
             if (langCode === 'en') {
-                // 如果当前是中文页（在 /zn/ 下），切换为去掉 /zn/
-                if (currentPath.startsWith('/zn/')) {
-                    const newPath = currentPath.replace('/zn', '');
+                // 如果当前是中文页（在 /zh/ 下），切换为去掉 /zh/
+                if (currentPath.startsWith('/zh/')) {
+                    const newPath = currentPath.replace('/zh', '');
                     window.location.href = newPath;
                 } else {
                     // 当前已是en页，不跳转
                     return;
                 }
-            } else if (langCode === 'zn') {
-                // 如果当前不是zn页，就加上 /zn/
-                if (!currentPath.startsWith('/zn/')) {
-                    window.location.href = '/zn' + currentPath;
+            } else if (langCode === 'zh') {
+                // 如果当前不是zh页，就加上 /zh/
+                if (!currentPath.startsWith('/zh/')) {
+                    window.location.href = '/zh' + currentPath;
                 } else {
-                    // 当前已是zn页，不跳转
+                    // 当前已是zh页，不跳转
                     return;
                 }
             }
