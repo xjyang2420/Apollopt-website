@@ -893,7 +893,7 @@ html {
     /* border-radius: 50%; */
     border-radius: 8px;
     background: linear-gradient(135deg, #0cb0f7, #0078d7);
-    color: var(--clr-light);
+    color: #ffffff !important;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -905,6 +905,7 @@ html {
 
 #back-to-top:hover {
     background: linear-gradient(135deg, #0078d7, #0cb0f7);
+    color: var(--clr-light);
     transform: scale(1.1);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
