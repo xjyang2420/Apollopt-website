@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeMenu() {
         mobileMenu?.classList.remove('active');
-        menuOverlay?.classList.add('active');
+        menuOverlay?.classList.remove('active');
         header?.classList.remove('menu-open');
         document.body.classList.remove('no-scroll');
         mobileMenu?.querySelectorAll('.is-open').forEach(li => li.classList.remove('is-open'));
@@ -145,10 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         langDropdown.classList.toggle('visible');
     });
 
-    document.getElementById('lang-toggle').addEventListener('click', () => {
-        document.getElementById('lang-dropdown').classList.toggle('active');
-    });
-
     // document.querySelectorAll('.lang-option').forEach(option => {
     //     option.addEventListener('click', () => {
     //         document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
@@ -167,45 +163,55 @@ document.addEventListener('DOMContentLoaded', () => {
             option.classList.add('selected');
 
             const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
-            const url = new URL(window.location.href);
-            let segments = url.pathname.split('/').filter(Boolean); // 去掉空段
+            const proto = window.location.protocol;              // 'http:' | 'https:' | 'file:'
+            let path = window.location.pathname;                 // 例如：/subpage/about_us/company.html
 
-            // 处理首页：当访问的是根路径 "/" 时，等价于 "/index.html"
-            if (segments.length === 0) {
-                segments = ['index.html'];
-            }
+            // —— 统一把首页当成 index.html 处理
+            if (path === '/' || path === '') path = '/index.html';
 
-            // 当前是否中文（第一段为 'zh'）
-            const isZh = segments[0] === 'zh';
+            const isZh = path.startsWith('/zh/');
 
+            // 生成目标路径（仅路径，不含协议和域名）
+            let nextPath;
             if (targetLang === 'zh') {
-                if (!isZh) {
-                    // 插入 zh 前缀
-                    segments.unshift('zh');
-                    // 如果是目录式路径（最后一段没有 .html），补 index.html（防止服务器不做目录索引）
-                    const last = segments[segments.length - 1];
-                    if (!/\./.test(last)) segments.push('index.html');
-                } else {
-                    // 已是中文，直接返回
-                    return;
-                }
-            } else if (targetLang === 'en') {
-                if (isZh) {
-                    // 移除 zh 前缀
-                    segments.shift();
-                    // 中文首页 "/zh" -> 英文首页 "/index.html"
-                    if (segments.length === 0) segments = ['index.html'];
-                } else {
-                    // 已是英文，直接返回
-                    return;
-                }
+                if (isZh) return; // 已是中文
+                // 英文 -> 中文：加 /zh 前缀
+                nextPath = '/zh' + path;
+            } else {
+                if (!isZh) return; // 已是英文
+                // 中文 -> 英文：去 /zh 前缀
+                nextPath = path.replace(/^\/zh/, '');
+                if (nextPath === '' || nextPath === '/') nextPath = '/index.html';
             }
 
-            // 生成新路径并跳转
-            const newPath = '/' + segments.join('/');
-            // 调试输出，方便你在控制台确认
-            // console.log('[lang switch] to:', newPath);
-            window.location.href = newPath;
+            // —— 在 http/https 下，直接用绝对路径跳转
+            if (proto === 'http:' || proto === 'https:') {
+                window.location.href = nextPath;
+                return;
+            }
+
+            // —— 在 file:// 下（本地直接打开），用“相对路径”跳转，避免绝对路径指向磁盘根
+            // 规则：从当前页面的目录开始跳；若当前为中文页（/zh/...），去掉 /zh 后再相对跳
+            if (proto === 'file:') {
+                const currentDir = window.location.href.replace(/[^/]*$/, ''); // 当前文件所在目录（带结尾/）
+                let relative;
+
+                if (targetLang === 'zh') {
+                    // 英 -> 中：在当前站点根目录下插入 zh/。由于 file 协议拿不到“站点根”，
+                    // 这里的稳妥做法是：从当前目录退回到站点根再进入 zh，但我们不知道你的“站点根”。
+                    // 因此推荐：在 file 模式下，使用相对于“项目根”的 BASE 标签，或者本地服务器。
+                    // 这里给一个保守方案：从当前目录跳，尽量在路径前面补 ../ 直到能命中 zh/ 同名结构。
+                    // —— 简化：直接替换为同层的 zh 目录（需要你的项目在本地也保持 /zh 的镜像结构）
+                    relative = nextPath.replace(/^\//, ''); // 去掉最前面的斜杠，作为相对路径
+                } else {
+                    // 中 -> 英：去掉 zh 后，仍使用相对路径
+                    relative = nextPath.replace(/^\//, '');
+                }
+
+                // 实际跳转
+                window.location.href = relative;
+                return;
+            }
 
             // const langCode = option.getAttribute('data-lang');
 
