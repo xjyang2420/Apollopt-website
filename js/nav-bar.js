@@ -145,18 +145,18 @@ document.addEventListener('DOMContentLoaded', () => {
         langDropdown.classList.toggle('visible');
     });
 
-    document.querySelectorAll('.lang-option').forEach(option => {
-        option.addEventListener('click', () => {
-            document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
-            option.classList.add('selected');
-            const langCode = option.getAttribute('data-lang');
-            if (langCode === 'zh') {
-                window.location.href = '/zh/index.html';
-            } else {
-                window.location.href = '/en/index.html';
-            }
-        });
-    });
+    // document.querySelectorAll('.lang-option').forEach(option => {
+    //     option.addEventListener('click', () => {
+    //         document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('selected'));
+    //         option.classList.add('selected');
+    //         const langCode = option.getAttribute('data-lang');
+    //         if (langCode === 'zh') {
+    //             window.location.href = '/zh/index.html';
+    //         } else {
+    //             window.location.href = '/en/index.html';
+    //         }
+    //     });
+    // });
 
     // Highlight current page nav
     const currentPath = window.location.pathname.split("/").pop();
