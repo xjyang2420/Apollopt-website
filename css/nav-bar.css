@@ -1022,16 +1022,16 @@ html {
     display: none;
 }
 
-.mobile-menu.video-mode {
+/* .mobile-menu.video-mode {
     background: transparent !important;
-    backdrop-filter: blur(4px); /* 可选，让内容更清晰 */
+    backdrop-filter: blur(4px); 
     box-shadow: none;
     border-top: none;
 }
 
 .nav-toggle.white-bars .bar {
     background-color: #fff !important;
-}
+} */
 
 /* 视频模式下，子菜单也透明 */
 .mobile-menu.video-mode .mobile-submenu {
@@ -1046,6 +1046,37 @@ html {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* .mobile-menu.video-mode.scrolled {
+    background: linear-gradient(to bottom, #abd1f4, #edf3f9) !important;
+}
+
+.mobile-menu.video-mode.scrolled .mobile-submenu {
+    background: #f5f57f !important;
+}
+
+.nav-toggle.bar.scrolled span {
+    background-color: white !important;
+} */
+
+
+/* .navbar.transparent {
+    background-color: transparent !important;
+    box-shadow: none;
+} */
+
+.mobile-menu.video-mode {
+    background: transparent !important;
+    backdrop-filter: none;
+}
+
+.nav-toggle.white-bars span {
+    background-color: #fff !important;
+}
+
+.mobile-menu.video-mode .mobile-submenu {
+    background-color: transparent !important;
+    backdrop-filter: none;
+}
 
 /* Navbar: 小屏只显示logo + 搜索 + 语言 + 汉堡按钮 */
 @media (max-width: 1278px) {
