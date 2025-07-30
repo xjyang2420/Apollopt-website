@@ -898,14 +898,18 @@ html {
     z-index: 1000;
     opacity: 0;
     transition: all 0.3s ease, transform 0.3s ease;
-    transform: scale(0) rotate(-90deg);
     pointer-events: none;
+    transform-origin: center center;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 #back-to-top:hover {
     background: linear-gradient(135deg, #0078d7, #0cb0f7);
     color: var(--clr-light);
-    transform: scale(1.1);
+    transform: scale(1);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -914,7 +918,6 @@ html {
     align-items: center;          
     justify-content: center;      
     opacity: 1;
-    transform: scale(1) rotate(0);
     pointer-events: auto;
     animation: rotateIn 0.5s ease-out forwards;
 }
@@ -927,7 +930,7 @@ html {
 @keyframes rotateIn {
     0% {
         opacity: 0;
-        transform: rotate(-180deg) scale(0.6);
+        transform: rotate(-180deg) scale(0);
     }
     100% {
         opacity: 1;
@@ -943,7 +946,7 @@ html {
     }
     100% {
         opacity: 0;
-        transform: rotate(180deg) scale(0.6);
+        transform: rotate(180deg) scale(0);
     }
 }
 
