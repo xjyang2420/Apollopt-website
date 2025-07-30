@@ -248,87 +248,141 @@ document.addEventListener('DOMContentLoaded', () => {
     //     });
     // });
 
+    // (function setupLangSwitch() {
+    //     const options = document.querySelectorAll('.lang-option');
+    //     if (!options.length) return;
+
+    //     // 读取站点基路径（如 / 或 /project/）
+    //     const baseEl = document.querySelector('base');
+    //     const BASE = (baseEl ? baseEl.getAttribute('href') : '/') || '/';
+    //     const baseNoTrail = BASE.replace(/\/+$/, ''); // 去掉尾部斜杠：/project
+
+    //     // 把一个“绝对路径”（以 / 开头）转换成 “去掉 BASE 前缀的相对路径”
+    //     function stripBase(absPath) {
+    //         if (baseNoTrail && absPath.startsWith(baseNoTrail + '/')) {
+    //             return absPath.slice(baseNoTrail.length); // 仍然以 / 开头
+    //         }
+    //         return absPath; // 本身就在根
+    //     }
+
+    //     // 输出一个“带 BASE 前缀”的绝对路径
+    //     function addBase(relPath) {
+    //         // relPath 以 / 开头
+    //         return (baseNoTrail ? baseNoTrail : '') + relPath;
+    //     }
+
+    //     // 规范化：把 "/" 视为 "/index.html"
+    //     function normalizeHome(p) {
+    //         return (p === '/' || p === '') ? '/index.html' : p;
+    //     }
+
+    //     // 生成目标路径（带/开头，且已去掉 BASE 的相对根路径）
+    //     function buildTargetPath(targetLang, currentAbsPath) {
+    //         // currentAbsPath：以 / 开头的绝对路径（含 BASE 前缀）
+    //         let rel = stripBase(currentAbsPath);       // 去掉 BASE 前缀
+    //         rel = normalizeHome(rel);
+
+    //         const isZh = rel.startsWith('/zh/');
+
+    //         if (targetLang === 'zh') {
+    //             if (isZh) return null; // 已是中文，不跳
+    //             return '/zh' + rel;    // 英 -> 中：加 /zh
+    //         } else {
+    //             if (!isZh) return null; // 已是英文，不跳
+    //             const enRel = rel.replace(/^\/zh/, ''); // 中 -> 英：去 /zh
+    //             return enRel === '' ? '/index.html' : enRel;
+    //         }
+    //     }
+
+    //     options.forEach(option => {
+    //         option.addEventListener('click', (e) => {
+    //             // 视觉状态
+    //             options.forEach(o => o.classList.remove('selected'));
+    //             option.classList.add('selected');
+
+    //             // 目标语言
+    //             const targetLang = option.getAttribute('data-lang'); // 'en' | 'zh'
+
+    //             // 计算目标“去掉 BASE 的相对根路径”
+    //             const targetRel = buildTargetPath(targetLang, window.location.pathname);
+    //             if (!targetRel) return; // 已经是目标语言
+
+    //             // 组合成最终绝对路径（带 BASE）
+    //             const nextAbsPath = addBase(targetRel);
+
+    //             // 调试（可留可删）
+    //             // console.log('[lang-switch]', {
+    //             //   base: BASE, current: window.location.pathname, targetRel, nextAbsPath
+    //             // });
+
+    //             // 在 http/https 下，直接跳
+    //             if (location.protocol === 'http:' || location.protocol === 'https:') {
+    //                 window.location.href = nextAbsPath;
+    //                 return;
+    //             }
+
+    //             // 在 file:// 下强烈建议用本地服务器；如果仍要用 file 协议，尽量用相对路径：
+    //             // 将带 BASE 的绝对路径转为相对当前的相对路径（去掉开头的 /）
+    //             if (location.protocol === 'file:') {
+    //                 const relative = nextAbsPath.replace(/^\//, ''); // 去掉前导 /
+    //                 // 用当前 URL 的目录作为基准跳转
+    //                 const currentDir = window.location.href.replace(/[^/]*$/, ''); // 当前文件所在目录
+    //                 window.location.href = new URL(relative, currentDir).href;
+    //             }
+    //         });
+    //     });
+    // })();
+
+    // 语言切换（自动适配 GitHub Pages 项目路径）
     (function setupLangSwitch() {
         const options = document.querySelectorAll('.lang-option');
         if (!options.length) return;
 
-        // 读取站点基路径（如 / 或 /project/）
-        const baseEl = document.querySelector('base');
-        const BASE = (baseEl ? baseEl.getAttribute('href') : '/') || '/';
-        const baseNoTrail = BASE.replace(/\/+$/, ''); // 去掉尾部斜杠：/project
-
-        // 把一个“绝对路径”（以 / 开头）转换成 “去掉 BASE 前缀的相对路径”
-        function stripBase(absPath) {
-            if (baseNoTrail && absPath.startsWith(baseNoTrail + '/')) {
-                return absPath.slice(baseNoTrail.length); // 仍然以 / 开头
-            }
-            return absPath; // 本身就在根
+        // 计算仓库基路径，如：/ApolloPT-website/
+        function getBasePath() {
+            const segs = location.pathname.split('/').filter(Boolean); // e.g. ['ApolloPT-website', ...]
+            const repo = segs[0] || ''; // 仓库名
+            return '/' + (repo ? repo + '/' : ''); // '/ApolloPT-website/' 或 '/'
         }
 
-        // 输出一个“带 BASE 前缀”的绝对路径
-        function addBase(relPath) {
-            // relPath 以 / 开头
-            return (baseNoTrail ? baseNoTrail : '') + relPath;
+        const BASE = getBasePath(); // '/ApolloPT-website/'（你当前的情况）
+        const baseNoTrail = BASE.replace(/\/+$/, ''); // '/ApolloPT-website'
+
+        // 取“去掉 BASE 后”的路径段数组
+        function getRelSegments() {
+            const segs = location.pathname.split('/').filter(Boolean);
+            // 去掉仓库段
+            return segs.slice(baseNoTrail ? 1 : 0);
         }
 
-        // 规范化：把 "/" 视为 "/index.html"
-        function normalizeHome(p) {
-            return (p === '/' || p === '') ? '/index.html' : p;
+        // 把 '/' 视为 'index.html'
+        function normalizeHome(segs) {
+            return segs.length === 0 ? ['index.html'] : segs;
         }
 
-        // 生成目标路径（带/开头，且已去掉 BASE 的相对根路径）
-        function buildTargetPath(targetLang, currentAbsPath) {
-            // currentAbsPath：以 / 开头的绝对路径（含 BASE 前缀）
-            let rel = stripBase(currentAbsPath);       // 去掉 BASE 前缀
-            rel = normalizeHome(rel);
-
-            const isZh = rel.startsWith('/zh/');
+        function buildTargetPath(targetLang) {
+            let rel = normalizeHome(getRelSegments()); // 如 ['subpage','about_us','company.html'] 或 ['zh',...]
+            const isZh = rel[0] === 'zh';
 
             if (targetLang === 'zh') {
-                if (isZh) return null; // 已是中文，不跳
-                return '/zh' + rel;    // 英 -> 中：加 /zh
-            } else {
-                if (!isZh) return null; // 已是英文，不跳
-                const enRel = rel.replace(/^\/zh/, ''); // 中 -> 英：去 /zh
-                return enRel === '' ? '/index.html' : enRel;
+                if (isZh) return null;            // 已是中文
+                rel = ['zh', ...rel];             // 英 -> 中：加 zh 前缀
+            } else { // 'en'
+                if (!isZh) return null;           // 已是英文
+                rel = rel.slice(1);               // 中 -> 英：去 zh
+                if (rel.length === 0) rel = ['index.html']; // /zh -> /index.html
             }
+
+            // 最终绝对路径：BASE + 相对段
+            return BASE + rel.join('/');
         }
 
         options.forEach(option => {
-            option.addEventListener('click', (e) => {
-                // 视觉状态
-                options.forEach(o => o.classList.remove('selected'));
-                option.classList.add('selected');
-
-                // 目标语言
-                const targetLang = option.getAttribute('data-lang'); // 'en' | 'zh'
-
-                // 计算目标“去掉 BASE 的相对根路径”
-                const targetRel = buildTargetPath(targetLang, window.location.pathname);
-                if (!targetRel) return; // 已经是目标语言
-
-                // 组合成最终绝对路径（带 BASE）
-                const nextAbsPath = addBase(targetRel);
-
-                // 调试（可留可删）
-                // console.log('[lang-switch]', {
-                //   base: BASE, current: window.location.pathname, targetRel, nextAbsPath
-                // });
-
-                // 在 http/https 下，直接跳
-                if (location.protocol === 'http:' || location.protocol === 'https:') {
-                    window.location.href = nextAbsPath;
-                    return;
-                }
-
-                // 在 file:// 下强烈建议用本地服务器；如果仍要用 file 协议，尽量用相对路径：
-                // 将带 BASE 的绝对路径转为相对当前的相对路径（去掉开头的 /）
-                if (location.protocol === 'file:') {
-                    const relative = nextAbsPath.replace(/^\//, ''); // 去掉前导 /
-                    // 用当前 URL 的目录作为基准跳转
-                    const currentDir = window.location.href.replace(/[^/]*$/, ''); // 当前文件所在目录
-                    window.location.href = new URL(relative, currentDir).href;
-                }
+            option.addEventListener('click', () => {
+                const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
+                const next = buildTargetPath(targetLang);
+                if (!next) return;                // 已在目标语言，忽略
+                location.href = next;             // 例如：/ApolloPT-website/zh/index.html
             });
         });
     })();
