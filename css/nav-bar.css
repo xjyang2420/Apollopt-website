@@ -1249,22 +1249,20 @@ html {
 }
 
 @media (max-width: 480px) {
-    .top-bar .top-bar-right {
-        padding: 0;
-    }
-
-    .top-bar .top-bar-right .email {
-        justify-content: flex-start;
-        gap: 0px;
-        font-size: 0.5rem;
+    .top-bar .top-bar-right .topbar-email {
         flex-wrap: nowrap;
     }
 
-    .top-bar .top-bar-right .phone {
-        justify-content: flex-end;
-        gap: 0px;
-        font-size: 0.5rem;
+    .top-bar .top-bar-right .topbar-phone {
         flex-wrap: nowrap;
+    }
+
+    .top-bar-link {
+        font-size: 6px;
+    }
+
+    .top-bar-link i {
+        font-size: 6px;
     }
 
     .navbar .logo-sub {
