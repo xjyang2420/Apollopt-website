@@ -568,8 +568,8 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo(0, 0);
         });
 
-        updateToggleDisplay(currentLang);
-        highlightSelected(currentLang)
+        // updateToggleDisplay(currentLang);
+        // highlightSelected(currentLang)
     })();
 
     document.querySelectorAll('.lang-option').forEach(li => {
