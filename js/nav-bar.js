@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const subpageHero = document.querySelector('.subpage-hero');
     const navMenu = document.getElementById('nav-menu');
-
+    
     const root = document.documentElement;
     const setVar = (k, v) => root.style.setProperty(k, v);
     function syncNavbarHeight() {
-        const h = document.querySelector('.navbar')?.offsetHeight || 0;
+        const h = document.querySelector('.navbar')?.offsetHeight || 60;
         setVar('--navbar-height', h + 'px');
     }
 
