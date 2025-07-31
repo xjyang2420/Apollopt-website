@@ -1314,32 +1314,35 @@ html {
 }
 
 @media (max-width: 768px) {
-  .search-form {
-    position: fixed;
-    top: var(--navbar-height);
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    width: 90%;
-    align-items: center;
-    justify-content: center;
-   
-    padding: 0.5rem;
-    border: none;
-    border-radius: 0;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: none;
-    z-index: 10001;
-  }
+    .search-form {
+        position: fixed;
+        top: var(--navbar-height);
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        width: 90%;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        border: none;
+        border-radius: 0;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.65);
+        box-shadow: none;
+        z-index: 10001;
+    }
 
-  .search-form input {
-    width: 100%;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
+    .search-form input {
+        width: 100%;
+        font-size: 1rem;
+    }
 
-  .search-form .btn-submit {
-    white-space: nowrap;
-    padding: 0.5rem 1.2rem;
-  }
+    .search-form .btn-submit {
+        white-space: nowrap;
+    }
+
+    .search-form .btn-submit i {
+        display: none;
+    }
 }
