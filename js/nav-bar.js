@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const subpageHero = document.querySelector('.subpage-hero');
     const navMenu = document.getElementById('nav-menu');
-    
+
     const root = document.documentElement;
     const setVar = (k, v) => root.style.setProperty(k, v);
     function syncNavbarHeight() {
@@ -277,30 +277,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const langToggle = document.getElementById('lang-toggle');
     const langDropdown = document.getElementById('lang-dropdown');
 
-    langToggle.addEventListener('click', (e) => {
+    langToggle.addEventListener('click', e => {
         e.stopPropagation();
-        const isOpen = langDropdown.classList.contains('visible');
-        document.querySelectorAll('.lang-dropdown').forEach(d => d.classList.remove('visible'));
-        langDropdown.classList.toggle('visible', !isOpen);
-        langToggle.setAttribute('aria-expanded', !isOpen);
+        langDropdown.classList.toggle('visible');
     });
 
-    // document.querySelectorAll('.lang-option').forEach(option => {
-    //     option.addEventListener('click', () => {
-    //         const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
-    //         const next = buildTargetPath(targetLang);
-    //         if (next) location.href = next;
-    //     });
+    // 点击页面其他地方时关闭语言菜单
+    document.addEventListener('click', (e) => {
+        const langToggle = document.getElementById('lang-toggle');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        if (
+            langDropdown.classList.contains('visible') &&
+            !langDropdown.contains(e.target) &&
+            !langToggle.contains(e.target)
+        ) {
+            langDropdown.classList.remove('visible');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            langDropdown.classList.remove('visible');
+        }
+    });
+
+    // langToggle.addEventListener('click', (e) => {
+    //     e.stopPropagation();
+    //     const isOpen = langDropdown.classList.contains('visible');
+    //     document.querySelectorAll('.lang-dropdown').forEach(d => d.classList.remove('visible'));
+    //     langDropdown.classList.toggle('visible', !isOpen);
+    //     langToggle.setAttribute('aria-expanded', !isOpen);
     // });
 
-    document.addEventListener('click', () => {
-        langDropdown.classList.remove('visible');
-        langToggle.setAttribute('aria-expanded', 'false');
-    });
+    // // document.querySelectorAll('.lang-option').forEach(option => {
+    // //     option.addEventListener('click', () => {
+    // //         const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
+    // //         const next = buildTargetPath(targetLang);
+    // //         if (next) location.href = next;
+    // //     });
+    // // });
 
-    langDropdown.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
+    // document.addEventListener('click', () => {
+    //     langDropdown.classList.remove('visible');
+    //     langToggle.setAttribute('aria-expanded', 'false');
+    // });
+
+    // langDropdown.addEventListener('click', (e) => {
+    //     e.stopPropagation();
+    // });
 
     // document.querySelectorAll('.lang-option').forEach(option => {
     //     option.addEventListener('click', () => {
@@ -494,22 +519,22 @@ document.addEventListener('DOMContentLoaded', () => {
     (function setupLangSwitch() {
         const options = document.querySelectorAll('.lang-option');
         const toggleBtn = document.getElementById('lang-toggle');
-        if (!options.length || !toggleBtn) return;
+        if (!options.length) return;
 
-        const currentLang = location.pathname.includes('/zh/') ? 'zh' : 'en';
+        // const currentLang = location.pathname.includes('/zh/') ? 'zh' : 'en';
 
-        function updateToggleDisplay(lang) {
-            const selected = document.querySelector(`.lang-option[data-lang="${lang}"]`);
-            if (selected) {
-                toggleBtn.innerHTML = selected.innerHTML;
-            }
-        }
+        // function updateToggleDisplay(lang) {
+        //     const selected = document.querySelector(`.lang-option[data-lang="${lang}"]`);
+        //     if (selected) {
+        //         toggleBtn.innerHTML = selected.innerHTML;
+        //     }
+        // }
 
-        function highlightSelected(lang) {
-            options.forEach(opt => {
-                opt.classList.toggle('selected', opt.dataset.lang === lang);
-            });
-        }
+        // function highlightSelected(lang) {
+        //     options.forEach(opt => {
+        //         opt.classList.toggle('selected', opt.dataset.lang === lang);
+        //     });
+        // }
 
         // 计算仓库基路径，如：/ApolloPT-website/
         function getBasePath() {
@@ -558,13 +583,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 location.href = next;             // 例如：/ApolloPT-website/zh/index.html
             });
 
-            const suffix = location.search + location.hash;
-            location.href = next + suffix;
+            // const suffix = location.search + location.hash;
+            // location.href = next + suffix;
             window.scrollTo(0, 0);
         });
 
-        updateToggleDisplay(currentLang);
-        highlightSelected(currentLang)
+        // updateToggleDisplay(currentLang);
+        // highlightSelected(currentLang)
     })();
 
     document.querySelectorAll('.lang-option').forEach(li => {
