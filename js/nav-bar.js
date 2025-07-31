@@ -93,6 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.querySelector('.search-form');
     const searchInput = document.getElementById('search-input');
     const suggestions = document.getElementById('suggestions-list');
+    const langSelector = document.getElementById('lang-selector');
+    const langOptions = document.querySelectorAll('.lang-option')
 
     document.addEventListener('click', (e) => {
         if (!searchForm.contains(e.target) && !searchToggle.contains(e.target)) {
@@ -117,8 +119,57 @@ document.addEventListener('DOMContentLoaded', () => {
     //     langToggle.setAttribute('aria-expanded', 'false');
     // });
 
-    const keywords = ['Pulley', 'Taper Bush', 'gearbox', 'motor', 'coupling', 'bearing', 'catalog', 'support', 'powertrain', 'machinery'];
+    const keywords = {
+        en: ['Pulley', 'Taper Bush', 'Gearbox', 'Motor', 'Coupling', 'Bearing', 'Catalog', 'Support', 'Powertrain', 'Machinery'],
+        zh: ['皮带轮', '锥套', '齿轮箱', '电机', '联轴器', '轴承', '产品目录', '技术支持', '动力传动', '机械']
+    };
+    let currentLang = 'en';
     let selIdx = -1;
+
+    const historyKey = 'apollo-search-history';
+    const maxHistory = 5;
+
+    function getHistory(lang) {
+        const all = JSON.parse(localStorage.getItem(historyKey) || '{}');
+        return all[lang] || [];
+    }
+
+    function saveHistory(lang, keyword) {
+        const all = JSON.parse(localStorage.getItem(historyKey) || '{}');
+        const list = all[lang] || [];
+        if (!list.includes(keyword)) list.unshift(keyword);
+        all[lang] = list.slice(0, maxHistory);
+        localStorage.setItem(historyKey, JSON.stringify(all));
+    }
+
+    function updateSuggestions(value) {
+        const val = value.trim().toLowerCase();
+        let matched = [];
+
+        if (val) {
+            matched = keywords[currentLang].filter(k => k.toLowerCase().includes(val));
+        } else {
+            matched = getHistory(currentLang);
+        }
+
+        if (!matched.length) {
+            suggestions.style.display = 'none';
+            return;
+        }
+
+        suggestions.innerHTML = matched.map(k => `
+            <li>${k.replace(new RegExp(val, 'gi'), m => `<span class="highlight">${m}</span>`)}</li>
+        `).join('');
+        suggestions.style.display = 'block';
+        selIdx = -1;
+        updateActive();
+    }
+
+    function updateActive() {
+        [...suggestions.children].forEach((li, i) => li.classList.toggle('active', i === selIdx));
+    }
+
+    searchInput.addEventListener('input', () => updateSuggestions(searchInput.value));
 
     searchToggle.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -173,12 +224,37 @@ document.addEventListener('DOMContentLoaded', () => {
             selIdx = (selIdx - 1 + items.length) % items.length;
             updateActive();
         } else if (e.key === 'Enter') {
-            if (selIdx >= 0) {
-                searchInput.value = items[selIdx].textContent;
+            // if (selIdx >= 0) {
+            //     searchInput.value = items[selIdx].textContent;
+            // }
+            // suggestions.style.display = 'none';
+            // searchForm.submit();
+            e.preventDefault();
+            const value = selIdx >= 0 ? items[selIdx].textContent : searchInput.value.trim();
+            if (value) {
+                saveHistory(currentLang, value);
+                window.location.href = `search.html?q=${encodeURIComponent(value)}`;
             }
             suggestions.style.display = 'none';
-            searchForm.submit();
         }
+    });
+
+    suggestions.addEventListener('click', e => {
+        if (e.target.tagName === 'LI') {
+            const keyword = e.target.textContent.trim();
+            searchInput.value = keyword;
+            saveHistory(currentLang, keyword);
+            window.location.href = `search.html?q=${encodeURIComponent(keyword)}`;
+        }
+    });
+
+    langOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            langOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            currentLang = option.dataset.lang;
+            updateSuggestions(searchInput.value);
+        });
     });
 
     function updateActive() {
@@ -452,6 +528,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 location.href = next;             // 例如：/ApolloPT-website/zh/index.html
             });
         });
+        
+        location.href = next + location.search + location.hash;
+        window.scrollTo(0, 0);
+
     })();
 
     // Highlight current page nav
