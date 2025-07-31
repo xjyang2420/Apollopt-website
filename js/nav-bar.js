@@ -9,10 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const root = document.documentElement;
     const setVar = (k, v) => root.style.setProperty(k, v);
+
+    function isVisible(el) {
+        if (!el) return false;
+        const cs = getComputedStyle(el);
+        return cs.display !== 'none' && !el.classList.contains('hidden');
+    }
+
     function syncNavbarHeight() {
         const h = document.querySelector('.navbar')?.offsetHeight || 60;
         setVar('--navbar-height', h + 'px');
     }
+
+    window.addEventListener('DOMContentLoaded', syncNavbarHeight);
+    window.addEventListener('resize', syncNavbarHeight);
 
     const isMobile = () => window.matchMedia('(max-width: 1278px)').matches;
 
@@ -584,17 +594,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 location.href = next + suffix;
             });
             window.scrollTo(0, 0);
-        });
-
-        toggleBtn.addEventListener('click', e => {
-            e.stopPropagation();
-            dropdown.classList.toggle('visible');
-            toggleBtn.setAttribute('aria-expanded', dropdown.classList.contains('visible'));
-        });
-
-        document.addEventListener('click', () => {
-            dropdown.classList.remove('visible');
-            toggleBtn.setAttribute('aria-expanded', 'false');
         });
 
     })();
