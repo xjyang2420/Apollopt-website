@@ -579,8 +579,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 location.href = next;             // 例如：/ApolloPT-website/zh/index.html
             });
 
-            const suffix = location.search + location.hash;
-            location.href = next + suffix;
+            // const suffix = location.search + location.hash;
+            // location.href = next + suffix;
             window.scrollTo(0, 0);
         });
 
