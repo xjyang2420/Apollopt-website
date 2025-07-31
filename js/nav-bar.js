@@ -499,22 +499,22 @@ document.addEventListener('DOMContentLoaded', () => {
     (function setupLangSwitch() {
         const options = document.querySelectorAll('.lang-option');
         const toggleBtn = document.getElementById('lang-toggle');
-        if (!options.length || !toggleBtn) return;
+        if (!options.length) return;
 
-        const currentLang = location.pathname.includes('/zh/') ? 'zh' : 'en';
+        // const currentLang = location.pathname.includes('/zh/') ? 'zh' : 'en';
 
-        function updateToggleDisplay(lang) {
-            const selected = document.querySelector(`.lang-option[data-lang="${lang}"]`);
-            if (selected) {
-                toggleBtn.innerHTML = selected.innerHTML;
-            }
-        }
+        // function updateToggleDisplay(lang) {
+        //     const selected = document.querySelector(`.lang-option[data-lang="${lang}"]`);
+        //     if (selected) {
+        //         toggleBtn.innerHTML = selected.innerHTML;
+        //     }
+        // }
 
-        function highlightSelected(lang) {
-            options.forEach(opt => {
-                opt.classList.toggle('selected', opt.dataset.lang === lang);
-            });
-        }
+        // function highlightSelected(lang) {
+        //     options.forEach(opt => {
+        //         opt.classList.toggle('selected', opt.dataset.lang === lang);
+        //     });
+        // }
 
         // 计算仓库基路径，如：/ApolloPT-website/
         function getBasePath() {
