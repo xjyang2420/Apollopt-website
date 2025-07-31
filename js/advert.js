@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let current = slides.findIndex(s => s.classList.contains('is-active'));
     if (current === -1) current = 0, slides[0]?.classList.add('is-active');
 
+    const cur = document.querySelector('.ad-slide.is-active');
+    const isVideo = cur?.dataset.type === 'video';
+    document.documentElement.style.setProperty('--search-extra-offset', isVideo ? '0px' : '32px');
+
     function isVisible(el) {
         if (!el) return false;
         const cs = getComputedStyle(el);
@@ -81,11 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.add('transparent');
             mobileMenu.classList.add('video-mode');
             navToggle.classList.add('white-bars');
+
+            document.documentElement.style.setProperty('--search-extra-offset', '0px');
         } else {
             hero.classList.remove('is-video-on');
             navbar.classList.remove('transparent');
             mobileMenu.classList.remove('video-mode');
             navToggle.classList.remove('white-bars');
+
+            document.documentElement.style.setProperty('--search-extra-offset', '32px');
         }
         requestAnimationFrame(() => syncHeaderOffset());
         window.__afterHeaderModeChanged && window.__afterHeaderModeChanged();
@@ -197,15 +205,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (compact) {
             navToggle.classList.add('white-bars');
             mobileMenu.classList.remove('video-mode');
+            root.style.setProperty('--search-extra-offset', '32px');
         } else {
 
             const currentSlide = document.querySelector('.ad-slide.is-active');
             if (currentSlide?.dataset.type === 'video') {
                 navToggle.classList.add('white-bars');
                 mobileMenu.classList.add('video-mode');
+                root.style.setProperty('--search-extra-offset', '0px');
             } else {
                 navToggle.classList.remove('white-bars');
                 mobileMenu.classList.remove('video-mode');
+                root.style.setProperty('--search-extra-offset', '32px');
             }
         }
 
