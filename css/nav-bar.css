@@ -20,7 +20,8 @@
     --fz-menu-list: clamp(0.9rem, 1.4vw, 1.1rem);
     --fz-small: .875rem;
     --topbar-height: 2rem;
-    --navbar-height: 4.25rem
+    --navbar-height: 4.25rem;
+    --header-offset: calc(var(--topbar-height) + var(--navbar-height));
 }
 
 *,
@@ -1334,6 +1335,7 @@ html {
     }
 
     .search-form input {
+        flex: 1 1 auto;
         width: 100%;
         font-size: 1rem;
     }
