@@ -22,6 +22,7 @@
     --topbar-height: 2rem;
     --navbar-height: 4.25rem;
     --header-offset: calc(var(--topbar-height) + var(--navbar-height));
+    --search-extra-offset: 0px;
 }
 
 *,
@@ -1317,7 +1318,7 @@ html {
 @media (max-width: 768px) {
     .search-form {
         position: fixed;
-        top: var(--navbar-height);
+        top: calc(var(--navbar-height) + var(--search-extra-offset));
         margin: 0 auto;
         left: 0;
         right: 0;
