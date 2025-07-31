@@ -285,13 +285,13 @@ document.addEventListener('DOMContentLoaded', () => {
         langToggle.setAttribute('aria-expanded', !isOpen);
     });
 
-    document.querySelectorAll('.lang-option').forEach(option => {
-        option.addEventListener('click', () => {
-            const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
-            const next = buildTargetPath(targetLang);
-            if (next) location.href = next;
-        });
-    });
+    // document.querySelectorAll('.lang-option').forEach(option => {
+    //     option.addEventListener('click', () => {
+    //         const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
+    //         const next = buildTargetPath(targetLang);
+    //         if (next) location.href = next;
+    //     });
+    // });
 
     document.addEventListener('click', () => {
         langDropdown.classList.remove('visible');
