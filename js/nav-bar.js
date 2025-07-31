@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const subpageHero = document.querySelector('.subpage-hero');
     const navMenu = document.getElementById('nav-menu');
-
+    
     const root = document.documentElement;
     const setVar = (k, v) => root.style.setProperty(k, v);
     function syncNavbarHeight() {
-        const h = document.querySelector('.navbar')?.offsetHeight || 0;
+        const h = document.querySelector('.navbar')?.offsetHeight || 60;
         setVar('--navbar-height', h + 'px');
     }
 
@@ -126,9 +126,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchToggle.addEventListener('click', e => {
         e.stopPropagation();
+
+        const showing = !searchForm.classList.contains('hidden');
         searchForm.classList.toggle('hidden');
         searchForm.classList.toggle('fade-in');
+
+        if (!showing) {
+            searchInput.focus();
+
+            // 滚动逻辑（只在小屏幕触发）
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    const rect = searchForm.getBoundingClientRect();
+                    const offsetTop = window.scrollY + rect.top - 60; // 可根据 navbar 高度调整
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }, 100); // 延迟让样式先渲染
+            }
+        }
+
         if (!searchForm.classList.contains('hidden')) {
+            // const navbar = document.querySelector('.navbar');
+            // const navRect = navbar.getBoundingClientRect();
+            // const offsetTop = window.scrollY + navRect.bottom;
+            // searchForm.style.top = `${offsetTop}px`;
             searchInput.focus();
             renderHistorySuggestions();
         }
@@ -247,12 +267,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function closeSearch() {
-        searchForm.classList.remove('fade-in');
-        setTimeout(() => searchForm.classList.add('hidden'), 200);
-        suggestions.style.display = 'none';
-        selIdx = -1;
-    }
+    // function closeSearch() {
+    //     searchForm.classList.remove('fade-in');
+    //     setTimeout(() => searchForm.classList.add('hidden'), 200);
+    //     suggestions.style.display = 'none';
+    //     selIdx = -1;
+    // }
 
     const langToggle = document.getElementById('lang-toggle');
     const langDropdown = document.getElementById('lang-dropdown');
@@ -265,13 +285,13 @@ document.addEventListener('DOMContentLoaded', () => {
         langToggle.setAttribute('aria-expanded', !isOpen);
     });
 
-    document.querySelectorAll('.lang-option').forEach(option => {
-        option.addEventListener('click', () => {
-            const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
-            const next = buildTargetPath(targetLang);
-            if (next) location.href = next;
-        });
-    });
+    // document.querySelectorAll('.lang-option').forEach(option => {
+    //     option.addEventListener('click', () => {
+    //         const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
+    //         const next = buildTargetPath(targetLang);
+    //         if (next) location.href = next;
+    //     });
+    // });
 
     document.addEventListener('click', () => {
         langDropdown.classList.remove('visible');

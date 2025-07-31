@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
         bars = [...pagination.querySelectorAll('.bar')];
     }
 
+    function syncNavbarHeightVar() {
+        const h = document.querySelector('.navbar')?.offsetHeight || 60;
+        document.documentElement.style.setProperty('--navbar-height', h + 'px');
+    }
+
+
     function setNavbarForSlide(idx) {
         const type = slides[idx].dataset.type;
         if (type === 'video') {
@@ -58,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenu.classList.remove('video-mode');
             navToggle.classList.remove('white-bars');
         }
+        syncNavbarHeightVar();
     }
 
     function go(next, byUser = false) {
@@ -150,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             navToggle.classList.add('white-bars');
             mobileMenu.classList.remove('video-mode');
         } else {
-            
+
             const currentSlide = document.querySelector('.ad-slide.is-active');
             if (currentSlide?.dataset.type === 'video') {
                 navToggle.classList.add('white-bars');
