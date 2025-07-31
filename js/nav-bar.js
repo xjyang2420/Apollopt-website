@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const subpageHero = document.querySelector('.subpage-hero');
     const navMenu = document.getElementById('nav-menu');
-    
+
     const root = document.documentElement;
     const setVar = (k, v) => root.style.setProperty(k, v);
     function syncNavbarHeight() {
@@ -280,6 +280,26 @@ document.addEventListener('DOMContentLoaded', () => {
     langToggle.addEventListener('click', e => {
         e.stopPropagation();
         langDropdown.classList.toggle('visible');
+    });
+
+    // 点击页面其他地方时关闭语言菜单
+    document.addEventListener('click', (e) => {
+        const langToggle = document.getElementById('lang-toggle');
+        const langDropdown = document.getElementById('lang-dropdown');
+
+        if (
+            langDropdown.classList.contains('visible') &&
+            !langDropdown.contains(e.target) &&
+            !langToggle.contains(e.target)
+        ) {
+            langDropdown.classList.remove('visible');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            langDropdown.classList.remove('visible');
+        }
     });
 
     // langToggle.addEventListener('click', (e) => {
