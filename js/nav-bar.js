@@ -140,15 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const rect = searchForm.getBoundingClientRect();
                     const offsetTop = window.scrollY + rect.top - 60; // 可根据 navbar 高度调整
                     window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                }, 100); // 延迟让样式先渲染
+                }, 100);
             }
         }
 
         if (!searchForm.classList.contains('hidden')) {
-            // const navbar = document.querySelector('.navbar');
-            // const navRect = navbar.getBoundingClientRect();
-            // const offsetTop = window.scrollY + navRect.bottom;
-            // searchForm.style.top = `${offsetTop}px`;
             searchInput.focus();
             renderHistorySuggestions();
         }
@@ -583,19 +579,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 location.href = next;             // 例如：/ApolloPT-website/zh/index.html
             });
 
-            // const suffix = location.search + location.hash;
-            // location.href = next + suffix;
+            const suffix = location.search + location.hash;
+            location.href = next + suffix;
             window.scrollTo(0, 0);
         });
 
         // updateToggleDisplay(currentLang);
         // highlightSelected(currentLang)
     })();
-
-    document.querySelectorAll('.lang-option').forEach(li => {
-        li.classList.toggle('selected', li.dataset.lang === currentLang);
-    });
-
 
     // Highlight current page nav
     const currentPath = window.location.pathname.split("/").pop();
@@ -616,20 +607,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // window.addEventListener('scroll', () => {
-    //     backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
-    // });
-
-    // // Shrink navbar on scroll
-    // window.addEventListener('scroll', () => {
-    //     navbar.classList.toggle('scrolled', window.scrollY > 10);
-    // });
-
-    // document.querySelectorAll('.top-bar, .navbar').forEach(el => {
-    //     el.addEventListener('animationend', () => {
-    //         el.style.transform = 'none';
-    //     }, { once: true });
-    // });
     function updateBackToTop() {
         if (window.scrollY > 300) {
             if (!backToTop.classList.contains('show')) {
@@ -647,7 +624,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
+    
+    updateBackToTop();
     window.addEventListener('load', updateBackToTop);
     window.addEventListener('scroll', updateBackToTop);
 
