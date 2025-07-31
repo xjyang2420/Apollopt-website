@@ -93,8 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.querySelector('.search-form');
     const searchInput = document.getElementById('search-input');
     const suggestions = document.getElementById('suggestions-list');
-    const langSelector = document.getElementById('lang-selector');
-    const langOptions = document.querySelectorAll('.lang-option')
 
     document.addEventListener('click', (e) => {
         if (!searchForm.contains(e.target) && !searchToggle.contains(e.target)) {
@@ -119,102 +117,65 @@ document.addEventListener('DOMContentLoaded', () => {
     //     langToggle.setAttribute('aria-expanded', 'false');
     // });
 
-    const keywords = {
-        en: ['Pulley', 'Taper Bush', 'Gearbox', 'Motor', 'Coupling', 'Bearing', 'Catalog', 'Support', 'Powertrain', 'Machinery'],
-        zh: ['皮带轮', '锥套', '齿轮箱', '电机', '联轴器', '轴承', '产品目录', '技术支持', '动力传动', '机械']
-    };
-    let currentLang = 'en';
+    const keywords = [
+        'Pulley', 'Taper Bush', 'Gearbox', 'Motor', 'Coupling', 'Bearing', 'Catalog', 'Support', 'Powertrain', 'Machinery',
+        '皮带轮', '锥套', '齿轮箱', '电机', '联轴器', '轴承', '目录', '支持', '传动系统', '机械'
+    ];
+
     let selIdx = -1;
 
-    const historyKey = 'apollo-search-history';
-    const maxHistory = 5;
-
-    function getHistory(lang) {
-        const all = JSON.parse(localStorage.getItem(historyKey) || '{}');
-        return all[lang] || [];
-    }
-
-    function saveHistory(lang, keyword) {
-        const all = JSON.parse(localStorage.getItem(historyKey) || '{}');
-        const list = all[lang] || [];
-        if (!list.includes(keyword)) list.unshift(keyword);
-        all[lang] = list.slice(0, maxHistory);
-        localStorage.setItem(historyKey, JSON.stringify(all));
-    }
-
-    function updateSuggestions(value) {
-        const val = value.trim().toLowerCase();
-        let matched = [];
-
-        if (val) {
-            matched = keywords[currentLang].filter(k => k.toLowerCase().includes(val));
-        } else {
-            matched = getHistory(currentLang);
-        }
-
-        if (!matched.length) {
-            suggestions.style.display = 'none';
-            return;
-        }
-
-        suggestions.innerHTML = matched.map(k => `
-            <li>${k.replace(new RegExp(val, 'gi'), m => `<span class="highlight">${m}</span>`)}</li>
-        `).join('');
-        suggestions.style.display = 'block';
-        selIdx = -1;
-        updateActive();
-    }
-
-    function updateActive() {
-        [...suggestions.children].forEach((li, i) => li.classList.toggle('active', i === selIdx));
-    }
-
-    searchInput.addEventListener('input', () => updateSuggestions(searchInput.value));
-
-    searchToggle.addEventListener('click', (e) => {
+    searchToggle.addEventListener('click', e => {
         e.stopPropagation();
-        const isHidden = searchForm.classList.contains('hidden');
-        if (isHidden) {
-            searchForm.classList.remove('hidden');
-            setTimeout(() => searchForm.classList.add('fade-in'), 10);
+        searchForm.classList.toggle('hidden');
+        searchForm.classList.toggle('fade-in');
+        if (!searchForm.classList.contains('hidden')) {
             searchInput.focus();
-        } else {
-            searchForm.classList.remove('fade-in');
-            setTimeout(() => searchForm.classList.add('hidden'), 200);
+            renderHistorySuggestions();
         }
     });
 
+    // 点击外部关闭
+    document.addEventListener('click', e => {
+        if (!searchForm.contains(e.target) && !searchToggle.contains(e.target)) {
+            closeSearch();
+        }
+    });
+
+    // ESC 关闭
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeSearch();
+    });
+
+    function closeSearch() {
+        searchForm.classList.add('hidden');
+        searchForm.classList.remove('fade-in');
+        suggestions.style.display = 'none';
+        selIdx = -1;
+    }
+
+    // 关键词模糊匹配（带高亮）
     searchInput.addEventListener('input', () => {
         const v = searchInput.value.trim().toLowerCase();
         if (!v) {
-            suggestions.style.display = 'none';
-            return
+            renderHistorySuggestions();
+            return;
         }
         const list = keywords.filter(k => k.toLowerCase().includes(v));
         if (!list.length) {
             suggestions.style.display = 'none';
-            return
+            return;
         }
         suggestions.innerHTML = list.map(k =>
-            `<li>${k.replace(new RegExp(v, 'gi'), m => `<span class=\"highlight\">${m}</span>`)}</li>`
+            `<li>${k.replace(new RegExp(v, 'gi'), m => `<span class="highlight">${m}</span>`)}</li>`
         ).join('');
         suggestions.style.display = 'block';
         selIdx = -1;
         updateActive();
     });
 
-    suggestions.addEventListener('click', e => {
-        if (e.target.tagName === 'LI') {
-            searchInput.value = e.target.textContent;
-            suggestions.style.display = 'none';
-            searchForm.submit();
-        }
-    });
-
+    // 键盘导航 + 选择
     searchInput.addEventListener('keydown', e => {
         const items = [...suggestions.children];
-        if (suggestions.style.display !== 'block' || !items.length) return;
-
         if (e.key === 'ArrowDown') {
             e.preventDefault();
             selIdx = (selIdx + 1) % items.length;
@@ -224,38 +185,51 @@ document.addEventListener('DOMContentLoaded', () => {
             selIdx = (selIdx - 1 + items.length) % items.length;
             updateActive();
         } else if (e.key === 'Enter') {
-            // if (selIdx >= 0) {
-            //     searchInput.value = items[selIdx].textContent;
-            // }
-            // suggestions.style.display = 'none';
-            // searchForm.submit();
             e.preventDefault();
-            const value = selIdx >= 0 ? items[selIdx].textContent : searchInput.value.trim();
-            if (value) {
-                saveHistory(currentLang, value);
-                window.location.href = `search.html?q=${encodeURIComponent(value)}`;
+            if (selIdx >= 0 && items[selIdx]) {
+                searchInput.value = items[selIdx].textContent;
             }
+            saveHistory(searchInput.value.trim());
             suggestions.style.display = 'none';
+            searchForm.submit();
         }
     });
 
     suggestions.addEventListener('click', e => {
         if (e.target.tagName === 'LI') {
-            const keyword = e.target.textContent.trim();
-            searchInput.value = keyword;
-            saveHistory(currentLang, keyword);
-            window.location.href = `search.html?q=${encodeURIComponent(keyword)}`;
+            searchInput.value = e.target.textContent;
+            saveHistory(searchInput.value.trim());
+            suggestions.style.display = 'none';
+            searchForm.submit();
         }
     });
 
-    langOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            langOptions.forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            currentLang = option.dataset.lang;
-            updateSuggestions(searchInput.value);
-        });
-    });
+    function updateActive() {
+        [...suggestions.children].forEach((li, i) =>
+            li.classList.toggle('active', i === selIdx)
+        );
+    }
+
+    // 本地历史缓存
+    function saveHistory(term) {
+        if (!term) return;
+        let history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+        history = [term, ...history.filter(h => h !== term)];
+        if (history.length > 10) history = history.slice(0, 10);
+        localStorage.setItem('searchHistory', JSON.stringify(history));
+    }
+
+    function renderHistorySuggestions() {
+        const history = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+        if (!history.length) {
+            suggestions.style.display = 'none';
+            return;
+        }
+        suggestions.innerHTML = history.map(h => `<li>${h}</li>`).join('');
+        suggestions.style.display = 'block';
+        selIdx = -1;
+        updateActive();
+    }
 
     function updateActive() {
         [...suggestions.children].forEach((li, i) => li.classList.toggle('active', i === selIdx));
@@ -479,7 +453,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // 语言切换（自动适配 GitHub Pages 项目路径）
     (function setupLangSwitch() {
         const options = document.querySelectorAll('.lang-option');
-        if (!options.length) return;
+        const toggleBtn = document.getElementById('lang-toggle');
+        if (!options.length || !toggleBtn) return;
+
+        const currentLang = location.pathname.includes('/zh/') ? 'zh' : 'en';
+
+        function updateToggleDisplay(lang) {
+            const selected = document.querySelector(`.lang-option[data-lang="${lang}"]`);
+            if (selected) {
+                toggleBtn.innerHTML = selected.innerHTML;
+            }
+        }
+
+        function highlightSelected(lang) {
+            options.forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.lang === lang);
+            });
+        }
 
         // 计算仓库基路径，如：/ApolloPT-website/
         function getBasePath() {
@@ -527,12 +517,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!next) return;                // 已在目标语言，忽略
                 location.href = next;             // 例如：/ApolloPT-website/zh/index.html
             });
-        });
-        
-        location.href = next + location.search + location.hash;
-        window.scrollTo(0, 0);
 
+            const suffix = location.search + location.hash;
+            location.href = next + suffix;
+            window.scrollTo(0, 0);
+        });
+
+        updateToggleDisplay(currentLang);
+        highlightSelected(currentLang)
     })();
+
+    document.querySelectorAll('.lang-option').forEach(li => {
+        li.classList.toggle('selected', li.dataset.lang === currentLang);
+    });
+
 
     // Highlight current page nav
     const currentPath = window.location.pathname.split("/").pop();
