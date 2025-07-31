@@ -94,47 +94,114 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const suggestions = document.getElementById('suggestions-list');
 
-    searchToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        searchForm.classList.toggle('hidden');
-        searchForm.classList.toggle('fade-in');
-        if (!searchForm.classList.contains('hidden')) searchInput.focus();
+    document.addEventListener('click', (e) => {
+        if (!searchForm.contains(e.target) && !searchToggle.contains(e.target)) {
+            searchForm.classList.remove('fade-in');
+            setTimeout(() => searchForm.classList.add('hidden'), 200);
+            suggestions.style.display = 'none';
+        }
     });
 
-    document.addEventListener('click', () => closeSearch());
-    document.addEventListener('keydown', e => e.key === 'Escape' && closeSearch());
-
-    document.addEventListener('click', () => {
-        searchForm.classList.add('hidden');
-        searchForm.classList.remove('fade-in');
-        suggestions.style.display = 'none';
-        selIdx = -1;
-        langDropdown.classList.remove('visible');
-        langToggle.setAttribute('aria-expanded', 'false');
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            searchForm.classList.remove('fade-in');
+            setTimeout(() => searchForm.classList.add('hidden'), 200);
+            suggestions.style.display = 'none';
+        }
     });
+
+    // document.addEventListener('click', () => {
+    //     suggestions.style.display = 'none';
+    //     selIdx = -1;
+    //     langDropdown.classList.remove('visible');
+    //     langToggle.setAttribute('aria-expanded', 'false');
+    // });
 
     const keywords = ['Pulley', 'Taper Bush', 'gearbox', 'motor', 'coupling', 'bearing', 'catalog', 'support', 'powertrain', 'machinery'];
     let selIdx = -1;
+
+    searchToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = searchForm.classList.contains('hidden');
+        if (isHidden) {
+            searchForm.classList.remove('hidden');
+            setTimeout(() => searchForm.classList.add('fade-in'), 10);
+            searchInput.focus();
+        } else {
+            searchForm.classList.remove('fade-in');
+            setTimeout(() => searchForm.classList.add('hidden'), 200);
+        }
+    });
+
     searchInput.addEventListener('input', () => {
         const v = searchInput.value.trim().toLowerCase();
-        if (!v) { suggestions.style.display = 'none'; return }
-        const list = keywords.filter(k => k.includes(v));
-        if (!list.length) { suggestions.style.display = 'none'; return }
-        suggestions.innerHTML = list.map(k => `<li>${k.replace(new RegExp(v, 'gi'), m => `<span class=\"highlight\">${m}</span>`)}</li>`).join('');
-        suggestions.style.display = 'block'; selIdx = -1; updateActive();
+        if (!v) {
+            suggestions.style.display = 'none';
+            return
+        }
+        const list = keywords.filter(k => k.toLowerCase().includes(v));
+        if (!list.length) {
+            suggestions.style.display = 'none';
+            return
+        }
+        suggestions.innerHTML = list.map(k =>
+            `<li>${k.replace(new RegExp(v, 'gi'), m => `<span class=\"highlight\">${m}</span>`)}</li>`
+        ).join('');
+        suggestions.style.display = 'block';
+        selIdx = -1;
+        updateActive();
     });
+
     suggestions.addEventListener('click', e => {
-        if (e.target.tagName === 'LI') { searchInput.value = e.target.textContent; suggestions.style.display = 'none'; }
+        if (e.target.tagName === 'LI') {
+            searchInput.value = e.target.textContent;
+            suggestions.style.display = 'none';
+            searchForm.submit();
+        }
     });
+
     searchInput.addEventListener('keydown', e => {
-        if (suggestions.style.display !== 'block') return;
         const items = [...suggestions.children];
-        if (e.key === 'ArrowDown') { e.preventDefault(); selIdx = (selIdx + 1) % items.length; updateActive(); }
-        else if (e.key === 'ArrowUp') { e.preventDefault(); selIdx = (selIdx - 1 + items.length) % items.length; updateActive(); }
-        else if (e.key === 'Enter') { if (selIdx >= 0) { searchInput.value = items[selIdx].textContent; suggestions.style.display = 'none'; } }
+        if (suggestions.style.display !== 'block' || !items.length) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selIdx = (selIdx + 1) % items.length;
+            updateActive();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selIdx = (selIdx - 1 + items.length) % items.length;
+            updateActive();
+        } else if (e.key === 'Enter') {
+            if (selIdx >= 0) {
+                searchInput.value = items[selIdx].textContent;
+            }
+            suggestions.style.display = 'none';
+            searchForm.submit();
+        }
     });
+
     function updateActive() {
         [...suggestions.children].forEach((li, i) => li.classList.toggle('active', i === selIdx));
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!searchForm.contains(e.target) && !searchToggle.contains(e.target)) {
+            closeSearch();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeSearch();
+        }
+    });
+
+    function closeSearch() {
+        searchForm.classList.remove('fade-in');
+        setTimeout(() => searchForm.classList.add('hidden'), 200);
+        suggestions.style.display = 'none';
+        selIdx = -1;
     }
 
     const langToggle = document.getElementById('lang-toggle');
@@ -433,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 backToTop.classList.add('hide');
                 setTimeout(() => {
                     backToTop.style.display = 'none';
-                }, 400); 
+                }, 400);
             }
         }
     }

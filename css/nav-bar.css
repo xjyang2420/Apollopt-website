@@ -603,7 +603,7 @@ html {
     position: absolute;
     top: 160%;
     right: 0;
-    transform: translate(-50%, -20%) scale(.9);
+    transform: translate(0, -20%) scale(.9);
     transform-origin: top right;
     display: flex;
     align-items: center;
@@ -725,7 +725,7 @@ html {
     background-color: #f0f8ff;
 }
 
-.highlight {
+.suggestions-list li .highlight {
     font-weight: bold;
     color: #4a90e2;
 }
@@ -1258,11 +1258,11 @@ html {
     }
 
     .top-bar-link {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .top-bar-link i {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .navbar .logo-sub {
