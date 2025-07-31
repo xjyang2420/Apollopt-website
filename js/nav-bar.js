@@ -126,8 +126,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchToggle.addEventListener('click', e => {
         e.stopPropagation();
+
+        const showing = !searchForm.classList.contains('hidden');
         searchForm.classList.toggle('hidden');
         searchForm.classList.toggle('fade-in');
+
+        if (!showing) {
+            searchInput.focus();
+
+            // 滚动逻辑（只在小屏幕触发）
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    const rect = searchForm.getBoundingClientRect();
+                    const offsetTop = window.scrollY + rect.top - 60; // 可根据 navbar 高度调整
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }, 100); // 延迟让样式先渲染
+            }
+        }
+
         if (!searchForm.classList.contains('hidden')) {
             searchInput.focus();
             renderHistorySuggestions();
@@ -247,12 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function closeSearch() {
-        searchForm.classList.remove('fade-in');
-        setTimeout(() => searchForm.classList.add('hidden'), 200);
-        suggestions.style.display = 'none';
-        selIdx = -1;
-    }
+    // function closeSearch() {
+    //     searchForm.classList.remove('fade-in');
+    //     setTimeout(() => searchForm.classList.add('hidden'), 200);
+    //     suggestions.style.display = 'none';
+    //     selIdx = -1;
+    // }
 
     const langToggle = document.getElementById('lang-toggle');
     const langDropdown = document.getElementById('lang-dropdown');
