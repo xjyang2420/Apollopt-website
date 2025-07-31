@@ -517,20 +517,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggleBtn = document.getElementById('lang-toggle');
         if (!options.length) return;
 
-        // const currentLang = location.pathname.includes('/zh/') ? 'zh' : 'en';
+        const currentLang = location.pathname.includes('/zh/') ? 'zh' : 'en';
 
-        // function updateToggleDisplay(lang) {
-        //     const selected = document.querySelector(`.lang-option[data-lang="${lang}"]`);
-        //     if (selected) {
-        //         toggleBtn.innerHTML = selected.innerHTML;
-        //     }
-        // }
+        function updateToggleDisplay(lang) {
+            const selected = document.querySelector(`.lang-option[data-lang="${lang}"]`);
+            if (selected) {
+                toggleBtn.innerHTML = selected.innerHTML;
+            }
+        }
 
-        // function highlightSelected(lang) {
-        //     options.forEach(opt => {
-        //         opt.classList.toggle('selected', opt.dataset.lang === lang);
-        //     });
-        // }
+        function highlightSelected(lang) {
+            options.forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.lang === lang);
+            });
+        }
+
+        updateToggleDisplay(currentLang);
+        highlightSelected(currentLang)
 
         // 计算仓库基路径，如：/ApolloPT-website/
         function getBasePath() {
@@ -577,15 +580,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 const next = buildTargetPath(targetLang);
                 if (!next) return;                // 已在目标语言，忽略
                 location.href = next;             // 例如：/ApolloPT-website/zh/index.html
+                const suffix = location.search + location.hash;
+                location.href = next + suffix;
             });
-
-            // const suffix = location.search + location.hash;
-            // location.href = next + suffix;
             window.scrollTo(0, 0);
         });
 
-        // updateToggleDisplay(currentLang);
-        // highlightSelected(currentLang)
+        toggleBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            dropdown.classList.toggle('visible');
+            toggleBtn.setAttribute('aria-expanded', dropdown.classList.contains('visible'));
+        });
+
+        document.addEventListener('click', () => {
+            dropdown.classList.remove('visible');
+            toggleBtn.setAttribute('aria-expanded', 'false');
+        });
+
     })();
 
     // Highlight current page nav
@@ -624,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    
+
     updateBackToTop();
     window.addEventListener('load', updateBackToTop);
     window.addEventListener('scroll', updateBackToTop);
