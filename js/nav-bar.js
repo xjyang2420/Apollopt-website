@@ -145,6 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!searchForm.classList.contains('hidden')) {
+            // const navbar = document.querySelector('.navbar');
+            // const navRect = navbar.getBoundingClientRect();
+            // const offsetTop = window.scrollY + navRect.bottom;
+            // searchForm.style.top = `${offsetTop}px`;
             searchInput.focus();
             renderHistorySuggestions();
         }
