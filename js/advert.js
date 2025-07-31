@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const spacer = document.getElementById('header-spacer');
     const mobileMenu = document.querySelector('.mobile-menu');
     const navToggle = document.querySelector('.nav-toggle');
+    const root = document.documentElement;
 
     // function applyTopbarHeight() {
     //     const h = topbar ? topbar.offsetHeight : 0;
@@ -31,6 +32,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let current = slides.findIndex(s => s.classList.contains('is-active'));
     if (current === -1) current = 0, slides[0]?.classList.add('is-active');
 
+    function isVisible(el) {
+        if (!el) return false;
+        const cs = getComputedStyle(el);
+        return cs.display !== 'none' && cs.visibility !== 'hidden' && !el.classList.contains('hidden');
+    }
+
+    function syncHeaderOffset() {
+        const th = isVisible(topbar) ? (topbar.offsetHeight || 0) : 0;
+        const nh = navbar ? (navbar.offsetHeight || 0) : 0;
+
+        root.style.setProperty('--topbar-height', th + 'px');
+        root.style.setProperty('--navbar-height', nh + 'px');
+        root.style.setProperty('--header-offset', (th + nh) + 'px');
+    }
+
+    syncHeaderOffset();
+    if (topbar) new ResizeObserver(syncHeaderOffset).observe(topbar);
+    if (navbar) new ResizeObserver(syncHeaderOffset).observe(navbar);
+    window.addEventListener('resize', syncHeaderOffset);
+
+    window.__syncHeaderOffset = syncHeaderOffset;
+
 
     let bars = [];
     if (pagination) {
@@ -45,10 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
         bars = [...pagination.querySelectorAll('.bar')];
     }
 
-    function syncNavbarHeightVar() {
-        const h = document.querySelector('.navbar')?.offsetHeight || 60;
-        document.documentElement.style.setProperty('--navbar-height', h + 'px');
-    }
+    // function syncNavbarHeightVar() {
+    //     const h = document.querySelector('.navbar')?.offsetHeight || 60;
+    //     document.documentElement.style.setProperty('--navbar-height', h + 'px');
+    // }
 
 
     function setNavbarForSlide(idx) {
@@ -64,7 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenu.classList.remove('video-mode');
             navToggle.classList.remove('white-bars');
         }
-        syncNavbarHeightVar();
+        requestAnimationFrame(() => syncHeaderOffset());
+        window.__afterHeaderModeChanged && window.__afterHeaderModeChanged();
     }
 
     function go(next, byUser = false) {
@@ -86,10 +110,26 @@ document.addEventListener('DOMContentLoaded', () => {
         setNavbarForSlide(current);
 
         const s = slides[current];
+        // if (s.dataset.type === 'video') {
+        //     const v = s.querySelector('video');
+        //     if (v) {
+        //         try { v.currentTime = 0; v.play(); } catch (e) { }
+        //         const onEnded = () => {
+        //             v.removeEventListener('ended', onEnded);
+        //             go((current + 1) % slides.length);
+        //         };
+        //         v.addEventListener('ended', onEnded);
+        //     }
+        // } else {
+        //     timer = setTimeout(() => go((current + 1) % slides.length), IMAGE_DURATION);
+        // }
         if (s.dataset.type === 'video') {
             const v = s.querySelector('video');
             if (v) {
                 try { v.currentTime = 0; v.play(); } catch (e) { }
+                const syncOnce = () => { syncHeaderOffset(); v.removeEventListener('loadedmetadata', syncOnce); };
+                v.addEventListener('loadedmetadata', syncOnce);
+
                 const onEnded = () => {
                     v.removeEventListener('ended', onEnded);
                     go((current + 1) % slides.length);
@@ -106,15 +146,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     go(current);
 
-    let heroHeight = hero ? hero.offsetHeight : 0;
+    // let heroHeight = hero ? hero.offsetHeight : 0;
 
-    function updateHeroHeight() {
-        heroHeight = hero ? hero.offsetHeight : 0;
-    }
-    updateHeroHeight();
-    const roHero = new ResizeObserver(updateHeroHeight);
-    if (hero) roHero.observe(hero);
-    window.addEventListener('resize', updateHeroHeight);
+    // function updateHeroHeight() {
+    //     heroHeight = hero ? hero.offsetHeight : 0;
+    // }
+    // updateHeroHeight();
+    // const roHero = new ResizeObserver(updateHeroHeight);
+    // if (hero) roHero.observe(hero);
+    // window.addEventListener('resize', updateHeroHeight);
 
     const STICKY_THRESHOLD = 500;
 
@@ -136,13 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // }
     // window.addEventListener('scroll', onScroll, { passive: true });
     // onScroll();
-    const setVar = (k, v) => document.documentElement.style.setProperty(k, v);
 
-    function syncHeights() {
-        const topbarVisible = topbar && !topbar.classList.contains('hidden');
-        const th = topbar ? topbar.offsetHeight : 0;
-        setVar('--topbar-height', th + 'px');
-    }
+    // const setVar = (k, v) => document.documentElement.style.setProperty(k, v);
+
+    // function syncHeights() {
+    //     const topbarVisible = topbar && !topbar.classList.contains('hidden');
+    //     const th = topbar ? topbar.offsetHeight : 0;
+    //     setVar('--topbar-height', th + 'px');
+    // }
 
     function applyByScroll() {
         const y = window.scrollY || window.pageYOffset;
@@ -168,13 +209,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        syncHeights();
+        // syncHeights();
+        syncHeaderOffset();
+        window.__afterHeaderModeChanged && window.__afterHeaderModeChanged();
     }
 
-    syncHeights();
-    if (topbar) new ResizeObserver(syncHeights).observe(topbar);
-    if (navbar) new ResizeObserver(syncHeights).observe(navbar);
-    window.addEventListener('resize', syncHeights);
+    // syncHeights();
+    // if (topbar) new ResizeObserver(syncHeights).observe(topbar);
+    // if (navbar) new ResizeObserver(syncHeights).observe(navbar);
+    // window.addEventListener('resize', syncHeights);
 
     window.addEventListener('scroll', applyByScroll, { passive: true });
     applyByScroll();
