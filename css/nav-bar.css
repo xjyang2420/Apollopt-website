@@ -616,7 +616,7 @@ html {
     background: rgba(255, 255, 255, 0.5);
     box-shadow: var(--shadow);
     opacity: 0;
-    transition: opacity 0.3s var(--transition), transform 0.3s var(--transition);
+    transition: top 0.3s ease, opacity 0.3s ease;
     z-index: 20;
     color: #fa3803;
 }
