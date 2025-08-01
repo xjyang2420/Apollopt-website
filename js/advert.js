@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         topbar?.classList.toggle('hidden', compact);
         navbar?.classList.toggle('compact', compact);
         navbar?.classList.toggle('dark', compact);
+        navToggle?.classList.toggle('white-bars', compact);
         document.documentElement.classList.toggle('is-compact', compact);
 
         // updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
