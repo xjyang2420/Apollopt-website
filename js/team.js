@@ -14,12 +14,12 @@ const teamSwiper = new Swiper(".team-swiper", {
         1280: { slidesPerView: 6 },
         1024: { slidesPerView: 5 },
         768: { slidesPerView: 3 },
-        480: { slidesPerView: 1 },
+        480: { slidesPerView: 2 },
     },
 });
 
 // init AOS animations
-AOS.init({ duration: 800, once: true });
+// AOS.init({ duration: 800, once: true });
 
 document.addEventListener('DOMContentLoaded', () => {
   const els = document.querySelectorAll('[data-animate]');
@@ -44,5 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.2 });
 
   els.forEach(el => io.observe(el));
+
+  if (window.innerWidth <= 768) {
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('flipped');
+      });
+    });
+  }
 });
 
