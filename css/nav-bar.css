@@ -20,7 +20,9 @@
     --fz-menu-list: clamp(0.9rem, 1.4vw, 1.1rem);
     --fz-small: .875rem;
     --topbar-height: 2rem;
-    --navbar-height: 4.25rem
+    --navbar-height: 4.25rem;
+    --header-offset: calc(var(--topbar-height) + var(--navbar-height));
+    --search-extra-offset: 0px;
 }
 
 *,
@@ -45,14 +47,15 @@ html {
     padding-top: var(--topbar-height, 0px);
 }
 
-#content-spacer {
+/* #content-spacer {
     height: 0;
     transition: height .3s;
-}
+} */
 
-.is-compact #content-spacer {
+/* .is-compact #content-spacer {
     height: var(--navbar-height);
-}
+    height: 0;
+} */
 
 .site-header .container {
     width: 100%;
@@ -1222,14 +1225,14 @@ html {
         pointer-events: auto;
     }
 
-    #content-spacer {
+    /* #content-spacer {
         height: 0px !important;
     }
 
     #header.menu-open+#content-spacer {
-        height: auto !important;
+        height: 0 !important;
         display: none;
-    }
+    } */
 }
 
 @keyframes slideFadeIn {
@@ -1316,7 +1319,7 @@ html {
 @media (max-width: 768px) {
     .search-form {
         position: fixed;
-        top: var(--navbar-height);
+        top: calc(var(--navbar-height) - var(--search-extra-offset));
         margin: 0 auto;
         left: 0;
         right: 0;
@@ -1334,6 +1337,7 @@ html {
     }
 
     .search-form input {
+        flex: 1 1 auto;
         width: 100%;
         font-size: 1rem;
     }
