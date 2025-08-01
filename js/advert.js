@@ -1,244 +1,6 @@
-// document.addEventListener('DOMContentLoaded', () => {
-//     /* ====== HERO SLIDER ====== */
-//     const hero = document.getElementById('ad-hero');
-//     const slides = [...document.querySelectorAll('.ad-slide')];
-//     const adSlider = document.querySelector('.ad-slider');
-//     const navbar = document.querySelector('.navbar');
-//     const topbar = document.querySelector('.top-bar');
-//     const pagination = document.querySelector('.ad-hero-pagination');
-//     const btnPrev = document.querySelector('.hero-prev');
-//     const btnNext = document.querySelector('.hero-next');
-//     const spacer = document.getElementById('header-spacer');
-//     const mobileMenu = document.querySelector('.mobile-menu');
-//     const navToggle = document.querySelector('.nav-toggle');
-//     const root = document.documentElement;
-
-//     // function applyTopbarHeight() {
-//     //     const h = topbar ? topbar.offsetHeight : 0;
-//     //     document.documentElement.style.setProperty('--topbar-height', h + 'px');
-//     //     // if (navbar) navbar.style.top = h + 'px';
-//     //     // if (spacer) spacer.style.height = h + 'px';
-//     //     // if (adSlider) adSlider.style.marginTop = h + 'px';
-//     // }
-//     // applyTopbarHeight();
-//     // const roTop = new ResizeObserver(applyTopbarHeight);
-//     // if (topbar) roTop.observe(topbar);
-//     // window.addEventListener('resize', applyTopbarHeight);
-
-
-//     let timer = null;
-//     const IMAGE_DURATION = 5000; // 图片停留 5s（可调）
-
-//     let current = slides.findIndex(s => s.classList.contains('is-active'));
-//     if (current === -1) current = 0, slides[0]?.classList.add('is-active');
-
-//     const cur = document.querySelector('.ad-slide.is-active');
-//     const isVideo = cur?.dataset.type === 'video';
-//     document.documentElement.style.setProperty('--search-extra-offset', isVideo ? '0px' : '32px');
-
-//     function isVisible(el) {
-//         if (!el) return false;
-//         const cs = getComputedStyle(el);
-//         return cs.display !== 'none' && cs.visibility !== 'hidden' && !el.classList.contains('hidden');
-//     }
-
-//     function syncHeaderOffset() {
-//         const th = isVisible(topbar) ? (topbar.offsetHeight || 0) : 0;
-//         const nh = navbar ? (navbar.offsetHeight || 0) : 0;
-
-//         root.style.setProperty('--topbar-height', th + 'px');
-//         root.style.setProperty('--navbar-height', nh + 'px');
-//         root.style.setProperty('--header-offset', (th + nh) + 'px');
-//     }
-
-//     syncHeaderOffset();
-//     if (topbar) new ResizeObserver(syncHeaderOffset).observe(topbar);
-//     if (navbar) new ResizeObserver(syncHeaderOffset).observe(navbar);
-//     window.addEventListener('resize', syncHeaderOffset);
-
-//     window.__syncHeaderOffset = syncHeaderOffset;
-
-
-//     let bars = [];
-//     if (pagination) {
-//         pagination.innerHTML = '';
-//         slides.forEach((_, i) => {
-//             const bar = document.createElement('span');
-//             bar.className = 'bar' + (i === current ? ' active' : '');
-//             bar.dataset.index = i.toString();
-//             bar.addEventListener('click', () => go(i, true));
-//             pagination.appendChild(bar);
-//         });
-//         bars = [...pagination.querySelectorAll('.bar')];
-//     }
-
-//     // function syncNavbarHeightVar() {
-//     //     const h = document.querySelector('.navbar')?.offsetHeight || 60;
-//     //     document.documentElement.style.setProperty('--navbar-height', h + 'px');
-//     // }
-
-
-//     function setNavbarForSlide(idx) {
-//         const type = slides[idx].dataset.type;
-//         if (type === 'video') {
-//             hero.classList.add('is-video-on');
-//             navbar.classList.add('transparent');
-//             mobileMenu.classList.add('video-mode');
-//             navToggle.classList.add('white-bars');
-
-//             document.documentElement.style.setProperty('--search-extra-offset', '0px');
-//         } else {
-//             hero.classList.remove('is-video-on');
-//             navbar.classList.remove('transparent');
-//             mobileMenu.classList.remove('video-mode');
-//             navToggle.classList.remove('white-bars');
-
-//             document.documentElement.style.setProperty('--search-extra-offset', '32px');
-//         }
-//         requestAnimationFrame(() => syncHeaderOffset());
-//         window.__afterHeaderModeChanged && window.__afterHeaderModeChanged();
-//     }
-
-//     function go(next, byUser = false) {
-//         if (timer) clearTimeout(timer);
-
-//         const prev = current;
-
-//         slides[prev].classList.remove('is-active');
-//         slides[prev].setAttribute('aria-hidden', 'true');
-//         slides[next].classList.add('is-active');
-//         slides[next].setAttribute('aria-hidden', 'false');
-
-//         if (bars.length) {
-//             bars[prev].classList.remove('active');
-//             bars[next].classList.add('active');
-//         }
-
-//         current = next;
-//         setNavbarForSlide(current);
-
-//         const s = slides[current];
-//         // if (s.dataset.type === 'video') {
-//         //     const v = s.querySelector('video');
-//         //     if (v) {
-//         //         try { v.currentTime = 0; v.play(); } catch (e) { }
-//         //         const onEnded = () => {
-//         //             v.removeEventListener('ended', onEnded);
-//         //             go((current + 1) % slides.length);
-//         //         };
-//         //         v.addEventListener('ended', onEnded);
-//         //     }
-//         // } else {
-//         //     timer = setTimeout(() => go((current + 1) % slides.length), IMAGE_DURATION);
-//         // }
-//         if (s.dataset.type === 'video') {
-//             const v = s.querySelector('video');
-//             if (v) {
-//                 try { v.currentTime = 0; v.play(); } catch (e) { }
-//                 const syncOnce = () => { syncHeaderOffset(); v.removeEventListener('loadedmetadata', syncOnce); };
-//                 v.addEventListener('loadedmetadata', syncOnce);
-
-//                 const onEnded = () => {
-//                     v.removeEventListener('ended', onEnded);
-//                     go((current + 1) % slides.length);
-//                 };
-//                 v.addEventListener('ended', onEnded);
-//             }
-//         } else {
-//             timer = setTimeout(() => go((current + 1) % slides.length), IMAGE_DURATION);
-//         }
-//     }
-
-//     btnPrev?.addEventListener('click', () => go((current - 1 + slides.length) % slides.length, true));
-//     btnNext?.addEventListener('click', () => go((current + 1) % slides.length, true));
-
-//     go(current);
-
-//     // let heroHeight = hero ? hero.offsetHeight : 0;
-
-//     // function updateHeroHeight() {
-//     //     heroHeight = hero ? hero.offsetHeight : 0;
-//     // }
-//     // updateHeroHeight();
-//     // const roHero = new ResizeObserver(updateHeroHeight);
-//     // if (hero) roHero.observe(hero);
-//     // window.addEventListener('resize', updateHeroHeight);
-
-//     const STICKY_THRESHOLD = 500;
-
-//     // function setStuck(stuck) {
-//     //     if (stuck) {
-//     //         topbar?.classList.add('hidden');          
-//     //         navbar.classList.add('stuck', 'dark');    
-//     //         if (spacer) spacer.style.height = navbar.offsetHeight + 'px'; 
-//     //     } else {
-//     //         topbar?.classList.remove('hidden');
-//     //         navbar.classList.remove('stuck', 'dark');
-//     //         if (spacer) spacer.style.height = '0px';  
-//     //     }
-//     // }
-
-//     // function onScroll() {
-//     //     const y = window.scrollY || window.pageYOffset;
-//     //     setStuck(y > STICKY_THRESHOLD);
-//     // }
-//     // window.addEventListener('scroll', onScroll, { passive: true });
-//     // onScroll();
-
-//     // const setVar = (k, v) => document.documentElement.style.setProperty(k, v);
-
-//     // function syncHeights() {
-//     //     const topbarVisible = topbar && !topbar.classList.contains('hidden');
-//     //     const th = topbar ? topbar.offsetHeight : 0;
-//     //     setVar('--topbar-height', th + 'px');
-//     // }
-
-//     function applyByScroll() {
-//         const y = window.scrollY || window.pageYOffset;
-//         const compact = y > STICKY_THRESHOLD;
-
-//         topbar?.classList.toggle('hidden', compact);
-//         navbar?.classList.toggle('compact', compact);
-//         navbar?.classList.toggle('dark', compact);
-//         document.documentElement.classList.toggle('is-compact', compact);
-
-//         if (compact) {
-//             navToggle.classList.add('white-bars');
-//             mobileMenu.classList.remove('video-mode');
-//             root.style.setProperty('--search-extra-offset', '32px');
-//         } else {
-
-//             const currentSlide = document.querySelector('.ad-slide.is-active');
-//             if (currentSlide?.dataset.type === 'video') {
-//                 navToggle.classList.add('white-bars');
-//                 mobileMenu.classList.add('video-mode');
-//                 root.style.setProperty('--search-extra-offset', '0px');
-//             } else {
-//                 navToggle.classList.remove('white-bars');
-//                 mobileMenu.classList.remove('video-mode');
-//                 root.style.setProperty('--search-extra-offset', '32px');
-//             }
-//         }
-
-//         // syncHeights();
-//         syncHeaderOffset();
-//         window.__afterHeaderModeChanged && window.__afterHeaderModeChanged();
-//     }
-
-//     // syncHeights();
-//     // if (topbar) new ResizeObserver(syncHeights).observe(topbar);
-//     // if (navbar) new ResizeObserver(syncHeights).observe(navbar);
-//     // window.addEventListener('resize', syncHeights);
-
-//     window.addEventListener('scroll', applyByScroll, { passive: true });
-//     applyByScroll();
-
-// });
-
 document.addEventListener('DOMContentLoaded', () => {
     const hero = document.getElementById('ad-hero');
-
-    const slides = [...document.querySelectorAll('.ad-slide')];
+    const slides = hero ? [...document.querySelectorAll('.ad-slide')] : [];
     const navbar = document.querySelector('.navbar');
     const topbar = document.querySelector('.top-bar');
     const pagination = document.querySelector('.ad-hero-pagination');
@@ -267,11 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navbar) new ResizeObserver(syncHeaderOffset).observe(navbar);
     window.addEventListener('resize', syncHeaderOffset);
 
-
     let current = 0;
     let bars = [];
     let timer = null;
     const IMAGE_DURATION = 5000;
+
+    // 检查 search-form 是否正在显示
+    const isSearchOpen = () => {
+        const f = document.querySelector('.search-form');
+        return f && !f.classList.contains('hidden');
+    };
 
     if (hero && slides.length) {
         current = slides.findIndex(s => s.classList.contains('is-active'));
@@ -297,14 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 navbar?.classList.add('transparent');
                 mobileMenu?.classList.add('video-mode');
                 navToggle?.classList.add('white-bars');
-                setVar('--search-extra-offset', '0px');
+                if (!isSearchOpen()) {
+                    setVar('--search-extra-offset', '0px');
+                }
+                // setVar('--search-extra-offset', '32px');
             } else {
                 hero.classList.remove('is-video-on');
                 navbar?.classList.remove('transparent');
                 mobileMenu?.classList.remove('video-mode');
-                navToggle?.classList.remove('white-bars');
-                setVar('--search-extra-offset', '32px');
+                navToggle?.classList.remove('white-bars'); 
+                if (!isSearchOpen()) {
+                    setVar('--search-extra-offset', '32px');
+                }
+                // setVar('--search-extra-offset', '0px');
             }
+
             requestAnimationFrame(syncHeaderOffset);
         }
 
@@ -339,7 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btnNext?.addEventListener('click', () => go((current + 1) % slides.length));
         go(current);
     } else {
-        setVar('--search-extra-offset', '32px');
+        if (!isSearchOpen()) {
+            setVar('--search-extra-offset', '0px');
+        }
+        // setVar('--search-extra-offset', '32px');
     }
 
     const STICKY_THRESHOLD = 500;
@@ -354,13 +131,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (compact) {
             navToggle?.classList.add('white-bars');
             mobileMenu?.classList.remove('video-mode');
-            setVar('--search-extra-offset', '32px');
+            if (!isSearchOpen()) {
+                setVar('--search-extra-offset', '32px');
+            }
+            // setVar('--search-extra-offset', '32px');
         } else if (!hero) {
-            setVar('--search-extra-offset', '32px');
+            if (!isSearchOpen()) {
+                setVar('--search-extra-offset', '0px');
+            }
+            // setVar('--search-extra-offset', '32px');
         } else {
             const type = slides[current]?.dataset.type || 'image';
-            setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
+            if (!isSearchOpen()) {
+                setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
+            }
+            // setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
         }
+
         syncHeaderOffset();
     }
     window.addEventListener('scroll', applyByScroll, { passive: true });
