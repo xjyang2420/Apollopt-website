@@ -499,28 +499,3 @@
         display: none !important;
     }
 }
-
-/* 中等屏幕优化 */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .team-section .avatar {
-        width: 150px;
-        height: 150px;
-    }
-
-    .team-section .card-tooltip {
-        width: 220px;
-        height: 300px;
-    }
-
-    .team-section .card-content h3 {
-        font-size: 1.2rem;
-    }
-
-    .team-section .card-content .position {
-        font-size: 0.7rem;
-    }
-
-    .team-section .card-content p {
-        font-size: 1rem;
-    }
-}
