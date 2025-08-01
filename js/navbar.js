@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
     }
   }
-
   /* ========== 兜底/创建遮罩（若页面中没有 #menu-overlay） ========== */
   const overlay = document.getElementById('menu-overlay') || (() => {
     const d = document.createElement('div');
@@ -97,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const showing = !searchForm.classList.contains('hidden');
     searchForm.classList.toggle('hidden');
     searchForm.classList.toggle('fade-in');
-    
+
     const compact = document.documentElement.classList.contains('is-compact');
     updateSearchFormDarkClass(compact);
 
