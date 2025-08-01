@@ -103,18 +103,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!showing) {
       searchForceZero = true;
       setVar('--search-extra-offset', '0px');
-      searchInput?.focus();
+      updateSearchFormDarkClass(document.documentElement.classList.contains('is-compact'));
 
-      if (window.innerWidth <= 768) {
-        searchForm.style.transform = 'none';
-        setTimeout(() => {
+      requestAnimationFrame(() => {
+        searchForm.classList.remove('hidden');
+        searchForm.classList.add('fade-in');
+        searchInput?.focus();
+        renderHistorySuggestions();
+
+        // 可选：平滑滚动
+        if (window.innerWidth <= 768) {
+          searchForm.style.transform = 'none';
           const rect = searchForm.getBoundingClientRect();
           const offsetTop = window.scrollY + rect.top - 60;
           window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-        }, 80);
-      }
-      renderHistorySuggestions();
+        }
+      });
     } else {
+      searchForm.classList.add('hidden');
+      searchForm.classList.remove('fade-in');
       searchForceZero = false;
       const type = window.slides?.[window.currentSlideIndex]?.dataset?.type || 'image';
       updateSearchOffset(type);
