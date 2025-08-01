@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('.nav-toggle');
     const root = document.documentElement;
 
+    window.slides = slides;
+
     const setVar = (k, v) => root.style.setProperty(k, v);
     function isVisible(el) {
         if (!el) return false;
@@ -17,8 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return cs.display !== 'none' && cs.visibility !== 'hidden' && !el.classList.contains('hidden');
     }
 
+    function updateSearchFormDarkClass(condition) {
+        const searchForm = document.querySelector('.search-form');
+        if (!searchForm) return;
+        searchForm.classList.toggle('dark', condition);
+    }
+
     function syncHeaderOffset() {
-        const th = isVisible(topbar) ? (topbar.offsetHeight || 0) : 0;
+        const th = topbar && topbar.classList.contains('hidden') ? 0 : (topbar.offsetHeight || 0);
         const nh = navbar ? (navbar.offsetHeight || 0) : 0;
         root.style.setProperty('--topbar-height', th + 'px');
         root.style.setProperty('--navbar-height', nh + 'px');
@@ -91,6 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // setVar('--search-extra-offset', '0px');
             }
             updateSearchOffset(type);
+            const compact = document.documentElement.classList.contains('is-compact');
+            updateSearchFormDarkClass(compact || type !== 'video');
             requestAnimationFrame(syncHeaderOffset);
         }
 
@@ -124,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPrev?.addEventListener('click', () => go((current - 1 + slides.length) % slides.length));
         btnNext?.addEventListener('click', () => go((current + 1) % slides.length));
         go(current);
-        updateSearchOffset('video');
     } else {
         // if (!isSearchOpen()) {
         //     setVar('--search-extra-offset', '0px');
@@ -142,8 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
         navbar?.classList.toggle('dark', compact);
         document.documentElement.classList.toggle('is-compact', compact);
 
-        updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
-
+        // updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
+        const isVideo = slides[current]?.dataset.type === 'video';
+        updateSearchFormDarkClass(compact || !isVideo);
         // if (compact) {
         //     navToggle?.classList.add('white-bars');
         //     mobileMenu?.classList.remove('video-mode');
