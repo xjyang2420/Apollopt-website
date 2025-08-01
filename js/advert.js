@@ -137,10 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
         topbar?.classList.toggle('hidden', compact);
         navbar?.classList.toggle('compact', compact);
         navbar?.classList.toggle('dark', compact);
+        navToggle?.classList.toggle('white-bars', compact);
         document.documentElement.classList.toggle('is-compact', compact);
 
         // updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
         const isVideo = slides[current]?.dataset.type === 'video';
+        const inDark = compact || isVideo;
+        navToggle?.classList.toggle('white-bars', inDark);
         updateSearchFormDarkClass(compact || !isVideo);
         // if (compact) {
         //     navToggle?.classList.add('white-bars');
