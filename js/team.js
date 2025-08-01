@@ -3,7 +3,7 @@ const teamSwiper = new Swiper(".team-swiper", {
     spaceBetween: 10,
     loop: true,
     autoplay: {
-        delay: 4000,
+        delay: 5000,
         disableOnInteraction: false,
     },
     pagination: {
@@ -15,6 +15,7 @@ const teamSwiper = new Swiper(".team-swiper", {
         1024: { slidesPerView: 5 },
         768: { slidesPerView: 3 },
         480: { slidesPerView: 2 },
+        0: { slidesPerView: 2 },
     },
 });
 
