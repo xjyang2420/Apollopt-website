@@ -101,7 +101,8 @@
 }
 
 .top-bar.hidden {
-    transform: translateY(-100%);
+    /* transform: translateY(-100%); */
+    display: none;
     opacity: 0;
     pointer-events: none;
 }
