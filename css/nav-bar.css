@@ -47,14 +47,15 @@ html {
     padding-top: var(--topbar-height, 0px);
 }
 
-#content-spacer {
+/* #content-spacer {
     height: 0;
     transition: height .3s;
-}
+} */
 
-.is-compact #content-spacer {
+/* .is-compact #content-spacer {
     height: var(--navbar-height);
-}
+    height: 0;
+} */
 
 .site-header .container {
     width: 100%;
@@ -1224,14 +1225,14 @@ html {
         pointer-events: auto;
     }
 
-    #content-spacer {
+    /* #content-spacer {
         height: 0px !important;
     }
 
     #header.menu-open+#content-spacer {
-        height: auto !important;
+        height: 0 !important;
         display: none;
-    }
+    } */
 }
 
 @keyframes slideFadeIn {
@@ -1318,7 +1319,7 @@ html {
 @media (max-width: 768px) {
     .search-form {
         position: fixed;
-        top: calc(var(--navbar-height) + var(--search-extra-offset));
+        top: calc(var(--navbar-height) - var(--search-extra-offset));
         margin: 0 auto;
         left: 0;
         right: 0;
