@@ -616,7 +616,7 @@ html {
     background: rgba(255, 255, 255, 0.5);
     box-shadow: var(--shadow);
     opacity: 0;
-    transition: opacity 0.3s var(--transition), transform 0.3s var(--transition);
+    transition: top 0.3s ease, opacity 0.3s ease;
     z-index: 20;
     color: #fa3803;
 }
@@ -1332,8 +1332,13 @@ html {
         border-bottom-right-radius: 4px;
         background-color: rgba(255, 255, 255, 0.95);
         box-shadow: none;
+        transition: top 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
         z-index: 10001;
         /* transform: none !important; */
+    }
+
+    .search-form.dark {
+        top: calc(var(--header-offset) - 32px);
     }
 
     .search-form input {

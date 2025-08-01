@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('.nav-toggle');
     const root = document.documentElement;
 
+    window.slides = slides;
+
     const setVar = (k, v) => root.style.setProperty(k, v);
     function isVisible(el) {
         if (!el) return false;
@@ -17,8 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return cs.display !== 'none' && cs.visibility !== 'hidden' && !el.classList.contains('hidden');
     }
 
+    function updateSearchFormDarkClass(condition) {
+        const searchForm = document.querySelector('.search-form');
+        if (!searchForm) return;
+        searchForm.classList.toggle('dark', condition);
+    }
+
     function syncHeaderOffset() {
-        const th = isVisible(topbar) ? (topbar.offsetHeight || 0) : 0;
+        const th = topbar && topbar.classList.contains('hidden') ? 0 : (topbar.offsetHeight || 0);
         const nh = navbar ? (navbar.offsetHeight || 0) : 0;
         root.style.setProperty('--topbar-height', th + 'px');
         root.style.setProperty('--navbar-height', nh + 'px');
@@ -33,12 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let bars = [];
     let timer = null;
     const IMAGE_DURATION = 5000;
+    let searchForceZero = false;
+
 
     // 检查 search-form 是否正在显示
     const isSearchOpen = () => {
         const f = document.querySelector('.search-form');
         return f && !f.classList.contains('hidden');
     };
+
+    function updateSearchOffset(typeOrScroll = 'image') {
+        if (searchForceZero) {
+            setVar('--search-extra-offset', '0px');
+            return;
+        }
+        const offset = (typeOrScroll === 'video' || typeOrScroll === 'compact') ? '0px' : '32px';
+        setVar('--search-extra-offset', offset);
+    }
+
 
     if (hero && slides.length) {
         current = slides.findIndex(s => s.classList.contains('is-active'));
@@ -64,21 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 navbar?.classList.add('transparent');
                 mobileMenu?.classList.add('video-mode');
                 navToggle?.classList.add('white-bars');
-                if (!isSearchOpen()) {
-                    setVar('--search-extra-offset', '0px');
-                }
-                // setVar('--search-extra-offset', '32px');
             } else {
                 hero.classList.remove('is-video-on');
                 navbar?.classList.remove('transparent');
                 mobileMenu?.classList.remove('video-mode');
-                navToggle?.classList.remove('white-bars'); 
-                if (!isSearchOpen()) {
-                    setVar('--search-extra-offset', '32px');
-                }
-                // setVar('--search-extra-offset', '0px');
+                navToggle?.classList.remove('white-bars');
             }
-
+            updateSearchOffset(type);
+            const compact = document.documentElement.classList.contains('is-compact');
+            updateSearchFormDarkClass(compact || type !== 'video');
             requestAnimationFrame(syncHeaderOffset);
         }
 
@@ -113,10 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnNext?.addEventListener('click', () => go((current + 1) % slides.length));
         go(current);
     } else {
-        if (!isSearchOpen()) {
-            setVar('--search-extra-offset', '0px');
-        }
-        // setVar('--search-extra-offset', '32px');
+        updateSearchOffset('image');
     }
 
     const STICKY_THRESHOLD = 500;
@@ -128,27 +139,36 @@ document.addEventListener('DOMContentLoaded', () => {
         navbar?.classList.toggle('dark', compact);
         document.documentElement.classList.toggle('is-compact', compact);
 
-        if (compact) {
-            navToggle?.classList.add('white-bars');
-            mobileMenu?.classList.remove('video-mode');
-            if (!isSearchOpen()) {
-                setVar('--search-extra-offset', '32px');
-            }
-            // setVar('--search-extra-offset', '32px');
-        } else if (!hero) {
-            if (!isSearchOpen()) {
-                setVar('--search-extra-offset', '0px');
-            }
-            // setVar('--search-extra-offset', '32px');
+        // updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
+        const isVideo = slides[current]?.dataset.type === 'video';
+        updateSearchFormDarkClass(compact || !isVideo);
+        // if (compact) {
+        //     navToggle?.classList.add('white-bars');
+        //     mobileMenu?.classList.remove('video-mode');
+        //     // if (!isSearchOpen()) {
+        //     //     setVar('--search-extra-offset', '32px');
+        //     // }
+        //     // setVar('--search-extra-offset', '32px');
+        // } else if (!hero) {
+        //     if (!isSearchOpen()) {
+        //         setVar('--search-extra-offset', '0px');
+        //     }
+        //     // setVar('--search-extra-offset', '32px');
+        // } else {
+        //     const type = slides[current]?.dataset.type || 'image';
+        //     if (!isSearchOpen()) {
+        //         setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
+        //     }
+        //     // setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
+        // }
+
+        if (isSearchOpen()) {
+            requestAnimationFrame(syncHeaderOffset);
         } else {
-            const type = slides[current]?.dataset.type || 'image';
-            if (!isSearchOpen()) {
-                setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
-            }
-            // setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
+            updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
+            syncHeaderOffset();
         }
 
-        syncHeaderOffset();
     }
     window.addEventListener('scroll', applyByScroll, { passive: true });
     applyByScroll();
