@@ -142,6 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
         const isVideo = slides[current]?.dataset.type === 'video';
+        const inDark = compact || isVideo;
+        navToggle?.classList.toggle('white-bars', inDark);
         updateSearchFormDarkClass(compact || !isVideo);
         // if (compact) {
         //     navToggle?.classList.add('white-bars');
