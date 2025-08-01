@@ -33,12 +33,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let bars = [];
     let timer = null;
     const IMAGE_DURATION = 5000;
+    let searchForceZero = false;
+
 
     // 检查 search-form 是否正在显示
     const isSearchOpen = () => {
         const f = document.querySelector('.search-form');
         return f && !f.classList.contains('hidden');
     };
+
+    function updateSearchOffset(typeOrScroll = 'image') {
+        if (searchForceZero) {
+            setVar('--search-extra-offset', '0px');
+            return;
+        }
+        const offset = (typeOrScroll === 'video' || typeOrScroll === 'compact') ? '0px' : '32px';
+        setVar('--search-extra-offset', offset);
+    }
+
 
     if (hero && slides.length) {
         current = slides.findIndex(s => s.classList.contains('is-active'));
@@ -64,21 +76,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 navbar?.classList.add('transparent');
                 mobileMenu?.classList.add('video-mode');
                 navToggle?.classList.add('white-bars');
-                if (!isSearchOpen()) {
-                    setVar('--search-extra-offset', '0px');
-                }
+                // if (!isSearchOpen()) {
+                //     setVar('--search-extra-offset', '0px');
+                // }
                 // setVar('--search-extra-offset', '32px');
             } else {
                 hero.classList.remove('is-video-on');
                 navbar?.classList.remove('transparent');
                 mobileMenu?.classList.remove('video-mode');
-                navToggle?.classList.remove('white-bars'); 
-                if (!isSearchOpen()) {
-                    setVar('--search-extra-offset', '32px');
-                }
+                navToggle?.classList.remove('white-bars');
+                // if (!isSearchOpen()) {
+                //     setVar('--search-extra-offset', '32px');
+                // }
                 // setVar('--search-extra-offset', '0px');
             }
-
+            updateSearchOffset(type);
             requestAnimationFrame(syncHeaderOffset);
         }
 
@@ -112,11 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPrev?.addEventListener('click', () => go((current - 1 + slides.length) % slides.length));
         btnNext?.addEventListener('click', () => go((current + 1) % slides.length));
         go(current);
+        updateSearchOffset('video');
     } else {
-        if (!isSearchOpen()) {
-            setVar('--search-extra-offset', '0px');
-        }
+        // if (!isSearchOpen()) {
+        //     setVar('--search-extra-offset', '0px');
+        // }
         // setVar('--search-extra-offset', '32px');
+        updateSearchOffset('image');
     }
 
     const STICKY_THRESHOLD = 500;
@@ -128,27 +142,35 @@ document.addEventListener('DOMContentLoaded', () => {
         navbar?.classList.toggle('dark', compact);
         document.documentElement.classList.toggle('is-compact', compact);
 
-        if (compact) {
-            navToggle?.classList.add('white-bars');
-            mobileMenu?.classList.remove('video-mode');
-            if (!isSearchOpen()) {
-                setVar('--search-extra-offset', '32px');
-            }
-            // setVar('--search-extra-offset', '32px');
-        } else if (!hero) {
-            if (!isSearchOpen()) {
-                setVar('--search-extra-offset', '0px');
-            }
-            // setVar('--search-extra-offset', '32px');
+        updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
+
+        // if (compact) {
+        //     navToggle?.classList.add('white-bars');
+        //     mobileMenu?.classList.remove('video-mode');
+        //     // if (!isSearchOpen()) {
+        //     //     setVar('--search-extra-offset', '32px');
+        //     // }
+        //     // setVar('--search-extra-offset', '32px');
+        // } else if (!hero) {
+        //     if (!isSearchOpen()) {
+        //         setVar('--search-extra-offset', '0px');
+        //     }
+        //     // setVar('--search-extra-offset', '32px');
+        // } else {
+        //     const type = slides[current]?.dataset.type || 'image';
+        //     if (!isSearchOpen()) {
+        //         setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
+        //     }
+        //     // setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
+        // }
+
+        if (isSearchOpen()) {
+            requestAnimationFrame(syncHeaderOffset);
         } else {
-            const type = slides[current]?.dataset.type || 'image';
-            if (!isSearchOpen()) {
-                setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
-            }
-            // setVar('--search-extra-offset', type === 'video' ? '0px' : '32px');
+            updateSearchOffset(compact ? 'compact' : (slides[current]?.dataset.type || 'image'));
+            syncHeaderOffset();
         }
 
-        syncHeaderOffset();
     }
     window.addEventListener('scroll', applyByScroll, { passive: true });
     applyByScroll();
