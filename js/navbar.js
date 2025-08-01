@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput?.focus();
         // 小屏滚动到可见区域（可按需调整偏移）
         if (window.innerWidth <= 768) {
+          searchForm.style.transform = 'none';
           setTimeout(() => {
             const rect = searchForm.getBoundingClientRect();
             const offsetTop = window.scrollY + rect.top - 60;
