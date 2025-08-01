@@ -4,24 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuOverlay = document.getElementById('menu-overlay');
     const header = document.getElementById('header');
     const navbar = document.querySelector('.navbar');
-    const subpageHero = document.querySelector('.subpage-hero');
-    const navMenu = document.getElementById('nav-menu');
 
     const root = document.documentElement;
     const setVar = (k, v) => root.style.setProperty(k, v);
-
-    function isVisible(el) {
-        if (!el) return false;
-        const cs = getComputedStyle(el);
-        return cs.display !== 'none' && !el.classList.contains('hidden');
-    }
 
     function syncNavbarHeight() {
         const h = document.querySelector('.navbar')?.offsetHeight || 60;
         setVar('--navbar-height', h + 'px');
     }
 
-    window.addEventListener('DOMContentLoaded', syncNavbarHeight);
     window.addEventListener('resize', syncNavbarHeight);
 
     const isMobile = () => window.matchMedia('(max-width: 1278px)').matches;
@@ -103,14 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.querySelector('.search-form');
     const searchInput = document.getElementById('search-input');
     const suggestions = document.getElementById('suggestions-list');
-
-    document.addEventListener('click', (e) => {
-        if (!searchForm.contains(e.target) && !searchToggle.contains(e.target)) {
-            searchForm.classList.remove('fade-in');
-            setTimeout(() => searchForm.classList.add('hidden'), 200);
-            suggestions.style.display = 'none';
-        }
-    });
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -229,12 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
             searchForm.submit();
         }
     });
-
-    function updateActive() {
-        [...suggestions.children].forEach((li, i) =>
-            li.classList.toggle('active', i === selIdx)
-        );
-    }
 
     // 本地历史缓存
     function saveHistory(term) {
@@ -589,11 +566,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetLang = option.getAttribute('data-lang'); // 'en' or 'zh'
                 const next = buildTargetPath(targetLang);
                 if (!next) return;                // 已在目标语言，忽略
-                location.href = next;             // 例如：/ApolloPT-website/zh/index.html
+
+                // location.href = next;             // 例如：/ApolloPT-website/zh/index.html
+
                 const suffix = location.search + location.hash;
                 location.href = next + suffix;
             });
-            window.scrollTo(0, 0);
         });
 
     })();
@@ -639,9 +617,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', updateBackToTop);
     window.addEventListener('scroll', updateBackToTop);
 
-    window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 10);
-    });
+    // window.addEventListener('scroll', () => {
+    //     navbar.classList.toggle('scrolled', window.scrollY > 10);
+    // });
 
     document.querySelectorAll('.top-bar, .navbar').forEach(el => {
         el.addEventListener('animationend', () => {
