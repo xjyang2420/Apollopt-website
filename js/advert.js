@@ -84,19 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 navbar?.classList.add('transparent');
                 mobileMenu?.classList.add('video-mode');
                 navToggle?.classList.add('white-bars');
-                // if (!isSearchOpen()) {
-                //     setVar('--search-extra-offset', '0px');
-                // }
-                // setVar('--search-extra-offset', '32px');
             } else {
                 hero.classList.remove('is-video-on');
                 navbar?.classList.remove('transparent');
                 mobileMenu?.classList.remove('video-mode');
                 navToggle?.classList.remove('white-bars');
-                // if (!isSearchOpen()) {
-                //     setVar('--search-extra-offset', '32px');
-                // }
-                // setVar('--search-extra-offset', '0px');
             }
             updateSearchOffset(type);
             const compact = document.documentElement.classList.contains('is-compact');
@@ -135,10 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
         btnNext?.addEventListener('click', () => go((current + 1) % slides.length));
         go(current);
     } else {
-        // if (!isSearchOpen()) {
-        //     setVar('--search-extra-offset', '0px');
-        // }
-        // setVar('--search-extra-offset', '32px');
         updateSearchOffset('image');
     }
 
