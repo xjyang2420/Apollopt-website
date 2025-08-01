@@ -73,26 +73,31 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     searchToggle?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!searchForm) return;
+        e.stopPropagation();
+        if (!searchForm) return;
 
-      const showing = !searchForm.classList.contains('hidden');
-      searchForm.classList.toggle('hidden');
-      searchForm.classList.toggle('fade-in');
+        const showing = !searchForm.classList.contains('hidden');
+        searchForm.classList.toggle('hidden');
+        searchForm.classList.toggle('fade-in');
 
-      if (!showing) {
-        searchInput?.focus();
-        // 小屏滚动到可见区域（可按需调整偏移）
-        if (window.innerWidth <= 768) {
-          searchForm.style.transform = 'none';
-          setTimeout(() => {
-            const rect = searchForm.getBoundingClientRect();
-            const offsetTop = window.scrollY + rect.top - 60;
-            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-          }, 80);
+        if (!showing) {
+            searchForceZero = true; 
+            setVar('--search-extra-offset', '0px');
+            searchInput?.focus();
+
+            if (window.innerWidth <= 768) {
+                searchForm.style.transform = 'none';
+                setTimeout(() => {
+                    const rect = searchForm.getBoundingClientRect();
+                    const offsetTop = window.scrollY + rect.top - 60;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }, 80);
+            }
+            renderHistorySuggestions();
+        } else {
+            searchForceZero = false; 
+            updateSearchOffset(slides[current]?.dataset.type || 'image');
         }
-        renderHistorySuggestions();
-      }
     });
 
     // 外点关闭 + ESC 关闭（只保留一份监听）
