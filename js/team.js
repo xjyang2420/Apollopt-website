@@ -14,7 +14,7 @@ const teamSwiper = new Swiper(".team-swiper", {
         1280: { slidesPerView: 6 },
         1024: { slidesPerView: 5 },
         768: { slidesPerView: 3 },
-        0: { slidesPerView: 2 },
+        480: { slidesPerView: 1 },
     },
 });
 
