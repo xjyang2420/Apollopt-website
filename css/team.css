@@ -5,6 +5,7 @@
     z-index: 2;
     position: relative;
     overflow-x: hidden;
+    overflow-y: visible;
 }
 
 .team-video-wrapper {
@@ -49,7 +50,6 @@
     font-size: 36px;
     font-weight: bold;
     margin-bottom: 40px;
-
     background: linear-gradient(90deg, #f7971e, #ffd200);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -59,13 +59,13 @@
 
 .team-section .swiper {
     width: 100%;
-    overflow: visible;
+    overflow: visible !important;
     padding-bottom: 80px;
 }
 
 .team-section .swiper-wrapper {
-    display: flex !important;
-    flex-wrap: nowrap !important;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 .team-section .swiper-slide {
@@ -73,7 +73,7 @@
     justify-content: center;
     align-items: flex-start;
     position: relative;
-    overflow: visible;
+    overflow: visible !important;
 }
 
 .team-section .avatar {
@@ -249,11 +249,11 @@
     width: 260px;
     height: 380px;
     border-radius: 14px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
     transition: opacity 0.35s ease, transform 0.35s ease;
     opacity: 0;
-    z-index: 20;
+    z-index: 20000;
     pointer-events: none;
 }
 
@@ -505,3 +505,4 @@
         display: none !important;
     }
 }
+
