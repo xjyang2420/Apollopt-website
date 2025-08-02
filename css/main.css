@@ -86,7 +86,7 @@ video {
     vertical-align: baseline;
 }
 
-body {
+html, body {
     overflow-x: hidden;
 }
 
