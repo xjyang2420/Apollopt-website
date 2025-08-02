@@ -1,28 +1,28 @@
-const teamSwiper = new Swiper(".team-swiper", {
-    slidesPerView: 5,
-    spaceBetween: 10,
-    loop: true,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    pagination: {
-        el: '#teamPagination',
-        clickable: true,
-    },
-    breakpoints: {
-        1280: { slidesPerView: 6 },
-        1024: { slidesPerView: 5 },
-        768: { slidesPerView: 3 },
-        480: { slidesPerView: 2 },
-        0: { slidesPerView: 2 },
-    },
-});
-
 // init AOS animations
 // AOS.init({ duration: 800, once: true });
 
 document.addEventListener('DOMContentLoaded', () => {
+  const teamSwiper = new Swiper(".team-swiper", {
+    slidesPerView: 5,
+    spaceBetween: 10,
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '#teamPagination',
+      clickable: true,
+    },
+    breakpoints: {
+      1280: { slidesPerView: 6 },
+      1024: { slidesPerView: 5 },
+      768: { slidesPerView: 3 },
+      480: { slidesPerView: 2 },
+      0: { slidesPerView: 2 },
+    },
+  });
+
   const els = document.querySelectorAll('[data-animate]');
   const animatedClass = 'is-animated';
 
