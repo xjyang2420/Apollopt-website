@@ -63,6 +63,11 @@
     padding-bottom: 80px;
 }
 
+.team-section .swiper-wrapper {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
 .team-section .swiper-slide {
     display: flex;
     justify-content: center;
