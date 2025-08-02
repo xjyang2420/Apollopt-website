@@ -249,11 +249,11 @@
     width: 260px;
     height: 380px;
     border-radius: 14px;
-    overflow: visible;
+    overflow: hidden;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
     transition: opacity 0.35s ease, transform 0.35s ease;
     opacity: 0;
-    z-index: 20000;
+    z-index: 2000;
     pointer-events: none;
 }
 
@@ -470,9 +470,9 @@
         font-size: 0.8rem;
     }
 
-    .card-tooltip {
+    /* .card-tooltip {
         display: none !important;
-    }
+    } */
 
     .flip-back p,
     .flip-back h3,
@@ -492,10 +492,10 @@
         font-size: 0.9rem;
     }
 
-    .swiper-slide:hover .avatar {
+    /* .swiper-slide:hover .avatar {
         transform: none !important;
         box-shadow: none !important;
-    }
+    } */
 
     .swiper-slide:hover .overlay {
         transform: none !important;
