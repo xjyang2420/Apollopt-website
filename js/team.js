@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     spaceBetween: 10,
     loop: true,
     autoplay: {
-      delay: 5000,
+      delay: 6000,
       disableOnInteraction: false,
     },
     pagination: {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (entry.isIntersecting) {
         const el = entry.target;
         const name = el.dataset.animate || 'zoomIn';
-        const delay = el.dataset.delay || '0.2s';
+        const delay = el.dataset.delay || '0.4s';
 
         el.style.animationDelay = delay;
         el.classList.add('animate__animated', `animate__${name}`, animatedClass);
