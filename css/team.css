@@ -492,10 +492,9 @@
         font-size: 0.9rem;
     }
 
-    /* .swiper-slide:hover .avatar {
+    .swiper-slide:hover .avatar {
         transform: none !important;
-        box-shadow: none !important;
-    } */
+    }
 
     .swiper-slide:hover .overlay {
         transform: none !important;
