@@ -16,6 +16,25 @@
     overflow: hidden;
 }
 
+.team-picture-wrapper {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    object-fit: contain;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-picture-wrapper img {
+    height: 50%;
+    width: auto;
+    object-fit: cover;  
+    object-position: center center;
+}
+
 [data-animate] {
     opacity: 0;
 }
@@ -32,6 +51,14 @@
 }
 
 .team-video-wrapper .team-video-overlay {
+    position: absolute;
+    inset: 0;
+    /* background: rgba(0, 0, 0, 0.4);  */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+    z-index: 1;
+}
+
+.team-picture-wrapper .team-video-overlay {
     position: absolute;
     inset: 0;
     /* background: rgba(0, 0, 0, 0.4);  */
