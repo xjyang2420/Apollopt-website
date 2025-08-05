@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const animatedClass = 'is-animated';
 
   els.forEach((el, i) => {
-    el.dataset.delay = el.dataset.delay || `${i * 0.15}s`;
+    el.dataset.delay = el.dataset.delay || `${i * 0.1}s`;
   });
 
   const io = new IntersectionObserver((entries, obs) => {
