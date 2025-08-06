@@ -1,0 +1,106 @@
+.jump-to-wrapper {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.jump-to-wrapper label {
+    font-weight: bold;
+}
+
+.jump-to-wrapper select {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.content-block {
+    margin-bottom: 4rem;
+    scroll-margin-top: 100px;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #111;
+}
+
+/* ===== 图文行布局 ===== */
+.content-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.image,
+.text {
+    padding: 1rem;
+}
+
+.image-60 {
+    flex: 0 0 60%;
+    max-width: 60%;
+}
+
+.text-40 {
+    flex: 0 0 40%;
+    max-width: 40%;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* ===== 列表样式 ===== */
+.text ul {
+    padding-left: 1.5rem;
+    list-style-type: disc;
+}
+
+.text li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ===== 分页样式 ===== */
+/* .pagination {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    margin: 0 0.2rem;
+    background: #f1f1f1;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.pagination a.active {
+    background: #d62329;
+    color: white;
+}
+
+.pagination a:hover {
+    background: #888;
+    color: white;
+} */
+
+/* ===== 响应式调整 ===== */
+@media (max-width: 768px) {
+
+    .image-60,
+    .text-40 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
