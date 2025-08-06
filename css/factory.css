@@ -1,4 +1,95 @@
-.jump-to-wrapper {
+.custom-dropdown-wrapper {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.dropdown-label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    margin-left: 5%;
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    font-family: sans-serif;
+    margin-left: 5%;
+    font-size: 1rem;
+}
+
+.dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    font-size: 1.1rem;
+    border: 2px solid #888;
+    background-color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    min-width: 240px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-toggle .dropdown-arrow {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+.custom-dropdown.open .dropdown-arrow {
+    transform: rotate(-90deg);
+}
+
+.dropdown-toggle:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    list-style: none;
+    padding: 0px 0;
+    margin: 0;
+    display: none;
+    width: 100%;
+}
+
+.dropdown-menu li:first-child:hover{
+    border-top-left-radius: 6px;;
+    border-top-right-radius: 6px;;
+}
+
+
+.dropdown-menu li:last-child:hover {
+    border-bottom-left-radius: 6px;;
+    border-bottom-right-radius: 6px;;
+}
+
+.dropdown-menu li {
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+    background-color: #eaeaea;
+}
+
+.custom-dropdown.open .dropdown-menu {
+    display: block;
+}
+
+/* .jump-to-wrapper {
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
@@ -7,15 +98,22 @@
 
 .jump-to-wrapper label {
     font-weight: bold;
+    font-size: 1.4rem;
 }
 
 .jump-to-wrapper select {
     padding: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
+} */
+
+.content-body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
 }
 
 .content-block {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     scroll-margin-top: 100px;
 }
 
@@ -26,17 +124,16 @@
     color: #111;
 }
 
-/* ===== 图文行布局 ===== */
 .content-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .image,
 .text {
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .image-60 {
@@ -56,6 +153,14 @@
 }
 
 /* ===== 列表样式 ===== */
+.text p {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 .text ul {
     padding-left: 1.5rem;
     list-style-type: disc;
