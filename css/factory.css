@@ -245,4 +245,10 @@
         flex: 0 0 100%;
         max-width: 100%;
     }
+
+    .image-50,
+    .text-50 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
