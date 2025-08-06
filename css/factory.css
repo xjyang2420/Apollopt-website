@@ -141,6 +141,11 @@
     max-width: 60%;
 }
 
+.image-50 {
+    flex: 0 0 49%;
+    max-width: 49%;
+}
+
 .text-40 {
     flex: 0 0 40%;
     max-width: 40%;
