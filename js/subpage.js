@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePagination(pageNum);
         updateJumpTo(pageNum);
 
+        localStorage.setItem('currentPage', pageNum)
+
         const visibleBlock = document.querySelector('.content-block[style*="display: block"]');
         if (visibleBlock) {
             visibleBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -161,6 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    showPage(1); // 初始化第一页
+    const savedPage = parseInt(localStorage.getItem('currentPage')) || 1;
+    showPage(savedPage);
+
 });
 
