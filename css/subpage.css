@@ -446,15 +446,6 @@
         transition: background 0.3s ease;
     }
 
-    .category-list a:hover {
-        background-color: #f0f0f0;
-    }
-
-    .category-list a.active {
-        background-color: #d62329;
-        color: white;
-    }
-
     .contact-panel {
         display: none;
     }
