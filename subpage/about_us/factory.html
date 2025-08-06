@@ -255,7 +255,7 @@
                     <h2 class="content-title">Factory</h2>
                     <hr class="content-divider" />
 
-                    <div class="jump-to-wrapper">
+                    <!-- <div class="jump-to-wrapper">
                         <label for="jumpTo">Jump to:</label>
                         <select id="jumpTo" onchange="location.href=this.value">
                             <option value="#section1">Casting Workshop</option>
@@ -263,6 +263,21 @@
                             <option value="#section3">Inspection Workshop</option>
                             <option value="#section4">Assembly Workshop</option>
                         </select>
+                    </div> -->
+                    <div class="custom-dropdown-wrapper">
+                        <label class="dropdown-label" for="dropdown-toggle">Jump to:</label>
+                        <div class="custom-dropdown">
+                            <button class="dropdown-toggle" id="dropdown-toggle">
+                                <span class="selected-option">Casting Workshop</span>
+                                <i class="fa-solid fa-chevron-left dropdown-arrow"></i>
+                            </button>
+                            <ul class="dropdown-menu animate__animated">
+                                <li data-value="#section1">Casting Workshop</li>
+                                <li data-value="#section2">Machining Workshop</li>
+                                <li data-value="#section3">Inspection Workshop</li>
+                                <li data-value="#section4">Assembly Workshop</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <article class="content-body">
@@ -276,6 +291,7 @@
                                     <img src="../../images/home/ad-001-l.jpg" alt="Machining Workshop 1" />
                                 </div>
                                 <div class="text text-40">
+                                    <p>Pulley</p>
                                     <ul>
                                         <li>Precision CNC machines</li>
                                         <li>Multi-step operations</li>
@@ -315,15 +331,15 @@
                                 </div>
                             </div>
                             <div class="content-row">
+                                <div class="image image-60">
+                                    <img src="../../images/home/ad-003-l.jpg" alt="Machining Workshop 2" />
+                                </div>
                                 <div class="text text-40">
                                     <ul>
                                         <li>Skilled operators with 10+ years experience</li>
                                         <li>Real-time quality monitoring</li>
                                         <li>Efficient batch handling</li>
                                     </ul>
-                                </div>
-                                <div class="image image-60">
-                                    <img src="../../images/home/ad-003-l.jpg" alt="Machining Workshop 2" />
                                 </div>
                             </div>
                         </div>
@@ -563,6 +579,7 @@
     <script src="../../js/advert.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../js/subpage.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../js/footer.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <script src="../../js/factory.js" type="text/javascript" charset="utf-8"></script> -->
 </body>
 
 </html>
