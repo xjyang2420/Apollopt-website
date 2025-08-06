@@ -166,5 +166,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedPage = parseInt(localStorage.getItem('currentPage')) || 1;
     showPage(savedPage);
 
+    const panel = document.querySelector('.panel');
+    const toggleBtn = document.querySelector('.panel-header');
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        panel.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!panel.contains(e.target)) {
+            panel.classList.remove('open');
+        }
+    });
 });
+
 
