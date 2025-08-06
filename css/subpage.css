@@ -405,7 +405,6 @@
     .dropdown-icon {
         display: flex;
         font-size: 0.9rem;
-        transition: transform 0.3s ease;
     }
 
     .panel.open .dropdown-icon {
