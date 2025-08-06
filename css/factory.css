@@ -64,15 +64,19 @@
     width: 100%;
 }
 
-.dropdown-menu li:first-child:hover{
-    border-top-left-radius: 6px;;
-    border-top-right-radius: 6px;;
+.dropdown-menu li:first-child:hover {
+    border-top-left-radius: 6px;
+    ;
+    border-top-right-radius: 6px;
+    ;
 }
 
 
 .dropdown-menu li:last-child:hover {
-    border-bottom-left-radius: 6px;;
-    border-bottom-right-radius: 6px;;
+    border-bottom-left-radius: 6px;
+    ;
+    border-bottom-right-radius: 6px;
+    ;
 }
 
 .dropdown-menu li {
@@ -167,12 +171,11 @@
 .text p {
     margin-left: 0;
     margin-bottom: 0.5rem;
-    padding-left: 0.5rem;
     font-size: 1.2rem;
     font-weight: bold;
 }
 
-.text ul {
+/* .text ul {
     padding-left: 1.5rem;
     list-style-type: disc;
 }
@@ -181,35 +184,58 @@
     margin-bottom: 0.5rem;
     font-size: 0.8rem;
     line-height: 1.6;
-}
-
-/* ===== 分页样式 ===== */
-/* .pagination {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.pagination a {
-    display: inline-block;
-    padding: 0.4rem 0.8rem;
-    margin: 0 0.2rem;
-    background: #f1f1f1;
-    color: #333;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background 0.2s;
-}
-
-.pagination a.active {
-    background: #d62329;
-    color: white;
-}
-
-.pagination a:hover {
-    background: #888;
-    color: white;
 } */
+
+.text ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.text ul>li {
+    font-size: 0.8rem;
+    line-height: 1.8;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.text ul>li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    line-height: 1;
+    top: 2px;
+}
+
+.text ul li ul {
+    margin-top: 1px;
+    padding-left: 0px;
+}
+
+.text ul li ul li {
+    font-weight: normal;
+    margin-bottom: 1px;
+    position: relative;
+    padding-left: 18px;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.text ul li ul li::before {
+    content: "\f058";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #979897;
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+    top: 0;
+    line-height: 1.6;
+}
+
 
 /* ===== 响应式调整 ===== */
 @media (max-width: 768px) {
