@@ -93,7 +93,6 @@
 
 .breadcrumb {
     width: min(1400px, 90%);
-    ;
     margin: 0 auto 8px;
     display: flex;
     align-items: center;
@@ -382,6 +381,26 @@
 }
 
 @media (max-width: 992px) {
+    .breadcrumb {
+        width: 98%;
+    } 
+
+    .divider {
+        width: 98%;
+    } 
+
+    .page-grid {
+        width: 98%;
+    }
+
+    .main-content-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
     .panel {
         text-align: center;
     }
@@ -392,7 +411,6 @@
         align-items: center;
         cursor: pointer;
         position: relative;
-        align-items: center;
         gap: 16px;
     }
 
