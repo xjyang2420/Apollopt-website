@@ -152,5 +152,25 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollToTarget(savedTarget);
     }, 100);
 
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3 // 部门块有一半进入视口就触发
+    };
 
+    const buttons = document.querySelectorAll('.dept-btn');
+    const sections = document.querySelectorAll('.content-block');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                buttons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.target === `#${id}`);
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
 });
