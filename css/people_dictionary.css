@@ -39,6 +39,14 @@
     margin: 10px 0;
 }
 
+.people-colomun {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 10px 0;
+}
+
 .person-card {
     width: 280px;
     text-align: center;
