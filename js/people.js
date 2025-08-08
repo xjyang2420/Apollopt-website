@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.toggle('active', btn.dataset.target === targetId);
         });
 
-        localStorage.setItem('activeTarget', targetId);
+        // localStorage.setItem('activeTarget', targetId);
     }
 
     navButtons.forEach(button => {
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.3 // 部门块有一半进入视口就触发
+        threshold: 0.2 // 部门块有一半进入视口就触发
     };
 
     const buttons = document.querySelectorAll('.dept-btn');
@@ -177,23 +177,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // }, observerOptions);
 
     const observer = new IntersectionObserver((entries) => {
-        const currentActive = localStorage.getItem('activeTarget');
-        let mostVisibleId = null;
-        let maxRatio = 0;
-
         entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-                mostVisibleId = `#${entry.target.id}`;
-                maxRatio = entry.intersectionRatio;
+            if (entry.isIntersecting) {
+                const id = `#${entry.target.id}`;
+                activateButton(id);
             }
         });
-
-        if (mostVisibleId && mostVisibleId !== currentActive) {
-            activateButton(mostVisibleId);
-        }
     }, observerOptions);
 
     sections.forEach(section => observer.observe(section));
+
+    function observeVisibleSections() {
+        const visibleBlocks = Array.from(document.querySelectorAll('.content-block')).filter(b => b.style.display !== 'none');
+        visibleBlocks.forEach(section => observer.observe(section));
+    }
+    showPage(savedPage);
+    observeVisibleSections(); 
 
 
     const panel = document.querySelector('.panel');
