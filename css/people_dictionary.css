@@ -1,0 +1,103 @@
+.people-wrapper {
+    width: 95%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #f9f9f9;
+}
+
+.department-nav {
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.dept-btn {
+    font-size: 16px;
+    margin: 0 10px;
+    padding: 8px 16px;
+    background-color: #178ff0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dept-btn:hover {
+    background-color: #d62329;
+}
+
+/* 人员排布样式 */
+.people-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.person-card {
+    width: 220px;
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.person-card:hover {
+    transform: translateY(-4px);
+}
+
+.person-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.person-card p {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.content-block {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.people-container {
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    padding: 0 20px;
+    margin: 0 auto 40px;
+    max-width: 1000px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+    display: inline-block;
+    background-color: rgb(54, 146, 244);
+    text-align: left;
+    font-size: 20px;
+    color: #ffffff;
+    margin-top: 15px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    padding: 6px 12px; 
+    border: 2px solid; 
+    border-radius: 8px;
+}
+
+/* 响应式处理 */
+@media (max-width: 600px) {
+    .person-card {
+        width: 90%;
+    }
+}
