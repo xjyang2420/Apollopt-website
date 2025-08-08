@@ -14,12 +14,13 @@
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
-    gap: 12px 16px;
+    gap: 10px 12px;
     margin-bottom: 4px;
 }
 
 .dept-btn {
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: bold;
     margin: 0 10px;
     padding: 8px 16px;
     background-color: #178ff0;
