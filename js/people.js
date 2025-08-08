@@ -47,9 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navButtons = document.querySelectorAll('.dept-btn');
     const pagination = document.querySelector('.pagination');
     const totalPages = Math.ceil(blocks.length / sectionsPerPage);
-    const dropdown = document.querySelector('.custom-dropdown');
-    const dropdownMenu = dropdown?.querySelector('.dropdown-menu');
-    const dropdownSelected = dropdown?.querySelector('.selected-option');
 
     function getPageOfBlock(blockId) {
         const index = blocks.findIndex(b => `#${b.id}` === blockId);
@@ -127,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
         navButtons.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.target === targetId);
         });
+
+        localStorage.setItem('activeTarget', targetId);
     }
 
     navButtons.forEach(button => {
@@ -137,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showPage(pageNum);
             scrollToTarget(targetId);
             activateButton(targetId);
-            localStorage.setItem('activeTarget', targetId);
+            // localStorage.setItem('activeTarget', targetId);
         });
     });
 
@@ -161,16 +160,53 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttons = document.querySelectorAll('.dept-btn');
     const sections = document.querySelectorAll('.content-block');
 
+    // const observer = new IntersectionObserver((entries) => {
+    //     entries.forEach(entry => {
+    //         if (entry.isIntersecting) {
+    //             const id = entry.target.id;
+    //             const currentActive = localStorage.getItem('activeTarget');
+    //             buttons.forEach(btn => {
+    //                 btn.classList.toggle('active', btn.dataset.target === `#${id}`);
+    //             });
+
+    //             if (currentActive !== `#${id}`) {
+    //                 activateButton(`#${id}`);
+    //             }
+    //         }
+    //     });
+    // }, observerOptions);
+
     const observer = new IntersectionObserver((entries) => {
+        const currentActive = localStorage.getItem('activeTarget');
+        let mostVisibleId = null;
+        let maxRatio = 0;
+
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.id;
-                buttons.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.target === `#${id}`);
-                });
+            if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+                mostVisibleId = `#${entry.target.id}`;
+                maxRatio = entry.intersectionRatio;
             }
         });
+
+        if (mostVisibleId && mostVisibleId !== currentActive) {
+            activateButton(mostVisibleId);
+        }
     }, observerOptions);
 
     sections.forEach(section => observer.observe(section));
+
+
+    const panel = document.querySelector('.panel');
+    const toggleBtn = document.querySelector('.panel-header');
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        panel.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!panel.contains(e.target)) {
+            panel.classList.remove('open');
+        }
+    });
 });
