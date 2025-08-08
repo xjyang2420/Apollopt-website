@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.toggle('active', btn.dataset.target === targetId);
         });
 
-        // localStorage.setItem('activeTarget', targetId);
+        localStorage.setItem('activeTarget', targetId);
     }
 
     navButtons.forEach(button => {
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showPage(pageNum);
             scrollToTarget(targetId);
             activateButton(targetId);
-            // localStorage.setItem('activeTarget', targetId);
+            localStorage.setItem('activeTarget', targetId);
         });
     });
 
@@ -186,14 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     sections.forEach(section => observer.observe(section));
-
-    function observeVisibleSections() {
-        const visibleBlocks = Array.from(document.querySelectorAll('.content-block')).filter(b => b.style.display !== 'none');
-        visibleBlocks.forEach(section => observer.observe(section));
-    }
-    showPage(savedPage);
-    observeVisibleSections(); 
-
 
     const panel = document.querySelector('.panel');
     const toggleBtn = document.querySelector('.panel-header');
