@@ -304,6 +304,14 @@
     background: rgba(0, 0, 0, .15);
 }
 
+.content-body iframe {
+    width: 92%; 
+    height: 1000px; 
+    border: none;
+    display: flex;
+    margin: 0 auto;
+}
+
 .content-body p {
     color: #333;
     line-height: 1.6;
@@ -383,11 +391,11 @@
 @media (max-width: 992px) {
     .breadcrumb {
         width: 98%;
-    } 
+    }
 
     .divider {
         width: 98%;
-    } 
+    }
 
     .page-grid {
         width: 98%;
