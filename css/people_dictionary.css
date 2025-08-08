@@ -215,6 +215,10 @@
         text-align: center;
     }
 
+    .dept-btn:hover {
+        transform: scale(1);
+    }
+
     .section-title {
         font-size: 15px;
     }
