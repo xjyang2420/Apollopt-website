@@ -4,12 +4,12 @@
     font-family: Arial, sans-serif;
     color: #333;
     line-height: 1.6;
-    margin: 0 auto;
 }
 
 .content-body p {
+    width: 95%;
     display: flex;
-    justify-content: center;
+    text-align: center;
     margin: 0 auto;
 }
 
