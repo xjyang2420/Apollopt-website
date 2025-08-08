@@ -179,6 +179,14 @@ document.addEventListener('DOMContentLoaded', () => {
             panel.classList.remove('open');
         }
     });
+
+    // 如果不需要分页，隐藏 pagination 容器
+    if (pages <= 1 && paginationContainer) {
+        paginationContainer.style.display = 'none';
+    }
+
+    showPage(1); // 初始化第一页显示
+
 });
 
 
