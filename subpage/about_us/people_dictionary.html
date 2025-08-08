@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="../../css/subpage.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/people_dictionary.css" />
 </head>
 
 <body>
@@ -258,25 +259,72 @@
                         <h2 class="content-title">People Dictionary</h2>
                     </div>
                     <hr class="content-divider" />
-                    <article class="content-body">
-                        <p>
-                            Testing...
-                        </p>
-                        <p>
-                            Test
-                        </p>
-                        <ul class="feature-list">
-                            <li>Test</li>
-                        </ul>
+                    <div class="department-nav">
+                        <button class="dept-btn" onclick="location.href='#sales'">Sales</button>
+                        <button class="dept-btn" onclick="location.href='#engineering'">Engineering</button>
+                        <button class="dept-btn" onclick="location.href='#logistics'">Logistics</button>
+                    </div>
 
-                    </article>
+                    <div class="people-wrapper">
+                        <article class="content-body">
+                            <!-- Sales Department -->
+                            <div class="content-block" id="sales">
+                                <h3 class="section-title">Sales Department</h3>
+                                <div class="people-container">
+                                    <div class="people-row">
+                                        <div class="person-card">
+                                            <img src="../../images/p" alt="John Doe">
+                                            <p><strong>John Doe</strong><br>Senior Sales Manager</p>
+                                        </div>
+                                        <div class="person-card">
+                                            <img src="../../images/people/jane.jpg" alt="Jane Smith">
+                                            <p><strong>Jane Smith</strong><br>Sales Representative</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- Engineering Department -->
+                            <div class="content-block" id="engineering">
+                                <h3 class="section-title">Engineering Department</h3>
+                                <div class="people-container">
+                                    <div class="people-row">
+                                        <div class="person-card">
+                                            <img src="../../images/people/alex.jpg" alt="Alex Li">
+                                            <p><strong>Alex Li</strong><br>Lead Engineer</p>
+                                        </div>
+                                        <div class="person-card">
+                                            <img src="../../images/people/emily.jpg" alt="Emily Zhang">
+                                            <p><strong>Emily Zhang</strong><br>Product Designer</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Logistics Department -->
+                            <div class="content-block" id="logistics">
+                                <h3 class="section-title">Logistics Department</h3>
+                                <div class="people-container">
+                                    <div class="people-row">
+                                        <div class="person-card">
+                                            <img src="../../images/people/michael.jpg" alt="Michael Chen">
+                                            <p><strong>Michael Chen</strong><br>Warehouse Supervisor</p>
+                                        </div>
+                                        <div class="person-card">
+                                            <img src="../../images/people/sara.jpg" alt="Sara Wu">
+                                            <p><strong>Sara Wu</strong><br>Logistics Coordinator</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </article>
+                    </div>
 
                     <nav class="pagination" aria-label="Pagination">
                         <a href="#" class="page prev" aria-label="Previous Page">&laquo;</a>
                         <a href="#" class="page active">1</a>
                         <a href="#" class="page">2</a>
-                        <a href="#" class="page">3</a>
                         <a href="#" class="page next" aria-label="Next Page">&raquo;</a>
                     </nav>
                 </section>
