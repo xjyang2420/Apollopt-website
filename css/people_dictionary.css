@@ -69,7 +69,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    vertical-align: middle;
+    align-items: flex-start;
     text-align: left;
+    gap: 2px;
 }
 
 .person-card img {
@@ -77,13 +80,16 @@
     height: 150px;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 4px;
 }
 
 .person-card p {
     font-size: 15px;
     color: #333;
     line-height: 1.5;
+    margin: 0px 10px 0px 10px;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
 }
 
 .person-card strong {
@@ -92,7 +98,15 @@
     color: #111;
 }
 
-.person-card.p.positon {
+.person-card p i {
+    margin-right: 2px;
+}
+
+.person-card p a {
+    text-decoration: none;
+}
+
+/* .positon {
     margin: auto;
     font-style: oblique;
     margin-right: 0.2rem;
@@ -102,17 +116,29 @@
     border-bottom: 1px dashed #f0f0f0;
     display: inline;
     padding-bottom: 1px;
+} */
+
+.position {
+    font-style: oblique;
+    border-bottom: 1px dashed #7e7e7e;
+    padding-bottom: 1px;
+    color: #000000;
 }
 
-.person-card .social-links {
-    margin-top: 6px;
+.position:hover {
+    border-bottom-color: #ff5722;
+}
+
+.person-card .people-social-links {
     display: flex;
     gap: 10px;
     align-items: center;
     padding-left: 0;
+    margin: 0px 10px 0px 10px;
 }
 
-.person-card .social-links a {
+.person-card .people-social-links a {
+    margin-top: 5px;
     font-size: 20px;
     color: #007bff;
     text-decoration: none;
@@ -123,13 +149,13 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.social-links a i {
+.people-social-links a i {
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
 }
 
-.person-card .social-links a:hover {
+.person-card .people-social-links a:hover {
     text-decoration: none;
     transform: scale(1.1);
 }
