@@ -1,42 +1,156 @@
 
+// document.addEventListener('DOMContentLoaded', () => {
+//     const navButtons = document.querySelectorAll('.department-nav .dept-btn');
+
+//     function activateButton(targetId) {
+//         navButtons.forEach(btn => {
+//             const id = btn.getAttribute('data-target');
+//             btn.classList.toggle('active', id === targetId);
+//         });
+//     }
+
+//     navButtons.forEach(button => {
+//         button.addEventListener('click', e => {
+//             e.preventDefault();
+//             const targetId = button.getAttribute('data-target');
+//             const targetEl = document.querySelector(targetId);
+//             if (targetEl) {
+//                 // 滚动 + 高亮 + 存储
+//                 targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//                 activateButton(targetId);
+//                 localStorage.setItem('activeDepartment', targetId);
+//                 // 更新 URL 的 hash
+//                 history.replaceState(null, '', targetId);
+//             }
+//         });
+//     });
+
+//     // 页面加载：恢复位置
+//     const savedTarget = localStorage.getItem('activeDepartment');
+//     const fallbackTarget = navButtons[0]?.getAttribute('data-target') || '';
+//     const targetToUse = savedTarget || fallbackTarget;
+//     const targetEl = document.querySelector(targetToUse);
+
+//     if (targetEl) {
+//         // 延迟执行以避免布局尚未完成
+//         setTimeout(() => {
+//             targetEl.scrollIntoView({ behavior: 'instant', block: 'start' });
+//             activateButton(targetToUse);
+//         }, 100);
+//     }
+// });
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    const navButtons = document.querySelectorAll('.department-nav .dept-btn');
+    const sectionsPerPage = 2;
+    const blocks = Array.from(document.querySelectorAll('.content-block'));
+    const navButtons = document.querySelectorAll('.dept-btn');
+    const pagination = document.querySelector('.pagination');
+    const totalPages = Math.ceil(blocks.length / sectionsPerPage);
+    const dropdown = document.querySelector('.custom-dropdown');
+    const dropdownMenu = dropdown?.querySelector('.dropdown-menu');
+    const dropdownSelected = dropdown?.querySelector('.selected-option');
+
+    function getPageOfBlock(blockId) {
+        const index = blocks.findIndex(b => `#${b.id}` === blockId);
+        return index >= 0 ? Math.floor(index / sectionsPerPage) + 1 : 1;
+    }
+
+    function showPage(pageNum) {
+        blocks.forEach((block, index) => {
+            const visible = index >= (pageNum - 1) * sectionsPerPage && index < pageNum * sectionsPerPage;
+            block.style.display = visible ? 'block' : 'none';
+        });
+
+        // 更新页码按钮高亮
+        const pageLinks = pagination.querySelectorAll('.page');
+        pageLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.dataset.page === String(pageNum)) {
+                link.classList.add('active');
+            }
+        });
+
+        // 保存当前页码
+        localStorage.setItem('currentPage', pageNum);
+    }
+
+    function initPagination() {
+        const savedPage = parseInt(localStorage.getItem('currentPage')) || 1;
+        showPage(savedPage);
+
+        pagination.querySelectorAll('.page').forEach(link => {
+            const pageNum = link.dataset.page;
+            if (pageNum) {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    showPage(Number(pageNum));
+                });
+            }
+        });
+
+        // 上一页
+        const prevBtn = pagination.querySelector('.prev');
+        if (prevBtn) {
+            prevBtn.addEventListener('click', e => {
+                e.preventDefault();
+                const current = parseInt(localStorage.getItem('currentPage')) || 1;
+                if (current > 1) {
+                    showPage(current - 1);
+                }
+            });
+        }
+
+        // 下一页
+        const nextBtn = pagination.querySelector('.next');
+        if (nextBtn) {
+            nextBtn.addEventListener('click', e => {
+                e.preventDefault();
+                const current = parseInt(localStorage.getItem('currentPage')) || 1;
+                if (current < totalPages) {
+                    showPage(current + 1);
+                }
+            });
+        }
+    }
+
+    initPagination();
+
+    function scrollToTarget(targetId) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
 
     function activateButton(targetId) {
         navButtons.forEach(btn => {
-            const id = btn.getAttribute('data-target');
-            btn.classList.toggle('active', id === targetId);
+            btn.classList.toggle('active', btn.dataset.target === targetId);
         });
     }
 
     navButtons.forEach(button => {
         button.addEventListener('click', e => {
             e.preventDefault();
-            const targetId = button.getAttribute('data-target');
-            const targetEl = document.querySelector(targetId);
-            if (targetEl) {
-                // 滚动 + 高亮 + 存储
-                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                activateButton(targetId);
-                localStorage.setItem('activeDepartment', targetId);
-                // 更新 URL 的 hash
-                history.replaceState(null, '', targetId);
-            }
+            const targetId = button.dataset.target;
+            const pageNum = getPageOfBlock(targetId);
+            showPage(pageNum);
+            scrollToTarget(targetId);
+            activateButton(targetId);
+            localStorage.setItem('activeTarget', targetId);
         });
     });
 
-    // 页面加载：恢复位置
-    const savedTarget = localStorage.getItem('activeDepartment');
-    const fallbackTarget = navButtons[0]?.getAttribute('data-target') || '';
-    const targetToUse = savedTarget || fallbackTarget;
-    const targetEl = document.querySelector(targetToUse);
+    // 页面加载初始化
+    const savedTarget = localStorage.getItem('activeTarget') || navButtons[0]?.dataset.target;
+    const savedPage = getPageOfBlock(savedTarget);
+    showPage(savedPage);
+    activateButton(savedTarget);
 
-    if (targetEl) {
-        // 延迟执行以避免布局尚未完成
-        setTimeout(() => {
-            targetEl.scrollIntoView({ behavior: 'instant', block: 'start' });
-            activateButton(targetToUse);
-        }, 100);
-    }
+    // 延迟跳转，确保 layout 渲染完毕
+    setTimeout(() => {
+        scrollToTarget(savedTarget);
+    }, 100);
+
+
 });
-
