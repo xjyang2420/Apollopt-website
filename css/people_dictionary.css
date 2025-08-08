@@ -32,6 +32,14 @@
     transform: scale(1.05);
 }
 
+.dept-btn.active {
+    background-color: #d62329;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1.5px solid #9f9e9e;
+}
+
 /* 人员排布样式 */
 .people-row {
     display: flex;
@@ -41,10 +49,17 @@
     margin: 10px 0;
 }
 
+/* .people-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+} */
+
 .people-column {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
     margin: 10px 0;
 }
 
@@ -76,10 +91,14 @@
 }
 
 .person-card img {
-    width: 200px;
-    height: 150px;
-    object-fit: cover;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
     border-radius: 8px;
+    display: block;
+    margin: 0 auto;
 }
 
 .person-card p {
@@ -105,18 +124,6 @@
 .person-card p a {
     text-decoration: none;
 }
-
-/* .positon {
-    margin: auto;
-    font-style: oblique;
-    margin-right: 0.2rem;
-    font-size: 0.5rem;
-    font-weight: 500;
-    color: #f7971e;
-    border-bottom: 1px dashed #f0f0f0;
-    display: inline;
-    padding-bottom: 1px;
-} */
 
 .position {
     font-style: oblique;
@@ -169,10 +176,13 @@
     background-color: #fff;
     border: 2px solid #ccc;
     border-radius: 12px;
-    padding: 0 20px;
+    padding: 15px 20px;
     margin: 0 auto 40px;
     max-width: 1000px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    flex-direction: column;
+    gap: 10px;
+    display: flex;
 }
 
 .section-title {
