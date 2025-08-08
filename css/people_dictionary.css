@@ -11,7 +11,7 @@
 
 .department-nav {
     text-align: center;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
 }
 
 .dept-btn {
@@ -28,6 +28,8 @@
 
 .dept-btn:hover {
     background-color: #d62329;
+    border: 1.5px solid #9f9e9e;
+    transform: scale(1.05);
 }
 
 /* 人员排布样式 */
@@ -39,19 +41,20 @@
     margin: 10px 0;
 }
 
-.people-colomun {
+.people-column {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     gap: 30px;
     margin: 10px 0;
 }
 
 .person-card {
-    width: 280px;
+    display: flex;
     text-align: center;
+    gap: 10px;
     background-color: #f9f9f9;
     padding: 12px;
+    border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -61,11 +64,18 @@
     transform: translateY(-4px);
 }
 
+.person-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
 .person-card img {
-    width: 100%;
-    height: 40%;
+    width: 200px;
+    height: 150px;
     object-fit: cover;
-    height: auto;
     border-radius: 8px;
     margin-bottom: 4px;
 }
@@ -74,6 +84,54 @@
     font-size: 15px;
     color: #333;
     line-height: 1.5;
+}
+
+.person-card strong {
+    font-size: 20px;
+    font-weight: bold;
+    color: #111;
+}
+
+.person-card.p.positon {
+    margin: auto;
+    font-style: oblique;
+    margin-right: 0.2rem;
+    font-size: 0.5rem;
+    font-weight: 500;
+    color: #f7971e;
+    border-bottom: 1px dashed #f0f0f0;
+    display: inline;
+    padding-bottom: 1px;
+}
+
+.person-card .social-links {
+    margin-top: 6px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-left: 0;
+}
+
+.person-card .social-links a {
+    font-size: 20px;
+    color: #007bff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.social-links a i {
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.person-card .social-links a:hover {
+    text-decoration: none;
+    transform: scale(1.1);
 }
 
 .content-block {
@@ -93,16 +151,15 @@
 
 .section-title {
     display: inline-block;
-    background-color: rgb(54, 146, 244);
-    text-align: left;
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    color: white;
+    padding: 6px 14px;
     font-size: 20px;
-    color: #ffffff;
-    margin-top: 15px;
-    margin-bottom: 16px;
-    font-weight: 600;
-    padding: 6px 12px; 
-    border: 2px solid; 
     border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 /* 响应式处理 */
