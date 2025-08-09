@@ -44,6 +44,11 @@
     margin-bottom: 6px;
 }
 
+.contact-item p a {
+    text-align: center;
+    margin: 0 auto;
+}
+
 .contact-item a {
     justify-content: center;
     align-items: center;
@@ -101,3 +106,4 @@ address {
 .map-container iframe {
     display: block;
 }
+
