@@ -21,6 +21,9 @@
     <link rel="stylesheet" type="text/css" href="./css/advantage.css" />
     <link rel="stylesheet" type="text/css" href="./css/team.css" />
     <link rel="stylesheet" type="text/css" href="./css/footer.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Noto+Sans+SC:wght@400;600&family=Noto+Serif+SC:wght@600&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -254,9 +257,14 @@
         <div id="main-content" style="position: relative; z-index: 10;">
 
             <section class="product-card-section" aria-label="Product Card">
-                <div class="product-title">
+                <div class="product-header">
                     <h2>What We Offer</h2>
-                    <p>pulleys, bushes, couplings, gears and more.</p>
+                </div>
+                <div class="product-title">   
+                    <p>Pulleys, Bushes, Couplings, Sprocket and more.</p>
+                    <div class="more-button-container">
+                        <a class="btn-product" href="subpage/products/pulley.html"><i class="fa-solid fa-gear"></i>More Products</a>
+                    </div>
                 </div>
 
                 <div class="swiper-container" id="product-cardSwiper">
@@ -278,7 +286,7 @@
                                         <h3>Details</h3>
                                         <p>Nominal displacement: 5 mL/r<br>Max pressure: 25 MPa</p>
                                         <span class="more-button-container">
-                                            <button onclick="location.href='/products'">More Details</button>
+                                            <a class="btn-product" href="#">More Details</a>
                                         </span>
                                     </div>
                                 </div>
@@ -448,18 +456,14 @@
                 </div>
 
                 <div class="swiper-pagination" id="productPagination"></div>
-
-                <div class="more-button-container">
-                    <button onclick="location.href='/products'">More Products</button>
-                </div>
             </section>
 
             <section id="facts" class="facts" aria-label="Key facts about Apollo">
                 <div class="header" data-reveal>
                     <h2>Facts about Apollo</h2>
                     <a class="btn btn-outline" href="subpage/about_us/company_profile.html"><i
-                            class="fa-regular fa-building" style="color: black;"></i>
-                        <span style="color: black;">Company Profile</span></a>
+                            class="fa-regular fa-building" style="color: white;"></i>
+                        <span style="color: white;">Company Profile</span></a>
                 </div>
 
                 <div class="facts-grid">

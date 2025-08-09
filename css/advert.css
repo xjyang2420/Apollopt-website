@@ -90,12 +90,13 @@
 }
 
 .btn {
-    --bg:  rgba(17, 22, 29, .55);
+    --bg:  #0a3d62;
     --fg: #eaf1ff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
+    font-size: 1rem;
     padding: .8rem 1.1rem;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, .08);
@@ -110,6 +111,7 @@
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 16px 30px rgba(0, 0, 0, .4);
+    background-color: rgb(255, 43, 53);
 }
 
 .btn-primary {
@@ -120,7 +122,7 @@
 }
 
 .btn-outline {
-    background: rgba(255, 255, 255, .04);
+    background: #0a3d62;
 }
 
 .ad-slider.is-video-on .video-mask {
