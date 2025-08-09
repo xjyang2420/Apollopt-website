@@ -8,7 +8,7 @@
 
 .facts .header {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 28px;

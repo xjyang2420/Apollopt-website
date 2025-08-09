@@ -201,3 +201,9 @@
     box-shadow: 0 16px 30px rgba(0, 0, 0, .4);
     background: linear-gradient(135deg, #007acc, #00c3ff);
 }
+
+@media (max-width: 600px) {
+    .product-card-section .product-title p {
+        font-size: 0.9rem;
+    }
+}
