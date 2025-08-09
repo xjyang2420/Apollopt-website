@@ -90,7 +90,7 @@
 }
 
 .btn {
-    --bg:  #0a3d62;
+    --bg: linear-gradient(135deg, #003556, #007acc);
     --fg: #eaf1ff;
     display: inline-flex;
     align-items: center;
@@ -109,20 +109,30 @@
 }
 
 .btn:hover {
-    transform: translateY(-2px);
+    transform: scale(1.05) translateY(-2px);
     box-shadow: 0 16px 30px rgba(0, 0, 0, .4);
-    background-color: rgb(255, 43, 53);
 }
 
 .btn-primary {
     --bg: linear-gradient(135deg, #4cc3ff, #7af1a7);
     --fg: #0b1016;
     border-color: transparent;
-    font-weight: 700;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    --bg: linear-gradient(135deg, #7af1a7, #caf3da);
+    --fg: #0b1016;
+    border-color: transparent;
+    font-weight: 600;
 }
 
 .btn-outline {
-    background: #0a3d62;
+    background: linear-gradient(135deg, rgb(0, 53, 86), #007acc);
+}
+
+.btn-outline:hover {
+    background: linear-gradient(135deg, #007acc, #00c3ff);
 }
 
 .ad-slider.is-video-on .video-mask {
