@@ -228,12 +228,12 @@ html {
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 2rem;
 
 }
 
 .logo-main {
-    height: 5.25rem;
+    height: 4rem;
     max-height: 100%;
     width: auto;
     display: block;
@@ -241,12 +241,11 @@ html {
 }
 
 .logo-sub {
-    height: 6.25rem;
+    height: 3rem;
     max-height: 100%;
     width: auto;
-    display: inline-flex;
+    display: block;
     transition: all 0.3s ease;
-    justify-content: flex-end;
 }
 
 /* ---------- Hamburger button (mobile) ---------- */
