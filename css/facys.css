@@ -1,0 +1,127 @@
+.facts {
+    padding: 64px 1rem;
+    width: 90%;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    /* background: linear-gradient(180deg, #0b0f14 0%, #0c121a 50%, #0d1420 100%); */
+}
+
+.facts .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 28px;
+}
+
+.facts .header h2 {
+    font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+    font-weight: bold;
+    margin: 0;
+}
+
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.fact-card {
+    grid-column: span 3;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .02));
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 18px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 2px 8px rgba(0, 0, 0, .25);
+    min-height: 140px;
+}
+
+.fact-card::after {
+    content: "";
+    position: absolute;
+    inset: -20% -40% auto auto;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(76, 195, 255, .18), transparent);
+    filter: blur(12px);
+    z-index: -1;
+}
+
+.fact-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #a7b1c2;
+}
+
+.fact-icon {
+    font-size: 1.25rem;
+    opacity: .85;
+}
+
+.fact-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.fact-number {
+    font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+.fact-unit {
+    color:  #a7b1c2;
+    font-weight: 600;
+}
+
+.fact-label {
+    margin-top: 6px;
+    color: #a7b1c2;
+}
+
+@media (max-width: 1100px) {
+    .fact-card {
+        grid-column: span 4;
+    }
+}
+
+@media (max-width: 720px) {
+    .fact-card {
+        grid-column: span 6;
+    }
+}
+
+@media (max-width: 540px) {
+    .fact-card {
+        grid-column: span 12;
+    }
+}
+
+/* ===== Reveal system (no extra libs) ===== */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+[data-reveal].is-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Lift cards on hover */
+.lift {
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
+}
