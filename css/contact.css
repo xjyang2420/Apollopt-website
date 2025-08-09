@@ -95,15 +95,56 @@ address {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.map-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f9f9f9;
+}
+
 .map-container h4 {
     margin: 0;
     font-weight: bold;
-    padding: 8px 16px;
-    background-color: #f9f9f9;
+    padding: 20px 16px;
+    /* background-color: #f9f9f9; */
     border-bottom: 1px solid #ddd;
+}
+
+.btn-map {
+    --bg: rgba(17, 22, 29, .55);
+    --fg: #eaf1ff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: .5rem .8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    color: var(--bg);
+    background: var(--fg);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .05) inset, 0 12px 24px rgba(0, 0, 0, .28);
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-map-outline {
+    background: rgba(255, 255, 255, .04);
+    margin-right: 5px;
+}
+
+.map-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .02));
+    border: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35), 0 2px 8px rgba(0, 0, 0, .25);
+    overflow: hidden;
 }
 
 .map-container iframe {
     display: block;
 }
 
+.btn-map-outline:hover {
+    transform: translateY(-4px);
+    transition: transform .6s ease;
+}
